@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IA para la Vida - AGUI</title>
+  <link rel="icon" type="image/png" href="../assets/isotipo-color.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cyan: #2CD3F2; --cyan-dark: #12A8C5; --violet: #A13AEB; --violet-dark: #7A1EC0;
+      --text: #4D5156; --text-light: #6B7280; --gray-bg: #F1F3F4; --gray-border: #E4E7EB;
+      --dark-bg: #2D2F33;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); line-height: 1.7; font-size: 17px; background: var(--gray-bg); }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+    .blog-wrap { max-width: 800px; margin: 0 auto; padding: 60px 24px; }
+    nav { background: #fff; border-bottom: 1px solid var(--gray-border); padding: 16px 0; position: sticky; top: 0; z-index: 50; }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .nav-inner img { height: 40px; }
+    .btn-back { font-size: 14px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; transition: color 150ms ease; }
+    .btn-back:hover { color: var(--violet); }
+    .btn-back svg { width: 16px; height: 16px; stroke-width: 2; }
+    
+    .article-header { margin-bottom: 40px; text-align: center; }
+    .cat-tag { display: inline-block; font-size: 12px; font-weight: 700; color: var(--cyan-dark); background: rgba(44, 211, 242, 0.1); padding: 6px 14px; border-radius: 20px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+    .article-header h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: #111; margin-bottom: 24px; }
+    .article-meta { font-size: 14px; color: var(--text-light); }
+    
+    .preview-banner { background: rgba(161, 58, 235, 0.08); border: 1px dashed var(--violet); border-radius: 12px; padding: 16px 24px; margin-bottom: 40px; display: flex; gap: 16px; align-items: center; font-size: 14px; color: var(--violet-dark); }
+    .preview-banner svg { flex-shrink: 0; width: 24px; height: 24px; }
+    
+    .article-content { background: #fff; padding: 48px; border-radius: 16px; border: 1px solid var(--gray-border); box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+    .article-content p { margin-bottom: 24px; }
+    .article-content h2 { font-size: 24px; font-weight: 700; color: #111; margin: 40px 0 16px; line-height: 1.3; border-bottom: 2px solid var(--gray-bg); padding-bottom: 10px; }
+    .article-content h3 { font-size: 20px; font-weight: 600; color: #111; margin: 32px 0 16px; }
+    .article-content ul { margin-bottom: 24px; padding-left: 24px; }
+    .article-content li { margin-bottom: 12px; }
+    .article-content strong { color: #111; font-weight: 600; }
+    
+    .module-card { background: var(--gray-bg); border-left: 4px solid #132660; padding: 20px 24px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+    .module-card h4 { margin-bottom: 8px; color: #111; }
+    .module-card p { margin-bottom: 0; font-size: 15px; }
+
+    .article-cta { margin-top: 56px; padding: 40px; background: linear-gradient(135deg, #1E3A8A 0%, #7A1EC0 100%); border-radius: 16px; color: #fff; text-align: center; }
+    .article-cta h3 { margin-bottom: 16px; font-size: 24px; color: #fff; }
+    .article-cta p { opacity: 0.9; margin-bottom: 24px; font-size: 16px; }
+    .btn-primary { display: inline-flex; background: #fff; color: var(--violet-dark); font-weight: 700; padding: 14px 28px; border-radius: 99px; text-decoration: none; align-items: center; gap: 8px; transition: transform 0.2s ease; }
+    .btn-primary:hover { transform: translateY(-2px); }
+    footer { padding: 60px 0; background: var(--dark-bg); color: rgba(255, 255, 255, 0.6); text-align: center; font-size: 14px; margin-top: 60px; }
+    @media(max-width: 600px) { .article-content { padding: 32px 20px; } .article-cta { padding: 32px 20px; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="wrap nav-inner">
+      <a href="../AGUI Landing Page.html" class="logo">
+        <img src="../assets/logo-color.png" alt="AGUI" onerror="this.src='https://via.placeholder.com/120x40?text=AGUI'">
+      </a>
+      <a href="../AGUI Landing Page.html#talleres-dictados" class="btn-back"><i data-lucide="arrow-left"></i> Volver a Experiencia</a>
+    </div>
+  </nav>
+
+  <div class="blog-wrap">
+    <div class="article-header">
+      <span class="cat-tag">Empresa · Equipo completo</span>
+      <h1>IA para la Vida · 6 módulos corporativos</h1>
+      <div class="article-meta">Vista previa de taller intensivo (4 horas)</div>
+    </div>
+
+    <div class="preview-banner">
+      <i data-lucide="eye"></i>
+      <div>
+        <strong>Modo de Vista Previa:</strong> En la experiencia real, este taller incluye laboratorios en vivo donde cada participante debe resolver problemas de su día a día utilizando el Recetario AGUI y herramientas de inteligencia artificial.
+      </div>
+    </div>
+
+    <div class="article-content">
+      <p>Este es nuestro taller fundacional para empresas que quieren subir a todo su equipo al barco de la IA, nivelando conocimientos y perdiendo el miedo. No hablamos de código ni implementaciones complejas; hablamos de productividad aplicable al trabajo diario y a la vida personal.</p>
+      
+      <h2>Temario (6 Módulos)</h2>
+      
+      <div class="module-card">
+        <h4>1. ¿Qué es realmente la IA Generativa?</h4>
+        <p>Desmitificando el concepto. Cómo pasamos de la IA predictiva a la IA que crea texto, imágenes y audio. Entendiendo las "alucinaciones".</p>
+      </div>
+
+      <div class="module-card">
+        <h4>2. El arte de hablar con las máquinas</h4>
+        <p>Ingeniería de prompts sin jerga técnica. La metodología CTAR (Contexto, Tarea, Audiencia, Restricciones) para obtener resultados profesionales siempre.</p>
+      </div>
+
+      <div class="module-card">
+        <h4>3. Herramientas: ¿Cuál usar y para qué?</h4>
+        <p>Comparativa práctica entre ChatGPT, Claude, Gemini y Microsoft Copilot. Casos de uso específicos para cada una en el entorno laboral.</p>
+      </div>
+
+      <div class="module-card">
+        <h4>4. Ciberseguridad y Privacidad</h4>
+        <p>La regla de oro corporativa: nunca compartir datos confidenciales, financieros o personales de clientes. Cómo funciona el manejo de datos en versiones gratuitas vs pagas.</p>
+      </div>
+
+      <div class="module-card">
+        <h4>5. IA Visual y Multimedia</h4>
+        <p>Generación de presentaciones, esquemas e imágenes para marketing y comunicación interna. Herramientas básicas de IA para no diseñadores.</p>
+      </div>
+
+      <div class="module-card">
+        <h4>6. IA para la vida diaria</h4>
+        <p>Cómo usar estas herramientas fuera del trabajo: planear viajes, ayudar con tareas escolares, organizar rutinas y aprender nuevos idiomas.</p>
+      </div>
+
+      <div class="article-cta">
+        <h3>Transforma la productividad de tu equipo</h3>
+        <p>Un equipo capacitado en IA ahorra en promedio 2 horas de tareas mecánicas a la semana. Imagina el impacto de eso en la estrategia de tu negocio.</p>
+        <a href="../AGUI Landing Page.html#solicitar" class="btn-primary">Cotizar este taller <i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <p>© 2026 AGUI Consultoría · La IA explicada en tu idioma.</p>
+    </div>
+  </footer>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>if(window.lucide) lucide.createIcons({attrs:{'stroke-width':1.6}});</script>
+</body>
+</html>

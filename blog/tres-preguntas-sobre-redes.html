@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tres preguntas para conversar con tu hijo sobre redes - AGUI</title>
+  <link rel="icon" type="image/png" href="../assets/isotipo-color.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cyan: #2CD3F2;
+      --cyan-light: #7DE8F8;
+      --cyan-dark: #12A8C5;
+      --violet: #A13AEB;
+      --violet-light: #C47AF3;
+      --violet-dark: #7A1EC0;
+      --cobalt: #1E3A8A;
+      --text: #4D5156;
+      --text-light: #6B7280;
+      --text-lighter: #9CA3AF;
+      --gray-bg: #F1F3F4;
+      --gray-border: #E4E7EB;
+      --dark-bg: #2D2F33;
+      --white: #FFFFFF;
+      --gradient: linear-gradient(135deg, #2CD3F2 0%, #A13AEB 100%);
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); line-height: 1.7; font-size: 17px; background: var(--gray-bg); }
+    a { color: inherit; text-decoration: none; }
+    
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+    .blog-wrap { max-width: 720px; margin: 0 auto; padding: 60px 24px; }
+
+    /* Nav */
+    nav { background: #fff; border-bottom: 1px solid var(--gray-border); padding: 16px 0; position: sticky; top: 0; z-index: 50; }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .nav-inner img { height: 40px; }
+    .btn-back { font-size: 14px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; transition: color 150ms ease; }
+    .btn-back:hover { color: var(--violet); }
+    .btn-back svg { width: 16px; height: 16px; stroke-width: 2; }
+
+    /* Header */
+    .article-header { margin-bottom: 40px; text-align: center; }
+    .cat-tag { display: inline-block; font-size: 12px; font-weight: 700; color: var(--violet); background: rgba(161, 58, 235, 0.1); padding: 6px 14px; border-radius: 20px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+    .article-header h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: #111; margin-bottom: 24px; }
+    .article-meta { font-size: 14px; color: var(--text-light); }
+
+    /* Content */
+    .article-content { background: #fff; padding: 48px; border-radius: 16px; border: 1px solid var(--gray-border); box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+    .article-content p { margin-bottom: 24px; }
+    .article-content h2 { font-size: 24px; font-weight: 700; color: #111; margin: 40px 0 16px; line-height: 1.3; }
+    .article-content h3 { font-size: 20px; font-weight: 600; color: #111; margin: 32px 0 16px; }
+    .article-content ul { margin-bottom: 24px; padding-left: 24px; }
+    .article-content li { margin-bottom: 12px; }
+    .article-content strong { color: #111; font-weight: 600; }
+    .article-content blockquote { border-left: 4px solid var(--cyan); padding: 16px 24px; background: rgba(44, 211, 242, 0.05); border-radius: 0 8px 8px 0; margin-bottom: 24px; font-style: italic; color: var(--text); }
+    
+    /* CTA */
+    .article-cta { margin-top: 56px; padding: 40px; background: linear-gradient(135deg, #1E3A8A 0%, #7A1EC0 100%); border-radius: 16px; color: #fff; text-align: center; }
+    .article-cta h3 { margin-bottom: 16px; font-size: 24px; color: #fff; }
+    .article-cta p { opacity: 0.9; margin-bottom: 24px; font-size: 16px; }
+    .btn-primary { display: inline-flex; background: #fff; color: var(--violet-dark); font-weight: 700; padding: 14px 28px; border-radius: 99px; text-decoration: none; align-items: center; gap: 8px; transition: transform 0.2s ease; }
+    .btn-primary:hover { transform: translateY(-2px); }
+
+    /* Footer */
+    footer { padding: 60px 0; background: var(--dark-bg); color: rgba(255, 255, 255, 0.6); text-align: center; font-size: 14px; margin-top: 60px; }
+    
+    @media(max-width: 600px) {
+      .article-content { padding: 32px 20px; }
+      .article-cta { padding: 32px 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="wrap nav-inner">
+      <a href="../AGUI Landing Page.html" class="logo">
+        <!-- Reutilizamos el logo de la web principal -->
+        <img src="../assets/logo-color.png" alt="AGUI" onerror="this.src='https://via.placeholder.com/120x40?text=AGUI'">
+      </a>
+      <a href="../AGUI Landing Page.html#tips" class="btn-back"><i data-lucide="arrow-left"></i> Volver a Tips</a>
+    </div>
+  </nav>
+
+  <div class="blog-wrap">
+    <div class="article-header">
+      <span class="cat-tag">Familias</span>
+      <h1>Tres preguntas para empezar a conversar con tu hijo sobre redes</h1>
+      <div class="article-meta">Lectura de 4 minutos · Escrito en lenguaje humano</div>
+    </div>
+
+    <div class="article-content">
+      <p>Uno de los errores más comunes que cometemos como padres cuando vemos a nuestros hijos absortos en la pantalla es abordar la situación desde el juicio. Comenzamos con frases como <em>"¿Qué haces ahí metido tanto tiempo?"</em> o <em>"¿Con quién hablas?"</em>.</p>
+      
+      <p>Estas preguntas directas e inquisitivas suelen generar una respuesta automática: el cierre. El cerebro adolescente lo interpreta como un ataque y levanta un escudo protector.</p>
+
+      <h2>El poder de cambiar el "framing" (el enfoque)</h2>
+      <p>En lugar de interrogar sobre su comportamiento, la clave está en mostrar interés genuino por su entorno digital. Al cambiar el enfoque de "tú" hacia "el contenido", eliminas la amenaza y abres la puerta a una conversación real.</p>
+
+      <p>Aquí tienes tres preguntas probadas para iniciar esa conexión hoy mismo:</p>
+
+      <h3>1. "¿Qué es lo más raro o divertido que has visto hoy en TikTok o Instagram?"</h3>
+      <p>Esta pregunta funciona porque asume que hay contenido interesante y valida su tiempo en la plataforma. Al invitarle a compartir algo gracioso o extraño, te conviertes en espectador de su mundo en lugar de un policía.</p>
+      
+      <blockquote><strong>Por qué funciona:</strong> Rompe el hielo desde el humor y te permite ver qué tipo de algoritmos le están mostrando contenido, sin tener que revisar su teléfono a escondidas.</blockquote>
+
+      <h3>2. "He visto que todos hablan de [tema viral], ¿tú cómo lo ves, tiene sentido?"</h3>
+      <p>Los preadolescentes y adolescentes ansían ser tomados en serio. Al pedir su opinión sobre una tendencia, les otorgas el estatus de "expertos" en el tema.</p>
+      <ul>
+        <li>Les demuestra que valoras su criterio.</li>
+        <li>Fomenta el pensamiento crítico frente a retos virales (challenges) o noticias falsas.</li>
+        <li>Te permite evaluar su nivel de madurez frente a situaciones sociales online.</li>
+      </ul>
+
+      <h3>3. "Si pudieras cambiar una sola cosa de cómo funciona esta app, ¿qué sería?"</h3>
+      <p>Esta es una pregunta poderosa para fomentar la conciencia digital. Muchos jóvenes sienten la presión de las redes (los likes, el FOMO o miedo a quedarse fuera), pero rara vez tienen el espacio para verbalizarlo.</p>
+      <p>Te sorprenderá descubrir que muchas veces son conscientes de lo tóxico que puede ser el entorno, y esta pregunta les da permiso para criticarlo sin sentir que van a ser castigados o que les van a quitar el dispositivo.</p>
+
+      <h2>El objetivo no es controlar, es acompañar</h2>
+      <p>Recuerda: la meta de estas conversaciones no es recolectar información para luego poner reglas más estrictas. El objetivo es que tu hijo sienta que el mundo digital no es un secreto que debe esconderte, sino un espacio más de su vida del que puede hablar con normalidad en la mesa durante la cena.</p>
+      
+      <p>Si logras establecer esta confianza ahora, cuando enfrenten un problema real online (como el ciberacoso o el contacto de un extraño), serás la primera persona a la que acudan.</p>
+
+      <div class="article-cta">
+        <h3>¿Necesitas más herramientas para la crianza digital?</h3>
+        <p>En AGUI brindamos charlas interactivas para padres y colegios donde explicamos cómo funcionan los algoritmos y cómo acompañar a tus hijos sin invadir su privacidad.</p>
+        <a href="../AGUI Landing Page.html#solicitar" class="btn-primary">Solicitar una charla para mi colegio <i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <p>© 2026 AGUI Consultoría · La IA explicada en tu idioma.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.6 } });
+  </script>
+</body>
+</html>
