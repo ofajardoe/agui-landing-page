@@ -5,6 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Recetario AGUI — 10 Prompts Esenciales</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    // ── Control de acceso ──────────────────────────────────────────
+    // Token válido — cámbialo cuando quieras revocar acceso masivo
+    const TOKEN_VALIDO = 'agui2026';
+    const CLAVE_SESION = 'agui_recetario_acceso';
+
+    function verificarAcceso() {
+      // 1. Revisar si ya tiene acceso guardado en la sesión
+      if (sessionStorage.getItem(CLAVE_SESION) === TOKEN_VALIDO) return true;
+      // 2. Revisar el parámetro en la URL
+      const params = new URLSearchParams(window.location.search);
+      const token  = params.get('acceso');
+      if (token === TOKEN_VALIDO) {
+        sessionStorage.setItem(CLAVE_SESION, TOKEN_VALIDO); // guardar para recargas
+        return true;
+      }
+      return false;
+    }
+
+    // Ejecutar antes de que el DOM cargue para evitar flash de contenido
+    document.addEventListener('DOMContentLoaded', function () {
+      if (verificarAcceso()) {
+        document.getElementById('gate').style.display    = 'none';
+        document.getElementById('contenido').style.display = 'block';
+      } else {
+        document.getElementById('gate').style.display    = 'flex';
+        document.getElementById('contenido').style.display = 'none';
+      }
+    });
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -260,6 +291,85 @@
   </style>
 </head>
 <body>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- GATE — solo se muestra si NO tiene acceso             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="gate" style="display:none;min-height:100vh;align-items:center;justify-content:center;
+     background:linear-gradient(135deg,#1E3A8A 0%,#A13AEB 55%,#2CD3F2 100%);
+     font-family:'Inter',Arial,sans-serif;padding:32px 16px;">
+  <div style="background:#FFFFFF;border-radius:20px;max-width:480px;width:100%;
+              box-shadow:0 20px 60px rgba(0,0,0,0.25);overflow:hidden;text-align:center;">
+
+    <!-- Header gate -->
+    <div style="background:linear-gradient(135deg,#1E3A8A,#A13AEB);padding:36px 32px 28px;">
+      <img src="https://agui-consultoria.com/assets/logo-white.png"
+           alt="AGUI ConsultorIA" width="150"
+           style="display:block;margin:0 auto 0;width:150px;height:auto;" />
+    </div>
+
+    <!-- Cuerpo gate -->
+    <div style="padding:36px 36px 40px;">
+      <!-- Ícono candado -->
+      <div style="width:64px;height:64px;border-radius:999px;
+                  background:linear-gradient(135deg,rgba(44,211,242,0.12),rgba(161,58,235,0.12));
+                  border:2px solid rgba(161,58,235,0.25);
+                  margin:0 auto 20px;display:flex;align-items:center;justify-content:center;
+                  font-size:28px;line-height:64px;text-align:center;">
+        🔒
+      </div>
+
+      <h2 style="font-size:22px;font-weight:800;color:#4D5156;margin:0 0 12px;line-height:1.3;">
+        Este contenido es exclusivo para suscriptores
+      </h2>
+      <p style="font-size:15px;font-weight:400;color:#6B7280;margin:0 0 8px;line-height:1.7;">
+        El Recetario AGUI con 10 prompts es el regalo de bienvenida de
+        <strong style="color:#4D5156;">El Resumen Descomplicado</strong>,
+        nuestro newsletter semanal de IA.
+      </p>
+      <p style="font-size:14px;color:#9CA3AF;margin:0 0 28px;line-height:1.6;">
+        Suscríbete gratis y te llegará el acceso directo a tu bandeja de entrada.
+      </p>
+
+      <!-- Lo que recibirán -->
+      <div style="background:#F1F3F4;border-radius:12px;padding:18px 20px;margin-bottom:28px;text-align:left;">
+        <p style="font-size:11px;font-weight:700;color:#A13AEB;letter-spacing:2px;
+                   text-transform:uppercase;margin:0 0 12px;">Cada martes recibes</p>
+        <p style="font-size:13px;color:#4D5156;margin:0 0 6px;line-height:1.5;">
+          📰 <strong>Noticia en español humano</strong> — sin tecnicismos
+        </p>
+        <p style="font-size:13px;color:#4D5156;margin:0 0 6px;line-height:1.5;">
+          ⚡ <strong>Tip aplicable</strong> — prompt copiable que ahorra 15 min
+        </p>
+        <p style="font-size:13px;color:#4D5156;margin:0;line-height:1.5;">
+          🛠️ <strong>Herramienta probada</strong> — app de IA gratuita con instrucciones
+        </p>
+      </div>
+
+      <!-- Botón suscribirse -->
+      <a href="https://agui-consultoria.com/#newsletter"
+         style="display:block;background:linear-gradient(135deg,#2CD3F2,#A13AEB);
+                color:#FFFFFF;text-decoration:none;font-size:16px;font-weight:700;
+                padding:16px 32px;border-radius:10px;letter-spacing:0.2px;
+                margin-bottom:16px;">
+        Suscribirme gratis →
+      </a>
+
+      <p style="font-size:12px;color:#C4C9D0;margin:0;line-height:1.6;">
+        Sin spam. Te puedes dar de baja cuando quieras.<br />
+        Tu correo nunca se comparte.
+      </p>
+    </div>
+
+  </div>
+</div>
+<!-- /GATE -->
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CONTENIDO — solo se muestra si SÍ tiene acceso       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="contenido" style="display:none;">
 <div class="wrapper">
 
   <!-- ══════════════════════════════════════ -->
@@ -655,5 +765,6 @@ Dame una lista priorizada de 5 automatizaciones posibles, ordenadas de mayor a m
   </div>
 
 </div>
+</div><!-- /contenido -->
 </body>
 </html>
