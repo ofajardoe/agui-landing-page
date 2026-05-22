@@ -173,9 +173,70 @@
       color: #fff !important
     }
 
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      padding: 8px;
+      z-index: 60;
+    }
+    .menu-toggle i, .menu-toggle svg {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+
     @media(max-width:900px) {
-      .nav-links a:not(.nav-cta) {
-        display: none
+      .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--gray-border);
+        padding: 24px 32px;
+        gap: 16px;
+        align-items: stretch;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        z-index: 40;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 200ms var(--ease), transform 200ms var(--ease);
+        pointer-events: none;
+      }
+
+      .nav-links.active {
+        display: flex;
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      .nav-links a {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.04);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .nav-links a.nav-cta {
+        margin-top: 8px;
+        text-align: center;
+        border-bottom: none;
+        padding: 12px 20px;
       }
 
       .logo-divider,
@@ -418,22 +479,40 @@
       flex-wrap: wrap
     }
 
+    .hero-stat .hero-val-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(44,211,242,0.12) 0%, rgba(161,58,235,0.12) 100%);
+      margin-bottom: 10px;
+    }
+
+    .hero-stat .hero-val-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--violet);
+    }
+
     .hero-stat .num {
-      font-size: 28px;
+      font-size: 16px;
       font-weight: 700;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.01em;
       background: var(--gradient-h);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      line-height: 1;
+      line-height: 1.2;
     }
 
     .hero-stat .label {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-light);
-      margin-top: 6px;
-      letter-spacing: 0.04em
+      margin-top: 4px;
+      letter-spacing: 0.01em;
+      line-height: 1.4;
     }
 
     /* === MARQUEE === */
@@ -790,6 +869,84 @@
     @media(max-width:900px) {
       .services-grid {
         grid-template-columns: 1fr
+      }
+    }
+
+    .services-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px
+    }
+
+    @media(max-width:1100px) {
+      .services-grid-4 {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media(max-width:650px) {
+      .services-grid-4 {
+        grid-template-columns: 1fr
+      }
+    }
+
+    /* === RECETARIO BANNER === */
+    .recetario-banner {
+      display: flex;
+      flex-direction: row;
+      gap: 32px;
+      align-items: center;
+      max-width: 800px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--gray-border);
+      border-radius: 12px;
+      padding: 32px;
+      margin: 0 auto;
+      transition: transform 200ms var(--ease), box-shadow 200ms var(--ease);
+    }
+    
+    .recetario-banner:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .recetario-banner .service-icon {
+      margin-bottom: 0;
+      flex-shrink: 0;
+    }
+    
+    .recetario-banner-content {
+      flex: 1;
+      min-width: 280px;
+    }
+    
+    .recetario-banner-actions {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      min-width: 180px;
+    }
+    
+    @media(max-width: 760px) {
+      .recetario-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+        padding: 24px;
+      }
+      
+      .recetario-banner-actions {
+        align-items: stretch;
+        width: 100%;
+      }
+      
+      .recetario-banner-actions .service-price {
+        text-align: left;
       }
     }
 
@@ -2153,19 +2310,24 @@
 
 <body>
 
-  <!-- NAV -->
   <nav>
     <div class="wrap nav-inner">
       <a href="#" class="logo">
         <img src="assets/logo-color.png" alt="AGUI">
       </a>
+      
+      <!-- BOTÓN MENÚ MÓVIL -->
+      <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+
       <div class="nav-links">
         <a href="#manifest">Filosofía</a>
         <a href="#servicios">Servicios</a>
-        <a href="#talleres-dictados">Experiencia</a>
-        <a href="#tips">Tips</a>
+        <a href="#talleres-dictados">Nuestro trabajo</a>
+        <a href="#tips">Tips & Blog</a>
         <a href="#newsletter">Newsletter</a>
-        <a href="#solicitar" class="nav-cta">Solicitar taller</a>
+        <a href="#solicitar" class="nav-cta">Solicitar charla</a>
       </div>
     </div>
   </nav>
@@ -2182,16 +2344,19 @@
           <h1>La <span class="grad">IA</span><br>explicada en<br><span class="grad">tu idioma</span>.</h1>
           <div class="hero-stats">
             <div class="hero-stat">
-              <div class="num">+1,200</div>
-              <div class="label">personas capacitadas</div>
+              <span class="hero-val-icon"><i data-lucide="mouse-pointer-click"></i></span>
+              <div class="num">Sin código</div>
+              <div class="label">No necesitas saber programar</div>
             </div>
             <div class="hero-stat">
-              <div class="num">+40</div>
-              <div class="label">empresas y colegios</div>
+              <span class="hero-val-icon"><i data-lucide="message-circle"></i></span>
+              <div class="num">En tu idioma</div>
+              <div class="label">Todo en español, sin jerga técnica</div>
             </div>
             <div class="hero-stat">
-              <div class="num">98%</div>
-              <div class="label">recomendación</div>
+              <span class="hero-val-icon"><i data-lucide="settings"></i></span>
+              <div class="num">100% a medida</div>
+              <div class="label">Cada charla y herramienta se adapta a ti</div>
             </div>
           </div>
         </div>
@@ -2216,16 +2381,16 @@
   <!-- MARQUEE -->
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span>Crianza digital para familias</span>
+      <span>Charlas a medida para colegios y empresas</span>
+      <span>Soluciones digitales con IA</span>
+      <span>Crianza digital 5-18 años</span>
+      <span>Herramientas listas en días</span>
       <span>Capacitación corporativa en IA</span>
-      <span>Productividad personal</span>
-      <span>Talleres a medida para colegios</span>
-      <span>Power Automate + IA</span>
-      <span>Crianza digital para familias</span>
+      <span>Charlas a medida para colegios y empresas</span>
+      <span>Soluciones digitales con IA</span>
+      <span>Crianza digital 5-18 años</span>
+      <span>Herramientas listas en días</span>
       <span>Capacitación corporativa en IA</span>
-      <span>Productividad personal</span>
-      <span>Talleres a medida para colegios</span>
-      <span>Power Automate + IA</span>
     </div>
   </div>
 
@@ -2287,247 +2452,106 @@
   <section class="section section-tinted" id="servicios">
     <div class="neural-bg" style="opacity:0.4"></div>
     <div class="wrap">
-      <div class="section-head">
+
+      <!-- CABECERA UNIFICADA DE SERVICIOS -->
+      <div class="section-head" style="margin-bottom:48px">
         <div>
-          <div class="section-label">Portafolio de servicios</div>
-          <h2>Tres caminos. <span class="grad">Tres audiencias.</span></h2>
+          <div class="section-label">Portafolio de Servicios</div>
+          <h2>Soluciones de IA a la medida de <span class="grad">tu organización</span>.</h2>
         </div>
-        <p>Cada audiencia tiene preguntas distintas. Por eso diseñamos servicios distintos. Elige el que aplique a ti.
-        </p>
+        <p>Acompañamos a colegios, familias y empresas a integrar la Inteligencia Artificial con criterio, práctica inmediata y automatizaciones que liberan tiempo real.</p>
       </div>
 
-      <div class="audience-tabs" role="tablist">
-        <button class="atab active" data-audience="familias">
-          <span class="atab-icon"><i data-lucide="users"></i></span>
-          <span class="atab-label">Familias y Colegios</span>
-          <span class="atab-sub">Crianza digital</span>
-        </button>
-        <button class="atab" data-audience="empresas">
-          <span class="atab-icon"><i data-lucide="building-2"></i></span>
-          <span class="atab-label">Empresas y Equipos</span>
-          <span class="atab-sub">Capacitación corporativa</span>
-        </button>
-        <button class="atab" data-audience="personas">
-          <span class="atab-icon"><i data-lucide="user"></i></span>
-          <span class="atab-label">Profesionales</span>
-          <span class="atab-sub">Productividad personal</span>
-        </button>
+      <!-- CUADRÍCULA DE LOS 4 PILARES -->
+      <div class="services-grid-4">
+        
+        <!-- PILAR 1: CHARLAS -->
+        <div class="service-card">
+          <div class="service-icon"><i data-lucide="presentation"></i></div>
+          <span class="service-tag">Sensibilización e Inspiración</span>
+          <h3 class="service-name">Charlas Inspiracionales</h3>
+          <p class="service-desc">Sesiones dinámicas diseñadas para educar y abrir conversaciones sobre el impacto y uso de la IA en colegios, familias y juntas directivas.</p>
+          <ul>
+            <li>Crianza digital (de 5 a 18 años)</li>
+            <li>Charlas de onboarding e inspiración en IA</li>
+            <li>Entregable: Micro-web interactiva</li>
+            <li>Asistente IA de soporte para la audiencia</li>
+          </ul>
+          <div class="service-meta">Presencial o virtual · 1 a 2 horas</div>
+          <a href="#solicitar" class="service-btn">Solicitar charla <i data-lucide="arrow-right"></i></a>
+        </div>
+
+        <!-- PILAR 2: TALLERES -->
+        <div class="service-card">
+          <div class="service-icon"><i data-lucide="graduation-cap"></i></div>
+          <span class="service-tag">Capacitación y Práctica</span>
+          <h3 class="service-name">Talleres Prácticos</h3>
+          <p class="service-desc">Capacitaciones intensivas para equipos de trabajo y profesionales. Aprende haciendo y configura tus propias herramientas de productividad.</p>
+          <ul>
+            <li>Programa "IA para la Vida" (6 módulos)</li>
+            <li>Automatización y Optimización (No-Code)</li>
+            <li>Técnicas estructuradas de prompting</li>
+            <li>Material práctico y certificado incluido</li>
+          </ul>
+          <div class="service-meta">Empresas o profesionales · 4 a 8 horas</div>
+          <a href="#solicitar" class="service-btn">Ver talleres <i data-lucide="arrow-right"></i></a>
+        </div>
+
+        <!-- PILAR 3: ASESORÍA (DESTACADO) -->
+        <div class="service-card featured">
+          <div class="service-icon"><i data-lucide="briefcase"></i></div>
+          <span class="service-tag">Consultoría Corporativa</span>
+          <h3 class="service-name">Asesoría Estratégica</h3>
+          <p class="service-desc" style="color: rgba(255, 255, 255, 0.9);">Acompañamiento y auditoría operativa para empresas. Identificamos cuellos de botella e implementamos la IA con criterio y estrategia.</p>
+          <ul style="color: rgba(255, 255, 255, 0.95);">
+            <li>Auditoría y optimización de workflows</li>
+            <li>Matriz de oportunidad e impacto de IA</li>
+            <li>Evaluación y optimización de licencias</li>
+            <li>Hoja de ruta y gobernanza de datos</li>
+          </ul>
+          <div class="service-meta" style="color: rgba(255, 255, 255, 0.75);">Programas a medida · 4 a 8 semanas</div>
+          <a href="#solicitar" class="service-btn" style="background: #fff; color: var(--violet);">Cotizar para mi empresa <i data-lucide="arrow-right"></i></a>
+        </div>
+
+        <!-- PILAR 4: SOLUCIONES A MEDIDA -->
+        <div class="service-card">
+          <div class="service-icon"><i data-lucide="wand-sparkles"></i></div>
+          <span class="service-tag">Aplicaciones y Automatización</span>
+          <h3 class="service-name">Soluciones a Medida</h3>
+          <p class="service-desc">Desarrollo ágil de software no-code y automatizaciones con IA integrada, listas en tiempo récord y sin complicaciones técnicas.</p>
+          <ul>
+            <li>Chatbots interactivos para soporte o FAQs</li>
+            <li>Automatización de emails, leads y bases de datos</li>
+            <li>Generadores de reportes y propuestas con IA</li>
+            <li>Soporte y mantenimiento mensual opcional</li>
+          </ul>
+          <div class="service-meta">Producción activa en 3 a 10 días hábiles</div>
+          <a href="#solicitar" class="service-btn">Solicitar desarrollo <i data-lucide="arrow-right"></i></a>
+        </div>
+
       </div>
 
-      <!-- FAMILIAS -->
-      <div class="audience-panel active" data-panel="familias">
-        <p class="panel-intro">"Mi hijo pasa horas en TikTok y no sé qué ve, qué le pasa, ni cómo hablarle." Para los
-          padres que quieren acompañar sin invadir, y para los colegios que quieren formar familias críticas.</p>
+      <!-- SECCIÓN RECURSOS ADICIONALES (PRODUCTO DIGITAL REUBICADO) -->
+      <div class="section-head" style="margin-top:72px; margin-bottom: 24px; text-align: center; display: flex; flex-direction: column; align-items: center;">
+        <div class="section-label">Recursos Autogestionados</div>
+        <h2 style="max-width: 600px; margin: 8px auto 0;">¿Prefieres empezar a <span class="grad">tu propio ritmo</span>?</h2>
+      </div>
 
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-icon"><i data-lucide="baby"></i></div>
-            <span class="service-tag">5 a 9 años</span>
-            <h3 class="service-name">Crianza digital temprana</h3>
-            <p class="service-desc">Para padres de niños pequeños que dan sus primeros pasos en pantallas. Supervisión
-              total, controles parentales y construcción de hábitos sanos desde el inicio.</p>
-            <ul>
-              <li>Charla 1h + asistente IA</li>
-              <li>Controles iOS, Android, Windows</li>
-              <li>Plantilla de "contrato familiar"</li>
-              <li>Recursos descargables</li>
-            </ul>
-            <div class="service-price">desde<strong>$300 USD</strong></div>
-            <div class="service-meta">Por sesión grupal · Hasta 40 padres</div>
-            <a href="#solicitar" class="service-btn">Solicitar charla <i data-lucide="arrow-right"></i></a>
+      <div style="display: flex; justify-content: center; width: 100%;">
+        <div class="recetario-banner">
+          <div class="service-icon"><i data-lucide="book-open"></i></div>
+          <div class="recetario-banner-content">
+            <span class="service-tag">Regalo de Bienvenida · Notion</span>
+            <h3 class="service-name" style="margin-top: 4px; margin-bottom: 8px;">El Recetario AGUI</h3>
+            <p class="service-desc" style="margin-bottom: 0;">Nuestra base de datos interactiva en Notion con 10 prompts indispensables para ahorrar tiempo en tu día a día (redacción, síntesis de reuniones, propuestas comerciales y planificación).</p>
           </div>
-
-          <div class="service-card featured">
-            <div class="service-icon"><i data-lucide="sparkles"></i></div>
-            <span class="service-tag">Más solicitada</span>
-            <h3 class="service-name">Crianza digital 10-12 años</h3>
-            <p class="service-desc">Para padres de preadolescentes en plena exposición a redes sociales y videojuegos.
-              Identificar riesgos, conversar sin generar conflicto y configurar controles efectivos.</p>
-            <ul>
-              <li>Charla 1h + micro-web interactiva</li>
-              <li>Riesgos: ciberacoso, grooming, adicción</li>
-              <li>Controles paso a paso por dispositivo</li>
-              <li>Plan digital familiar incluido</li>
-            </ul>
-            <div class="service-price">desde<strong>$350 USD</strong></div>
-            <div class="service-meta">Charla ya dictada en colegios · 40 padres</div>
-            <a href="#solicitar" class="service-btn">Solicitar charla <i data-lucide="arrow-right"></i></a>
-          </div>
-
-          <div class="service-card">
-            <div class="service-icon"><i data-lucide="message-circle-heart"></i></div>
-            <span class="service-tag">13 a 15 años</span>
-            <h3 class="service-name">Crianza digital adolescente</h3>
-            <p class="service-desc">Para padres de adolescentes en plena búsqueda de identidad. Sexting, salud mental,
-              "cadena de custodia" digital y la transición de reglas a negociación.</p>
-            <ul>
-              <li>Charla 1h + asistente IA con jerga</li>
-              <li>Acuerdo de confianza familiar</li>
-              <li>Generador de guiones para conversaciones difíciles</li>
-              <li>Recursos sobre salud mental</li>
-            </ul>
-            <div class="service-price">desde<strong>$350 USD</strong></div>
-            <div class="service-meta">Por sesión · grupos hasta 40 padres</div>
-            <a href="#solicitar" class="service-btn">Solicitar charla <i data-lucide="arrow-right"></i></a>
-          </div>
-
-          <div class="service-card" style="grid-column:1/-1">
-            <div class="service-icon"><i data-lucide="school"></i></div>
-            <span class="service-tag">Programa integral · Colegios</span>
-            <h3 class="service-name">Crianza digital 5 a 15 años — ciclo completo</h3>
-            <p class="service-desc">Programa anual para colegios que quieren acompañar a sus familias en todas las
-              etapas de crianza digital. Tres charlas separadas durante el año (una por grupo de edad), con micro-webs
-              personalizadas con la identidad del colegio.</p>
-            <ul>
-              <li>3 charlas durante el año académico</li>
-              <li>Mini-webs co-branded con el colegio</li>
-              <li>Asistente IA personalizado para padres del colegio</li>
-              <li>Reporte de adopción y participación</li>
-            </ul>
-            <div class="service-price">desde<strong>$1,500 USD</strong></div>
-            <div class="service-meta">Programa anual · cupo abierto a toda la comunidad escolar</div>
-            <a href="#solicitar" class="service-btn">Cotizar para mi colegio <i data-lucide="arrow-right"></i></a>
+          <div class="recetario-banner-actions">
+            <div class="service-price" style="margin-top: 0; margin-bottom: 0; font-size: 14px; color: var(--text-light); line-height: 1.2;">Acceso <strong style="font-size: 24px; color: var(--violet); font-weight: 800; display: block; margin-top: 2px;">Gratuito</strong></div>
+            <a href="#newsletter" class="service-btn" style="margin-top: 4px; width: 100%; justify-content: center; white-space: nowrap;">Suscribirse y Descargar <i data-lucide="arrow-right" style="margin-left: 6px;"></i></a>
           </div>
         </div>
       </div>
 
-      <!-- EMPRESAS -->
-      <div class="audience-panel" data-panel="empresas">
-        <p class="panel-intro">"Mi equipo escucha hablar de IA todos los días pero no la usa." Para empresas que quieren
-          pasar del miedo al criterio, sin transformaciones de seis meses ni jerga consultora.</p>
-
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-icon"><i data-lucide="door-open"></i></div>
-            <span class="service-tag">Empieza por aquí</span>
-            <h3 class="service-name">IA para la Vida en tu empresa</h3>
-            <p class="service-desc">Taller corporativo de 6 módulos: introducción a la IA, herramientas (Copilot,
-              ChatGPT, Claude, Gemini), ciberseguridad, marco legal, ética e impacto ambiental. Adaptable a cualquier
-              sector.</p>
-            <ul>
-              <li>Sesión de 4 horas · presencial o virtual</li>
-              <li>6 módulos + ejercicios prácticos</li>
-              <li>Quiz interactivo de cierre</li>
-              <li>Materiales personalizados con tu marca</li>
-            </ul>
-            <div class="service-price">desde<strong>$2,200 USD</strong></div>
-            <div class="service-meta">Hasta 50 colaboradores · grupo único</div>
-            <a href="#solicitar" class="service-btn">Cotizar para mi empresa <i data-lucide="arrow-right"></i></a>
-          </div>
-
-          <div class="service-card featured">
-            <div class="service-icon"><i data-lucide="zap"></i></div>
-            <span class="service-tag">Más solicitada</span>
-            <h3 class="service-name">Power Automate + IA</h3>
-            <p class="service-desc">Curso práctico de automatización de procesos con Power Automate, AI Builder y
-              Scripts SAP. Para equipos que quieren liberar horas de tareas repetitivas con herramientas que ya pagaron.
-            </p>
-            <ul>
-              <li>Curso de 4 horas · 100% hands-on</li>
-              <li>4 laboratorios con SharePoint y Excel</li>
-              <li>Módulo AI Builder (OCR, clasificación)</li>
-              <li>Buenas prácticas de gobierno y SAP</li>
-            </ul>
-            <div class="service-price">desde<strong>$2,800 USD</strong></div>
-            <div class="service-meta">Hasta 25 colaboradores · 100% práctico</div>
-            <a href="#solicitar" class="service-btn">Cotizar curso <i data-lucide="arrow-right"></i></a>
-          </div>
-
-          <div class="service-card">
-            <div class="service-icon"><i data-lucide="layout-grid"></i></div>
-            <span class="service-tag">A medida</span>
-            <h3 class="service-name">Capacitación por departamento</h3>
-            <p class="service-desc">Capacitación adaptada a un área específica de tu empresa: marketing, ventas, RRHH,
-              operaciones, finanzas. Casos de uso reales del sector y plantillas listas para usar.</p>
-            <ul>
-              <li>Diagnóstico previo del área</li>
-              <li>Sesión de 2-3 horas adaptada</li>
-              <li>Plantillas y prompts del sector</li>
-              <li>Métrica de adopción a 30 días</li>
-            </ul>
-            <div class="service-price">desde<strong>$1,800 USD</strong></div>
-            <div class="service-meta">Por departamento · hasta 20 personas</div>
-            <a href="#solicitar" class="service-btn">Solicitar diagnóstico <i data-lucide="arrow-right"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- PERSONAS -->
-      <div class="audience-panel" data-panel="personas">
-        <p class="panel-intro">"Sé que ChatGPT existe, pero siento que no le saco el jugo que podría." Para
-          profesionales independientes y curiosos que quieren ahorrar tiempo y aprender a usar la IA con criterio.</p>
-
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-icon"><i data-lucide="rocket"></i></div>
-            <span class="service-tag">Puerta de entrada</span>
-            <h3 class="service-name">Talleres Express</h3>
-            <p class="service-desc">Sesiones de 1 hora en vivo por Zoom sobre temas concretos: productividad personal,
-              generación de imágenes, IA en el hogar. Aprendes haciendo y te llevas plantillas listas.</p>
-            <ul>
-              <li>1 hora en vivo · grupo reducido</li>
-              <li>3 temas a elegir cada mes</li>
-              <li>Grabación + plantillas incluidas</li>
-              <li>Comunidad WhatsApp de alumnos</li>
-            </ul>
-            <div class="service-price">desde<strong>$35 USD</strong></div>
-            <div class="service-meta">Por persona · cupos limitados</div>
-            <a href="#solicitar" class="service-btn">Ver próximas fechas <i data-lucide="arrow-right"></i></a>
-          </div>
-
-          <div class="service-card featured">
-            <div class="service-icon"><i data-lucide="calendar-days"></i></div>
-            <span class="service-tag">Más elegida</span>
-            <h3 class="service-name">Cohorte 30 días</h3>
-            <p class="service-desc">Programa intensivo de 4 semanas para integrar la IA en tu trabajo diario. Una clase
-              semanal en vivo, retos prácticos, comunidad y un asistente IA personalizado al final.</p>
-            <ul>
-              <li>4 clases en vivo (1h cada una)</li>
-              <li>Retos semanales corregidos</li>
-              <li>Comunidad privada</li>
-              <li>Tu propio asistente IA al cierre</li>
-            </ul>
-            <div class="service-price">desde<strong>$190 USD</strong></div>
-            <div class="service-meta">Cohorte cada 6 semanas · 25 cupos</div>
-            <a href="#solicitar" class="service-btn">Reservar mi cupo <i data-lucide="arrow-right"></i></a>
-          </div>
-
-          <div class="service-card">
-            <div class="service-icon"><i data-lucide="book-open"></i></div>
-            <span class="service-tag">Producto digital</span>
-            <h3 class="service-name">El Recetario AGUI</h3>
-            <p class="service-desc">120 prompts probados para ahorrar tiempo cada semana, organizados por situación real
-              (trabajo, vida personal, negocio, aprendizaje). Con herramienta de mejora de prompts incluida.</p>
-            <ul>
-              <li>120 prompts curados por situación</li>
-              <li>Herramienta interactiva en Notion</li>
-              <li>Mejorador automático de prompts</li>
-              <li>Actualizaciones gratis para siempre</li>
-            </ul>
-            <div class="service-price">desde<strong>$49 USD</strong></div>
-            <div class="service-meta">Pago único · acceso permanente</div>
-            <a href="#solicitar" class="service-btn">Quiero el Recetario <i data-lucide="arrow-right"></i></a>
-          </div>
-
-          <div class="service-card" style="grid-column:1/-1">
-            <div class="service-icon"><i data-lucide="heart-handshake"></i></div>
-            <span class="service-tag">Servicios 1:1</span>
-            <h3 class="service-name">Desatoro Digital y Plan IA</h3>
-            <p class="service-desc">Para quien ya vio el valor de la IA y necesita ayuda específica. Una llamada
-              Desatoro de 45 min para resolver un cuello de botella concreto, o un Plan IA personalizado para tu negocio
-              o consultoría.</p>
-            <ul>
-              <li>Desatoro Digital: $90 USD · 45 min de videollamada</li>
-              <li>Plan IA personal: $290 USD · 3 sesiones + plan a 30 días</li>
-              <li>Plan IA negocio: $1,800 USD · auditoría completa</li>
-              <li>Acompañamiento mensual: desde $2,400/mes</li>
-            </ul>
-            <div class="service-price">desde<strong>$90 USD</strong></div>
-            <div class="service-meta">Cupo limitado a 3 nuevos clientes 1:1 al mes</div>
-            <a href="#solicitar" class="service-btn">Agendar llamada <i data-lucide="arrow-right"></i></a>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -2536,11 +2560,10 @@
     <div class="wrap">
       <div class="section-head">
         <div>
-          <div class="section-label">Experiencia comprobada</div>
-          <h2>Talleres que <span class="grad">ya hemos dictado</span>.</h2>
+          <div class="section-label">Nuestro trabajo</div>
+          <h2>Así se ve un <span class="grad">entregable AGUI</span>.</h2>
         </div>
-        <p>Estos no son ejemplos hipotéticos: son las micro-webs interactivas reales de talleres impartidos a colegios y
-          empresas. Échales un vistazo.</p>
+        <p>Cada taller incluye una micro-web interactiva personalizada como entregable. Estos son ejemplos reales — haz clic para explorarlos.</p>
       </div>
 
       <div class="proof-grid">
@@ -2630,6 +2653,9 @@
 
         <!-- FORM FAMILIA -->
         <form class="form-fields" data-form="familia" onsubmit="handleSubmit(event,'familia')">
+          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+          <input type="hidden" name="subject" value="Nueva solicitud AGUI — Familia/Colegio">
+          <input type="hidden" name="from_name" value="AGUI Web">
           <div class="reward">
             <div class="reward-icon"><i data-lucide="gift"></i></div>
             <div class="reward-text">
@@ -2697,6 +2723,9 @@
 
         <!-- FORM EMPRESA -->
         <form class="form-fields" data-form="empresa" onsubmit="handleSubmit(event,'empresa')">
+          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+          <input type="hidden" name="subject" value="Nueva solicitud AGUI — Empresa">
+          <input type="hidden" name="from_name" value="AGUI Web">
           <div class="reward">
             <div class="reward-icon"><i data-lucide="bar-chart-3"></i></div>
             <div class="reward-text">
@@ -2753,11 +2782,10 @@
               <label>¿Qué te interesa principalmente?</label>
               <select name="interes" required>
                 <option value="">Elige una opción</option>
-                <option>Capacitación general en IA (taller IA para la Vida)</option>
-                <option>Power Automate + IA para automatizar procesos</option>
-                <option>Capacitación a un departamento específico</option>
-                <option>Diagnóstico previo (no estoy seguro qué necesitamos)</option>
-                <option>Acompañamiento mensual</option>
+                <option>Charlas Inspiracionales / Sensibilización de IA</option>
+                <option>Talleres Prácticos y Capacitación (IA para la Vida / Automatización)</option>
+                <option>Asesoría Estratégica (Diagnóstico Operativo y Roadmap de IA)</option>
+                <option>Soluciones a Medida (Chatbots, Automatizaciones y Software No-Code)</option>
               </select>
             </div>
           </div>
@@ -2774,6 +2802,9 @@
 
         <!-- FORM PERSONA -->
         <form class="form-fields" data-form="persona" onsubmit="handleSubmit(event,'persona')">
+          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+          <input type="hidden" name="subject" value="Nueva solicitud AGUI — Profesional">
+          <input type="hidden" name="from_name" value="AGUI Web">
           <div class="reward">
             <div class="reward-icon"><i data-lucide="book-open"></i></div>
             <div class="reward-text">
@@ -2820,10 +2851,10 @@
               <label>¿Qué te interesa principalmente?</label>
               <select name="interes" required>
                 <option value="">Elige una opción</option>
-                <option>Talleres Express ($35 USD por sesión)</option>
-                <option>Cohorte 30 días ($190 USD)</option>
-                <option>El Recetario AGUI ($49 USD)</option>
-                <option>Sesión 1:1 Desatoro Digital ($90 USD)</option>
+                <option>Talleres Prácticos y Productividad Personal</option>
+                <option>Charlas y Sesiones de Onboarding de IA</option>
+                <option>El Recetario AGUI (Notion Prompt Database)</option>
+                <option>Sesión 1:1 de Asesoría y Mentoría de IA</option>
                 <option>Solo quiero suscribirme al newsletter (gratis)</option>
               </select>
             </div>
@@ -2951,11 +2982,11 @@
             </div>
           </div>
 
-          <form class="newsletter-form"
-            onsubmit="event.preventDefault();const b=this.querySelector('button');b.innerHTML='✓ Listo · revisa tu correo';this.querySelector('input').value='';">
+          <form class="newsletter-form" onsubmit="handleNewsletter(event)">
             <input type="email" placeholder="tu@correo.com" required>
             <button type="submit">Suscribirme gratis <i data-lucide="arrow-right"></i></button>
           </form>
+          <div class="sender-form-field" data-sender-form-id="mozu9hsvb68lol7nn8n" style="display:none"></div>
           <div class="newsletter-note">Sin spam. Te puedes dar de baja cuando quieras. Tu correo nunca se comparte.
           </div>
         </div>
@@ -2968,7 +2999,7 @@
                 <span class="email-dot"></span>
                 <span class="email-dot"></span>
               </div>
-              <span class="email-from">De: agui.consultoria@gmail.com · Para: tú</span>
+              <span class="email-from">De: info@agui-consultoria.com · Para: tú</span>
             </div>
             <div class="email-body">
               <span class="ep-badge">Edición anterior · semana pasada</span>
@@ -2992,27 +3023,27 @@
             adoptar la IA con calma y criterio.</p>
         </div>
         <div class="footer-col">
-          <h4>Audiencias</h4>
+          <h4>Servicios</h4>
           <ul>
-            <li><a href="#servicios">Familias y colegios</a></li>
-            <li><a href="#servicios">Empresas</a></li>
-            <li><a href="#servicios">Profesionales</a></li>
-            <li><a href="#talleres-dictados">Experiencia previa</a></li>
+            <li><a href="#servicios">Charlas Inspiracionales</a></li>
+            <li><a href="#servicios">Talleres Prácticos</a></li>
+            <li><a href="#servicios">Asesoría Estratégica</a></li>
+            <li><a href="#servicios">Soluciones a Medida</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Recursos</h4>
           <ul>
-            <li><a href="#tips">Blog</a></li>
+            <li><a href="#tips">Tips & Blog</a></li>
             <li><a href="#newsletter">Newsletter</a></li>
-            <li><a href="#">Recetario AGUI</a></li>
-            <li><a href="#solicitar">Solicitar charla</a></li>
+            <li><a href="#newsletter">Recetario AGUI</a></li>
+            <li><a href="#solicitar">Solicitar charla / taller</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Contacto</h4>
           <ul>
-            <li><a href="mailto:agui.consultoria@gmail.com">agui.consultoria@gmail.com</a></li>
+            <li><a href="mailto:info@agui-consultoria.com">info@agui-consultoria.com</a></li>
             <li><a href="#">Bogotá, Colombia</a></li>
             <li><a href="#">Lun—Vie · 9—18h</a></li>
           </ul>
@@ -3099,17 +3130,32 @@
 
     if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.6 } });
 
-    // Audience tabs
-    document.querySelectorAll('.atab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.dataset.audience;
-        document.querySelectorAll('.atab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.audience-panel').forEach(p => p.classList.remove('active'));
-        tab.classList.add('active');
-        document.querySelector(`[data-panel="${target}"]`).classList.add('active');
+    // Toggle Mobile Menu
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (menuToggle && navLinks) {
+      menuToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.contains('active');
+        if (isOpen) {
+          navLinks.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menuToggle.innerHTML = '<i data-lucide="menu"></i>';
+        } else {
+          navLinks.classList.add('active');
+          menuToggle.setAttribute('aria-expanded', 'true');
+          menuToggle.innerHTML = '<i data-lucide="x"></i>';
+        }
         if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.6 } });
       });
-    });
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menuToggle.innerHTML = '<i data-lucide="menu"></i>';
+          if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.6 } });
+        });
+      });
+    }
 
     // Form route picker
     document.querySelectorAll('.route').forEach(btn => {
@@ -3124,20 +3170,98 @@
       });
     });
 
-    function handleSubmit(e, type) {
+    function handleNewsletter(e) {
       e.preventDefault();
       const form = e.target;
-      const data = Object.fromEntries(new FormData(form));
-      console.log(`Solicitud tipo ${type}:`, data);
-      const messages = {
-        familia: '¡Listo! Te envié el Asistente IA "Descifrador de Jerga" a tu correo. Te contacto en menos de 48h.',
-        empresa: '¡Listo! En 3 días hábiles tendrás tu auditoría exprés en PDF. Te contacto en 48h.',
-        persona: '¡Listo! El mini-Recetario está en tu bandeja de entrada. Te escribo en 48h.'
-      };
-      const submitBtn = form.querySelector('.form-submit');
-      submitBtn.innerHTML = '✓ ' + messages[type];
-      submitBtn.disabled = true;
+      const email = form.querySelector('input[type="email"]').value;
+      const btn = form.querySelector('button');
+
+      // Try to fill and submit the hidden Sender form
+      const senderContainer = document.querySelector('.sender-form-field');
+      if (senderContainer) {
+        let senderInput = null;
+        let senderBtn = null;
+
+        // Sender.net universal.js injects the form inside an iframe
+        const iframe = senderContainer.querySelector('iframe');
+        if (iframe) {
+          try {
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            senderInput = iframeDoc.querySelector('input[type="email"]');
+            senderBtn = iframeDoc.querySelector('button[type="submit"], input[type="submit"]');
+          } catch (err) {
+            console.error('Error accessing Sender.net iframe DOM:', err);
+          }
+        }
+
+        // Fallback for direct elements (in case they change implementation)
+        if (!senderInput || !senderBtn) {
+          senderInput = senderContainer.querySelector('input[type="email"]');
+          senderBtn = senderContainer.querySelector('button[type="submit"], input[type="submit"]');
+        }
+
+        if (senderInput && senderBtn) {
+          senderInput.value = email;
+          senderBtn.click();
+          console.log('Successfully submitted via Sender.net form.');
+        } else {
+          console.warn('Sender.net form elements not found inside container or iframe.');
+        }
+      }
+
+      btn.innerHTML = '✓ Listo · revisa tu correo';
+      form.querySelector('input[type="email"]').value = '';
     }
+
+    async function handleSubmit(e, type) {
+      e.preventDefault();
+      const form = e.target;
+      const submitBtn = form.querySelector('.form-submit');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = 'Enviando...';
+      submitBtn.disabled = true;
+
+      const formData = new FormData(form);
+      formData.append('tipo_solicitud', type);
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        if (data.success) {
+          const messages = {
+            familia: '¡Listo! Te contacto en menos de 48h con disponibilidad y propuesta.',
+            empresa: '¡Listo! En 3 días hábiles tendrás tu auditoría exprés en PDF. Te contacto en 48h.',
+            persona: '¡Listo! Te escribo en 48h con las opciones que mejor se ajusten a ti.'
+          };
+          submitBtn.innerHTML = '✓ ' + messages[type];
+        } else {
+          submitBtn.innerHTML = 'Error al enviar. Intenta de nuevo.';
+          submitBtn.disabled = false;
+        }
+      } catch (err) {
+        submitBtn.innerHTML = 'Error de conexión. Intenta de nuevo.';
+        submitBtn.disabled = false;
+      }
+    }
+  </script>
+
+  <!-- Sender.net newsletter -->
+  <script>
+    (function (s, e, n, d, er) {
+      s['Sender'] = er;
+      s[er] = s[er] || function () {
+        (s[er].q = s[er].q || []).push(arguments)
+      }, s[er].l = 1 * new Date();
+      var a = e.createElement(n),
+          m = e.getElementsByTagName(n)[0];
+      a.async = 1;
+      a.src = d;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://cdn.sender.net/accounts_resources/universal.js', 'sender');
+    sender('756e3c8aaa7458')
   </script>
 
 </body>
