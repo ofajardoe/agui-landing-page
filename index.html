@@ -7,6 +7,21 @@
   <title>AGUI Consultoría — La IA explicada en tu idioma</title>
   <meta name="description"
     content="Consultoría de IA generativa para familias, colegios, empresas y personas no técnicas. Talleres, programas y acompañamiento en español claro.">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://agui-consultoria.com/">
+  <meta property="og:title" content="AGUI Consultoría — La IA explicada en tu idioma">
+  <meta property="og:description" content="Consultoría de IA generativa para familias, colegios, empresas y personas no técnicas. Talleres, programas y acompañamiento en español claro.">
+  <meta property="og:image" content="https://agui-consultoria.com/assets/logo-color.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://agui-consultoria.com/">
+  <meta property="twitter:title" content="AGUI Consultoría — La IA explicada en tu idioma">
+  <meta property="twitter:description" content="Consultoría de IA generativa para familias, colegios, empresas y personas no técnicas. Talleres, programas y acompañamiento en español claro.">
+  <meta property="twitter:image" content="https://agui-consultoria.com/assets/logo-color.png">
+
   <link rel="icon" type="image/png" href="assets/isotipo-color.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2148,6 +2163,59 @@
     .hero-stats {
       animation-delay: 480ms
     }
+
+    /* === SIMULADOR DE PROMPTS === */
+    .sim-tab {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      transition: all 200ms var(--ease);
+      width: 100%;
+    }
+
+    .sim-tab:hover {
+      background: rgba(44, 211, 242, 0.05);
+      border-color: rgba(44, 211, 242, 0.2);
+    }
+
+    .sim-tab.active {
+      background: var(--white);
+      border-color: var(--violet-light);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .sim-tab.active .sim-tab-icon {
+      transform: scale(1.1);
+    }
+
+    .sim-input-resaltado {
+      background: rgba(161, 58, 235, 0.08) !important;
+      border-color: var(--violet-light) !important;
+      color: var(--text) !important;
+      font-weight: 500;
+    }
+    
+    .sim-input-resaltado:focus {
+      background: rgba(161, 58, 235, 0.12) !important;
+      border-color: var(--violet) !important;
+      box-shadow: 0 0 0 3px rgba(161, 58, 235, 0.15) !important;
+    }
+
+    @media (max-width: 760px) {
+      .sim-grid-container {
+        grid-template-columns: 1fr !important;
+      }
+      .sim-sidebar {
+        border-right: none !important;
+        border-bottom: 1px solid var(--gray-border) !important;
+      }
+    }
   </style>
 </head>
 
@@ -2297,17 +2365,17 @@
       </div>
 
       <div class="audience-tabs" role="tablist">
-        <button class="atab active" data-audience="familias">
+        <button class="atab active" role="tab" aria-selected="true" aria-controls="panel-familias" id="tab-familias" data-audience="familias">
           <span class="atab-icon"><i data-lucide="users"></i></span>
           <span class="atab-label">Familias y Colegios</span>
           <span class="atab-sub">Crianza digital</span>
         </button>
-        <button class="atab" data-audience="empresas">
+        <button class="atab" role="tab" aria-selected="false" aria-controls="panel-empresas" id="tab-empresas" data-audience="empresas">
           <span class="atab-icon"><i data-lucide="building-2"></i></span>
           <span class="atab-label">Empresas y Equipos</span>
           <span class="atab-sub">Capacitación corporativa</span>
         </button>
-        <button class="atab" data-audience="personas">
+        <button class="atab" role="tab" aria-selected="false" aria-controls="panel-personas" id="tab-personas" data-audience="personas">
           <span class="atab-icon"><i data-lucide="user"></i></span>
           <span class="atab-label">Profesionales</span>
           <span class="atab-sub">Productividad personal</span>
@@ -2315,7 +2383,7 @@
       </div>
 
       <!-- FAMILIAS -->
-      <div class="audience-panel active" data-panel="familias">
+      <div class="audience-panel active" role="tabpanel" id="panel-familias" aria-labelledby="tab-familias" data-panel="familias">
         <p class="panel-intro">"Mi hijo pasa horas en TikTok y no sé qué ve, qué le pasa, ni cómo hablarle." Para los
           padres que quieren acompañar sin invadir, y para los colegios que quieren formar familias críticas.</p>
 
@@ -2332,7 +2400,6 @@
               <li>Plantilla de "contrato familiar"</li>
               <li>Recursos descargables</li>
             </ul>
-            <div class="service-price">desde<strong>$300 USD</strong></div>
             <div class="service-meta">Por sesión grupal · Hasta 40 padres</div>
             <a href="#solicitar" class="service-btn">Solicitar charla <i data-lucide="arrow-right"></i></a>
           </div>
@@ -2349,7 +2416,6 @@
               <li>Controles paso a paso por dispositivo</li>
               <li>Plan digital familiar incluido</li>
             </ul>
-            <div class="service-price">desde<strong>$350 USD</strong></div>
             <div class="service-meta">Charla ya dictada en colegios · 40 padres</div>
             <a href="#solicitar" class="service-btn">Solicitar charla <i data-lucide="arrow-right"></i></a>
           </div>
@@ -2366,7 +2432,6 @@
               <li>Generador de guiones para conversaciones difíciles</li>
               <li>Recursos sobre salud mental</li>
             </ul>
-            <div class="service-price">desde<strong>$350 USD</strong></div>
             <div class="service-meta">Por sesión · grupos hasta 40 padres</div>
             <a href="#solicitar" class="service-btn">Solicitar charla <i data-lucide="arrow-right"></i></a>
           </div>
@@ -2384,7 +2449,6 @@
               <li>Asistente IA personalizado para padres del colegio</li>
               <li>Reporte de adopción y participación</li>
             </ul>
-            <div class="service-price">desde<strong>$1,500 USD</strong></div>
             <div class="service-meta">Programa anual · cupo abierto a toda la comunidad escolar</div>
             <a href="#solicitar" class="service-btn">Cotizar para mi colegio <i data-lucide="arrow-right"></i></a>
           </div>
@@ -2392,7 +2456,7 @@
       </div>
 
       <!-- EMPRESAS -->
-      <div class="audience-panel" data-panel="empresas">
+      <div class="audience-panel" role="tabpanel" id="panel-empresas" aria-labelledby="tab-empresas" data-panel="empresas">
         <p class="panel-intro">"Mi equipo escucha hablar de IA todos los días pero no la usa." Para empresas que quieren
           pasar del miedo al criterio, sin transformaciones de seis meses ni jerga consultora.</p>
 
@@ -2410,7 +2474,6 @@
               <li>Quiz interactivo de cierre</li>
               <li>Materiales personalizados con tu marca</li>
             </ul>
-            <div class="service-price">desde<strong>$2,200 USD</strong></div>
             <div class="service-meta">Hasta 50 colaboradores · grupo único</div>
             <a href="#solicitar" class="service-btn">Cotizar para mi empresa <i data-lucide="arrow-right"></i></a>
           </div>
@@ -2428,7 +2491,6 @@
               <li>Módulo AI Builder (OCR, clasificación)</li>
               <li>Buenas prácticas de gobierno y SAP</li>
             </ul>
-            <div class="service-price">desde<strong>$2,800 USD</strong></div>
             <div class="service-meta">Hasta 25 colaboradores · 100% práctico</div>
             <a href="#solicitar" class="service-btn">Cotizar curso <i data-lucide="arrow-right"></i></a>
           </div>
@@ -2445,7 +2507,6 @@
               <li>Plantillas y prompts del sector</li>
               <li>Métrica de adopción a 30 días</li>
             </ul>
-            <div class="service-price">desde<strong>$1,800 USD</strong></div>
             <div class="service-meta">Por departamento · hasta 20 personas</div>
             <a href="#solicitar" class="service-btn">Solicitar diagnóstico <i data-lucide="arrow-right"></i></a>
           </div>
@@ -2461,8 +2522,7 @@
               <li>Roadmap de adopción por fases</li>
               <li>Asesoría mensual disponible post-proyecto</li>
             </ul>
-            <div class="service-price">desde<strong>$4,500 USD</strong></div>
-            <div class="service-meta">Proyecto 6 semanas · retainer desde $1,500/mes</div>
+            <div class="service-meta">Proyecto de 6 semanas · retainer mensual disponible</div>
             <a href="#solicitar" class="service-btn">Solicitar diagnóstico <i data-lucide="arrow-right"></i></a>
           </div>
 
@@ -2477,15 +2537,14 @@
               <li>Apps internas con Glide, Softr o Bubble</li>
               <li>30 días de garantía + soporte opcional</li>
             </ul>
-            <div class="service-price">desde<strong>$1,200 USD</strong></div>
-            <div class="service-meta">Entrega en 3-10 días · soporte desde $250/mes</div>
+            <div class="service-meta">Entrega en 3-10 días · soporte mensual disponible</div>
             <a href="#solicitar" class="service-btn">Solicitar cotización <i data-lucide="arrow-right"></i></a>
           </div>
         </div>
       </div>
 
       <!-- PERSONAS -->
-      <div class="audience-panel" data-panel="personas">
+      <div class="audience-panel" role="tabpanel" id="panel-personas" aria-labelledby="tab-personas" data-panel="personas">
         <p class="panel-intro">"Sé que ChatGPT existe, pero siento que no le saco el jugo que podría." Para
           profesionales independientes y curiosos que quieren ahorrar tiempo y aprender a usar la IA con criterio.</p>
 
@@ -2502,7 +2561,6 @@
               <li>Grabación + plantillas incluidas</li>
               <li>Comunidad WhatsApp de alumnos</li>
             </ul>
-            <div class="service-price">desde<strong>$35 USD</strong></div>
             <div class="service-meta">Por persona · cupos limitados</div>
             <a href="#solicitar" class="service-btn">Ver próximas fechas <i data-lucide="arrow-right"></i></a>
           </div>
@@ -2519,7 +2577,6 @@
               <li>Comunidad privada</li>
               <li>Tu propio asistente IA al cierre</li>
             </ul>
-            <div class="service-price">desde<strong>$190 USD</strong></div>
             <div class="service-meta">Cohorte cada 6 semanas · 25 cupos</div>
             <a href="#solicitar" class="service-btn">Reservar mi cupo <i data-lucide="arrow-right"></i></a>
           </div>
@@ -2536,7 +2593,6 @@
               <li>Mejorador automático de prompts</li>
               <li>Actualizaciones gratis para siempre</li>
             </ul>
-            <div class="service-price">desde<strong>$49 USD</strong></div>
             <div class="service-meta">Pago único · acceso permanente</div>
             <a href="#solicitar" class="service-btn">Quiero el Recetario <i data-lucide="arrow-right"></i></a>
           </div>
@@ -2549,12 +2605,11 @@
               Desatoro de 45 min para resolver un cuello de botella concreto, o un Plan IA personalizado para tu negocio
               o consultoría.</p>
             <ul>
-              <li>Desatoro Digital: $90 USD · 45 min de videollamada</li>
-              <li>Plan IA personal: $290 USD · 3 sesiones + plan a 30 días</li>
-              <li>Plan IA negocio: $1,800 USD · auditoría completa</li>
-              <li>Acompañamiento mensual: desde $2,400/mes</li>
+              <li>Desatoro Digital: 45 min de videollamada</li>
+              <li>Plan IA personal: 3 sesiones + plan a 30 días</li>
+              <li>Plan IA negocio: auditoría completa</li>
+              <li>Acompañamiento mensual continuo</li>
             </ul>
-            <div class="service-price">desde<strong>$90 USD</strong></div>
             <div class="service-meta">Cupo limitado a 3 nuevos clientes 1:1 al mes</div>
             <a href="#solicitar" class="service-btn">Agendar llamada <i data-lucide="arrow-right"></i></a>
           </div>
@@ -2628,6 +2683,78 @@
     </div>
   </section>
 
+  <!-- SIMULADOR DE PROMPTS -->
+  <section class="section section-tinted" id="simulador" style="border-bottom: 1px solid var(--gray-border);">
+    <div class="neural-bg" style="opacity: 0.35;"></div>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-label">Práctica interactiva</div>
+          <h2>Prueba la IA <span class="grad">en tu idioma</span></h2>
+        </div>
+        <p>Selecciona una situación, personaliza los campos resaltados y observa cómo se estructuran las instrucciones efectivas. Copia el resultado y pruébalo en ChatGPT, Claude o Gemini.</p>
+      </div>
+
+      <div style="max-width: 900px; margin: 0 auto; background: var(--white); border: 1px solid rgba(44, 211, 242, 0.25); border-radius: 16px; box-shadow: var(--shadow-md); overflow: hidden; display: grid; grid-template-columns: 320px 1fr; min-height: 480px;" class="sim-grid-container">
+        <!-- Left panel: picker -->
+        <div style="background: var(--gray-bg); padding: 32px 24px; border-right: 1px solid var(--gray-border); display: flex; flex-direction: column; gap: 12px;" class="sim-sidebar">
+          <h3 style="font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text); margin-bottom: 8px;">Elige una tarea</h3>
+          
+          <button class="sim-tab active" data-prompt="email">
+            <div class="sim-tab-icon" style="color: var(--violet);"><i data-lucide="mail" style="width: 18px; height: 18px;"></i></div>
+            <div>
+              <div style="font-weight: 700; font-size: 14px; color: var(--text);">Responder un email</div>
+              <div style="font-size: 11px; color: var(--text-light);">Comunicación rápida</div>
+            </div>
+          </button>
+          
+          <button class="sim-tab" data-prompt="resumen">
+            <div class="sim-tab-icon" style="color: var(--cyan-dark);"><i data-lucide="file-text" style="width: 18px; height: 18px;"></i></div>
+            <div>
+              <div style="font-weight: 700; font-size: 14px; color: var(--text);">Resumir documento</div>
+              <div style="font-size: 11px; color: var(--text-light);">Productividad instantánea</div>
+            </div>
+          </button>
+          
+          <button class="sim-tab" data-prompt="ideas">
+            <div class="sim-tab-icon" style="color: var(--coral);"><i data-lucide="lightbulb" style="width: 18px; height: 18px;"></i></div>
+            <div>
+              <div style="font-weight: 700; font-size: 14px; color: var(--text);">Ideas de contenido</div>
+              <div style="font-size: 11px; color: var(--text-light);">Creatividad sin bloqueos</div>
+            </div>
+          </button>
+          
+          <div style="margin-top: auto; padding-top: 24px; border-top: 1px solid var(--gray-border); text-align: center;">
+            <p style="font-size: 12px; color: var(--text-light); line-height: 1.4; margin-bottom: 12px;">¿Quieres el recetario completo con 10 prompts listos?</p>
+            <a href="#solicitar" class="btn btn-ghost" style="padding: 10px 16px; font-size: 12px; display: inline-flex; width: 100%; justify-content: center;">Quiero el Recetario</a>
+          </div>
+        </div>
+
+        <!-- Right panel: interactive area -->
+        <div style="padding: 32px; display: flex; flex-direction: column; justify-content: space-between; position: relative; background: var(--white);">
+          <!-- Active Form Input Fields -->
+          <div id="sim-form-container">
+            <!-- Dynamic fields go here -->
+          </div>
+
+          <!-- Prompt Output Box -->
+          <div style="margin-top: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-lighter);">Tu Prompt estructurado</span>
+              <button id="btn-copy-prompt" style="padding: 6px 12px; font-size: 11px; background: var(--gray-bg); color: var(--text); border: 1px solid var(--gray-border); border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; transition: all 150ms var(--ease); font-family: inherit; font-weight: 600;">
+                <i data-lucide="copy" style="width: 12px; height: 12px;"></i>
+                <span id="copy-text">Copiar Prompt</span>
+              </button>
+            </div>
+            <div id="prompt-output" style="background: var(--gray-bg); border-left: 4px solid var(--violet); padding: 18px; border-radius: 0 8px 8px 0; font-family: monospace; font-size: 13px; color: var(--text); line-height: 1.6; min-height: 120px; white-space: pre-wrap; word-break: break-word;">
+              <!-- Dynamic output text -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FORMULARIO -->
   <section class="form-section" id="solicitar">
     <div class="neural-bg"></div>
@@ -2639,17 +2766,17 @@
           preguntas correctas. Cuando envíes el formulario, recibirás un regalo pensado especialmente para tu caso.</p>
 
         <div class="route-picker" role="tablist">
-          <button class="route" data-route="familia">
+          <button class="route" role="tab" aria-selected="false" aria-controls="form-familia" id="tab-route-familia" data-route="familia">
             <span class="route-icon"><i data-lucide="users"></i></span>
             <span class="route-title">Soy de un colegio o familia</span>
             <span class="route-sub">Charlas de crianza digital</span>
           </button>
-          <button class="route" data-route="empresa">
+          <button class="route" role="tab" aria-selected="false" aria-controls="form-empresa" id="tab-route-empresa" data-route="empresa">
             <span class="route-icon"><i data-lucide="building-2"></i></span>
             <span class="route-title">Represento a una empresa</span>
             <span class="route-sub">Capacitación corporativa</span>
           </button>
-          <button class="route" data-route="persona">
+          <button class="route" role="tab" aria-selected="false" aria-controls="form-persona" id="tab-route-persona" data-route="persona">
             <span class="route-icon"><i data-lucide="user"></i></span>
             <span class="route-title">Soy una persona individual</span>
             <span class="route-sub">Productividad y aprendizaje</span>
@@ -2661,7 +2788,7 @@
         </div>
 
         <!-- FORM FAMILIA -->
-        <form class="form-fields" data-form="familia" onsubmit="handleSubmit(event,'familia')">
+        <form class="form-fields" id="form-familia" role="tabpanel" aria-labelledby="tab-route-familia" data-form="familia" onsubmit="handleSubmit(event,'familia')">
           <div class="reward">
             <div class="reward-icon"><i data-lucide="gift"></i></div>
             <div class="reward-text">
@@ -2728,7 +2855,7 @@
         </form>
 
         <!-- FORM EMPRESA -->
-        <form class="form-fields" data-form="empresa" onsubmit="handleSubmit(event,'empresa')">
+        <form class="form-fields" id="form-empresa" role="tabpanel" aria-labelledby="tab-route-empresa" data-form="empresa" onsubmit="handleSubmit(event,'empresa')">
           <div class="reward">
             <div class="reward-icon"><i data-lucide="bar-chart-3"></i></div>
             <div class="reward-text">
@@ -2805,7 +2932,7 @@
         </form>
 
         <!-- FORM PERSONA -->
-        <form class="form-fields" data-form="persona" onsubmit="handleSubmit(event,'persona')">
+        <form class="form-fields" id="form-persona" role="tabpanel" aria-labelledby="tab-route-persona" data-form="persona" onsubmit="handleSubmit(event,'persona')">
           <div class="reward">
             <div class="reward-icon"><i data-lucide="book-open"></i></div>
             <div class="reward-text">
@@ -2852,10 +2979,10 @@
               <label>¿Qué te interesa principalmente?</label>
               <select name="interes" required>
                 <option value="">Elige una opción</option>
-                <option>Talleres Express ($35 USD por sesión)</option>
-                <option>Cohorte 30 días ($190 USD)</option>
-                <option>El Recetario AGUI ($49 USD)</option>
-                <option>Sesión 1:1 Desatoro Digital ($90 USD)</option>
+                <option>Talleres Express</option>
+                <option>Cohorte 30 días</option>
+                <option>El Recetario AGUI</option>
+                <option>Sesión 1:1 Desatoro Digital</option>
                 <option>Solo quiero suscribirme al newsletter (gratis)</option>
               </select>
             </div>
@@ -3000,7 +3127,7 @@
                 <span class="email-dot"></span>
                 <span class="email-dot"></span>
               </div>
-              <span class="email-from">De: agui.consultoria@gmail.com · Para: tú</span>
+              <span class="email-from">De: info@agui-consultoria.com · Para: tú</span>
             </div>
             <div class="email-body">
               <span class="ep-badge">Edición anterior · semana pasada</span>
@@ -3045,9 +3172,8 @@
         <div class="footer-col">
           <h4>Contacto</h4>
           <ul>
-            <li><a href="mailto:agui.consultoria@gmail.com">agui.consultoria@gmail.com</a></li>
+            <li><a href="mailto:info@agui-consultoria.com">info@agui-consultoria.com</a></li>
             <li><a href="#">Bogotá, Colombia</a></li>
-            <li><a href="#">Lun—Vie · 9—18h</a></li>
           </ul>
         </div>
       </div>
@@ -3136,9 +3262,13 @@
     document.querySelectorAll('.atab').forEach(tab => {
       tab.addEventListener('click', () => {
         const target = tab.dataset.audience;
-        document.querySelectorAll('.atab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.atab').forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
         document.querySelectorAll('.audience-panel').forEach(p => p.classList.remove('active'));
         tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
         document.querySelector(`[data-panel="${target}"]`).classList.add('active');
         if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.6 } });
       });
@@ -3148,8 +3278,12 @@
     document.querySelectorAll('.route').forEach(btn => {
       btn.addEventListener('click', () => {
         const target = btn.dataset.route;
-        document.querySelectorAll('.route').forEach(r => r.classList.remove('active'));
+        document.querySelectorAll('.route').forEach(r => {
+          r.classList.remove('active');
+          r.setAttribute('aria-selected', 'false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
         document.getElementById('formEmpty').style.display = 'none';
         document.querySelectorAll('.form-fields').forEach(f => f.classList.remove('active'));
         document.querySelector(`[data-form="${target}"]`).classList.add('active');
@@ -3165,12 +3299,177 @@
       const messages = {
         familia: '¡Listo! Te envié el Asistente IA "Descifrador de Jerga" a tu correo. Te contacto en menos de 48h.',
         empresa: '¡Listo! En 3 días hábiles tendrás tu auditoría exprés en PDF. Te contacto en 48h.',
-        persona: '¡Listo! El mini-Recetario está en tu bandeja de entrada. Te escribo en 48h.'
+        persona: '¡Listo! El mini-Recetario está en tu bandeja de entrada. Redirigiendo al recetario...'
       };
       const submitBtn = form.querySelector('.form-submit');
       submitBtn.innerHTML = '✓ ' + messages[type];
       submitBtn.disabled = true;
+      if (type === 'persona') {
+        setTimeout(() => {
+          window.location.href = 'recetario.html?acceso=agui2026';
+        }, 2000);
+      }
     }
+
+    // Prompt Simulator Logic
+    const PROMPTS_DATA = {
+      email: {
+        title: "Responder un email difícil",
+        desc: "Redacta respuestas empáticas o directas sin rodeos ni bloqueos.",
+        fields: [
+          { id: "sim-email-recibido", label: "Email que recibiste", type: "textarea", placeholder: "Ej: Estimado, lamentamos informarle que su propuesta fue rechazada...", default: "Estimado, lamento informarle que no podemos renovar el contrato bajo las condiciones propuestas. Saludos." },
+          { id: "sim-email-posicion", label: "Tu postura (en 1 frase)", type: "input", placeholder: "Ej: Aceptar pero pedir reunión de cierre", default: "Acepto la decisión pero me gustaría una videollamada corta de feedback." },
+          { id: "sim-email-tono", label: "Tono deseado", type: "select", options: ["empático", "profesional y directo", "formal"], default: "profesional y directo" }
+        ],
+        template: (f) => `Eres un asistente de comunicación profesional. Tengo que responder este email:
+
+"${f['sim-email-recibido']}"
+
+Mi posición es: ${f['sim-email-posicion']}
+
+Escribe una respuesta en español, en tono ${f['sim-email-tono']}, de máximo 120 palabras, sin rodeos ni frases vacías.`
+      },
+      resumen: {
+        title: "Resumir un documento en puntos clave",
+        desc: "Extrae lo valioso de actas de reuniones o contratos rápidamente.",
+        fields: [
+          { id: "sim-resumen-texto", label: "Texto o transcripción a resumir", type: "textarea", placeholder: "Pega el texto aquí...", default: "En la reunión de ayer con el cliente, acordamos que la fase 1 se entrega el viernes 12 de junio. Sofía enviará las credenciales el martes. El presupuesto total de $4,500 fue aprobado con un 50% de anticipo." },
+          { id: "sim-resumen-puntos", label: "Cantidad de puntos clave", type: "select", options: ["3 puntos", "5 puntos", "7 puntos"], default: "3 puntos" },
+          { id: "sim-resumen-extra", label: "Sección adicional", type: "select", options: ["Compromisos y fechas límite", "Resumen de una sola frase", "Ninguna"], default: "Compromisos y fechas límite" }
+        ],
+        template: (f) => `Resume el siguiente texto en exactamente ${f['sim-resumen-puntos']}.
+
+Formato:
+• [Punto clave en máximo 2 líneas]
+
+${f['sim-resumen-extra'] !== 'Ninguna' ? `Al final agrega una sección "${f['sim-resumen-extra'].toUpperCase()}" destacando lo correspondiente.` : ''}
+
+TEXTO:
+"${f['sim-resumen-texto']}"`
+      },
+      ideas: {
+        title: "Lluvia de ideas de contenido",
+        desc: "Genera ideas creativas de contenido enfocadas en tu público objetivo.",
+        fields: [
+          { id: "sim-ideas-tema", label: "Tema general de tu sector", type: "input", placeholder: "Ej: automatización con IA, finanzas personales...", default: "crianza digital y uso de pantallas" },
+          { id: "sim-ideas-cliente", label: "Tu cliente o lector ideal", type: "input", placeholder: "Ej: directores de RRHH, mamás trabajadoras...", default: "padres ocupados con hijos de 10 a 12 años" },
+          { id: "sim-ideas-tono", label: "Tono de marca", type: "select", options: ["educativo y cercano", "humorístico y directo", "experto pero comprensible"], default: "educativo y cercano" }
+        ],
+        template: (f) => `Actúa como un estratega de contenido senior. Genera 5 ideas de publicaciones para mi marca enfocadas en ${f['sim-ideas-tema']}.
+
+Mi público ideal son: ${f['sim-ideas-cliente']}
+Tono de mi marca: ${f['sim-ideas-tono']}
+
+Para cada publicación proporciona:
+- Una línea gancho (que detenga el scroll)
+- Un breve resumen del valor que aporta
+- 3 hashtags relevantes`
+      }
+    };
+
+    let activePromptKey = 'email';
+
+    function initPromptSimulator() {
+      const tabs = document.querySelectorAll('.sim-tab');
+      const formContainer = document.getElementById('sim-form-container');
+      const outputEl = document.getElementById('prompt-output');
+      const btnCopy = document.getElementById('btn-copy-prompt');
+      const copyText = document.getElementById('copy-text');
+
+      if (!formContainer || !outputEl) return;
+
+      function renderForm(key) {
+        const data = PROMPTS_DATA[key];
+        formContainer.innerHTML = `
+          <h3 style="font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 6px;">${data.title}</h3>
+          <p style="font-size: 14px; color: var(--text-light); margin-bottom: 24px;">${data.desc}</p>
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            ${data.fields.map(field => {
+              if (field.type === 'textarea') {
+                return `
+                  <div class="field">
+                    <label style="color: var(--text); font-weight: 600; display: block; font-size: 13px; margin-bottom: 6px;">${field.label}</label>
+                    <textarea id="${field.id}" class="sim-input-resaltado" style="width:100%; border: 1px solid var(--gray-border); border-radius: 8px; padding: 10px 12px; font-family: inherit; font-size: 14px; min-height: 80px; resize: vertical;" placeholder="${field.placeholder}">${field.default}</textarea>
+                  </div>
+                `;
+              } else if (field.type === 'select') {
+                return `
+                  <div class="field">
+                    <label style="color: var(--text); font-weight: 600; display: block; font-size: 13px; margin-bottom: 6px;">${field.label}</label>
+                    <select id="${field.id}" class="sim-input-resaltado" style="width:100%; border: 1px solid var(--gray-border); border-radius: 8px; padding: 10px 12px; font-family: inherit; font-size: 14px; appearance: none; background-image: url(&quot;data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23A13AEB' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E&quot;); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;">
+                      ${field.options.map(opt => `<option ${opt === field.default ? 'selected' : ''}>${opt}</option>`).join('')}
+                    </select>
+                  </div>
+                `;
+              } else {
+                return `
+                  <div class="field">
+                    <label style="color: var(--text); font-weight: 600; display: block; font-size: 13px; margin-bottom: 6px;">${field.label}</label>
+                    <input type="text" id="${field.id}" class="sim-input-resaltado" style="width:100%; border: 1px solid var(--gray-border); border-radius: 8px; padding: 10px 12px; font-family: inherit; font-size: 14px;" placeholder="${field.placeholder}" value="${field.default}" />
+                  </div>
+                `;
+              }
+            }).join('')}
+          </div>
+        `;
+
+        // Listen for input changes to re-render output
+        data.fields.forEach(field => {
+          const el = document.getElementById(field.id);
+          if (el) {
+            el.addEventListener('input', updateOutput);
+            el.addEventListener('change', updateOutput);
+          }
+        });
+
+        updateOutput();
+      }
+
+      function updateOutput() {
+        const data = PROMPTS_DATA[activePromptKey];
+        const values = {};
+        data.fields.forEach(field => {
+          const el = document.getElementById(field.id);
+          values[field.id] = el ? el.value : '';
+        });
+        outputEl.textContent = data.template(values);
+      }
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => {
+            t.classList.remove('active');
+            t.style.borderColor = 'transparent';
+            t.style.background = 'transparent';
+          });
+          tab.classList.add('active');
+          tab.style.borderColor = 'var(--violet-light)';
+          tab.style.background = 'var(--white)';
+          
+          activePromptKey = tab.dataset.prompt;
+          renderForm(activePromptKey);
+          if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.6 } });
+        });
+      });
+
+      btnCopy.addEventListener('click', () => {
+        navigator.clipboard.writeText(outputEl.textContent).then(() => {
+          const origHtml = btnCopy.innerHTML;
+          btnCopy.innerHTML = '<i data-lucide="check" style="width: 12px; height: 12px; color: #28C840;"></i> <span style="color: #28C840; font-weight:600;">¡Copiado!</span>';
+          if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.6 } });
+          setTimeout(() => {
+            btnCopy.innerHTML = origHtml;
+            if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.6 } });
+          }, 2000);
+        });
+      });
+
+      // Initial render
+      renderForm(activePromptKey);
+    }
+
+    // Call inside DOM loaded
+    initPromptSimulator();
   </script>
 
 </body>

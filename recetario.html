@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recetario AGUI — 10 Prompts Esenciales</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    // ── Control de acceso ──────────────────────────────────────────
+    // Token válido — cámbialo cuando quieras revocar acceso masivo
+    const TOKEN_VALIDO = 'agui2026';
+    const CLAVE_SESION = 'agui_recetario_acceso';
+
+    function verificarAcceso() {
+      // 1. Revisar si ya tiene acceso guardado en la sesión
+      if (sessionStorage.getItem(CLAVE_SESION) === TOKEN_VALIDO) return true;
+      // 2. Revisar el parámetro en la URL
+      const params = new URLSearchParams(window.location.search);
+      const token  = params.get('acceso');
+      if (token === TOKEN_VALIDO) {
+        sessionStorage.setItem(CLAVE_SESION, TOKEN_VALIDO); // guardar para recargas
+        return true;
+      }
+      return false;
+    }
+
+    // Ejecutar antes de que el DOM cargue para evitar flash de contenido
+    document.addEventListener('DOMContentLoaded', function () {
+      if (verificarAcceso()) {
+        document.getElementById('gate').style.display    = 'none';
+        document.getElementById('contenido').style.display = 'block';
+      } else {
+        document.getElementById('gate').style.display    = 'flex';
+        document.getElementById('contenido').style.display = 'none';
+      }
+    });
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background-color: #F1F3F4;
+      color: #4D5156;
+    }
+
+    /* ── Portada ───────────────────────────────────── */
+    .cover {
+      background: linear-gradient(135deg, #1E3A8A 0%, #A13AEB 55%, #2CD3F2 100%);
+      padding: 80px 48px 72px;
+      text-align: center;
+    }
+    .cover img.logo {
+      width: 180px;
+      margin-bottom: 36px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cover .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 16px;
+    }
+    .cover h1 {
+      font-size: 42px;
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .cover h1 span {
+      background: linear-gradient(90deg, #FFFFFF, rgba(255,255,255,0.7));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .cover .subtitle {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0 auto 40px;
+    }
+    .cover .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 999px;
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #FFFFFF;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Intro ─────────────────────────────────────── */
+    .intro {
+      background: #FFFFFF;
+      padding: 48px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .intro h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #4D5156;
+      margin-bottom: 12px;
+    }
+    .intro p {
+      font-size: 15px;
+      font-weight: 400;
+      color: #6B7280;
+      line-height: 1.75;
+      max-width: 620px;
+    }
+    .gradient-bar {
+      height: 3px;
+      background: linear-gradient(90deg, #2CD3F2, #A13AEB);
+      border-radius: 999px;
+      margin: 24px 0;
+    }
+    .how-to {
+      background: linear-gradient(135deg, rgba(44,211,242,0.07), rgba(161,58,235,0.07));
+      border: 1.5px solid rgba(161,58,235,0.2);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-top: 24px;
+    }
+    .how-to p {
+      font-size: 14px;
+      color: #4D5156;
+    }
+    .how-to strong { color: #A13AEB; }
+
+    /* ── Grid prompts ──────────────────────────────── */
+    .prompts-grid {
+      padding: 40px 48px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    /* ── Tarjeta de prompt ─────────────────────────── */
+    .prompt-card {
+      background: #FFFFFF;
+      border-radius: 14px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .prompt-card .card-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .prompt-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #2CD3F2, #A13AEB);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+    .card-meta { flex: 1; }
+    .card-category {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #A13AEB;
+      margin-bottom: 4px;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #4D5156;
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
+    .card-saving {
+      font-size: 12px;
+      font-weight: 500;
+      color: #2CD3F2;
+    }
+    .card-body {
+      padding: 20px 24px;
+    }
+    .card-desc {
+      font-size: 13px;
+      font-weight: 400;
+      color: #6B7280;
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .prompt-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: #9CA3AF;
+      margin-bottom: 8px;
+    }
+    .prompt-box {
+      background: #F1F3F4;
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13px;
+      color: #4D5156;
+      line-height: 1.75;
+      white-space: pre-wrap;
+      word-break: break-word;
+      position: relative;
+      border-left: 3px solid #A13AEB;
+    }
+    .prompt-box .placeholder {
+      color: #A13AEB;
+      font-weight: 700;
+    }
+    .tip-box {
+      margin-top: 14px;
+      background: rgba(44,211,242,0.06);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #4D5156;
+      line-height: 1.6;
+    }
+    .tip-box strong { color: #1E3A8A; }
+
+    /* ── Footer ────────────────────────────────────── */
+    .footer-banner {
+      background-color: #1E3A8A;
+      padding: 32px 48px;
+      text-align: center;
+    }
+    .footer-banner p {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .footer-banner .tagline {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0;
+      text-transform: none;
+      margin-bottom: 20px;
+    }
+    .footer-links {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+    .footer-links a {
+      color: #2CD3F2;
+      text-decoration: none;
+    }
+
+    /* ── Print ─────────────────────────────────────── */
+    @media print {
+      body { background: #fff; }
+      .prompts-grid { padding: 24px; }
+      .prompt-card { break-inside: avoid; }
+      .cover { padding: 48px 32px; }
+      .cover h1 { font-size: 32px; }
+    }
+
+    /* ── Max-width wrapper ─────────────────────────── */
+    .wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      background: #F1F3F4;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- GATE — solo se muestra si NO tiene acceso             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="gate" style="display:none;min-height:100vh;align-items:center;justify-content:center;
+     background:linear-gradient(135deg,#1E3A8A 0%,#A13AEB 55%,#2CD3F2 100%);
+     font-family:'Inter',Arial,sans-serif;padding:32px 16px;">
+  <div style="background:#FFFFFF;border-radius:20px;max-width:480px;width:100%;
+              box-shadow:0 20px 60px rgba(0,0,0,0.25);overflow:hidden;text-align:center;">
+
+    <!-- Header gate -->
+    <div style="background:linear-gradient(135deg,#1E3A8A,#A13AEB);padding:36px 32px 28px;">
+      <img src="https://agui-consultoria.com/assets/logo-white.png"
+           alt="AGUI ConsultorIA" width="150"
+           style="display:block;margin:0 auto 0;width:150px;height:auto;" />
+    </div>
+
+    <!-- Cuerpo gate -->
+    <div style="padding:36px 36px 40px;">
+      <!-- Ícono candado -->
+      <div style="width:64px;height:64px;border-radius:999px;
+                  background:linear-gradient(135deg,rgba(44,211,242,0.12),rgba(161,58,235,0.12));
+                  border:2px solid rgba(161,58,235,0.25);
+                  margin:0 auto 20px;display:flex;align-items:center;justify-content:center;
+                  font-size:28px;line-height:64px;text-align:center;">
+        🔒
+      </div>
+
+      <h2 style="font-size:22px;font-weight:800;color:#4D5156;margin:0 0 12px;line-height:1.3;">
+        Este contenido es exclusivo para suscriptores
+      </h2>
+      <p style="font-size:15px;font-weight:400;color:#6B7280;margin:0 0 8px;line-height:1.7;">
+        El Recetario AGUI con 10 prompts es el regalo de bienvenida de
+        <strong style="color:#4D5156;">El Resumen Descomplicado</strong>,
+        nuestro newsletter semanal de IA.
+      </p>
+      <p style="font-size:14px;color:#9CA3AF;margin:0 0 28px;line-height:1.6;">
+        Suscríbete gratis y te llegará el acceso directo a tu bandeja de entrada.
+      </p>
+
+      <!-- Lo que recibirán -->
+      <div style="background:#F1F3F4;border-radius:12px;padding:18px 20px;margin-bottom:28px;text-align:left;">
+        <p style="font-size:11px;font-weight:700;color:#A13AEB;letter-spacing:2px;
+                   text-transform:uppercase;margin:0 0 12px;">Cada martes recibes</p>
+        <p style="font-size:13px;color:#4D5156;margin:0 0 6px;line-height:1.5;">
+          📰 <strong>Noticia en español humano</strong> — sin tecnicismos
+        </p>
+        <p style="font-size:13px;color:#4D5156;margin:0 0 6px;line-height:1.5;">
+          ⚡ <strong>Tip aplicable</strong> — prompt copiable que ahorra 15 min
+        </p>
+        <p style="font-size:13px;color:#4D5156;margin:0;line-height:1.5;">
+          🛠️ <strong>Herramienta probada</strong> — app de IA gratuita con instrucciones
+        </p>
+      </div>
+
+      <!-- Botón suscribirse -->
+      <a href="https://agui-consultoria.com/#newsletter"
+         style="display:block;background:linear-gradient(135deg,#2CD3F2,#A13AEB);
+                color:#FFFFFF;text-decoration:none;font-size:16px;font-weight:700;
+                padding:16px 32px;border-radius:10px;letter-spacing:0.2px;
+                margin-bottom:16px;">
+        Suscribirme gratis →
+      </a>
+
+      <p style="font-size:12px;color:#C4C9D0;margin:0;line-height:1.6;">
+        Sin spam. Te puedes dar de baja cuando quieras.<br />
+        Tu correo nunca se comparte.
+      </p>
+    </div>
+
+  </div>
+</div>
+<!-- /GATE -->
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CONTENIDO — solo se muestra si SÍ tiene acceso       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="contenido" style="display:none;">
+<div class="wrapper">
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- PORTADA                               -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="cover">
+
+    <!-- Logo — reemplaza src por ruta real -->
+    <img
+      class="logo"
+      src="https://agui-consultoria.com/assets/logo-white.png"
+      alt="AGUI ConsultorIA"
+    />
+
+    <p class="eyebrow">Recetario AGUI</p>
+    <h1>10 prompts que te<br /><span>ahorran horas de trabajo</span></h1>
+    <p class="subtitle">
+      Copia, pega y adapta. Cada prompt está probado, va directo al grano
+      y te da resultados en segundos, sin importar tu nivel técnico.
+    </p>
+    <span class="badge">Regalo exclusivo para suscriptores</span>
+  </div>
+
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- INTRO                                 -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="intro">
+    <h2>Cómo usar este recetario</h2>
+    <div class="gradient-bar"></div>
+    <p>
+      Cada prompt tiene un objetivo claro, una descripción de para qué sirve
+      y el texto listo para copiar. Los textos en
+      <strong style="color:#A13AEB;">[CORCHETES]</strong> son los únicos
+      lugares donde debes escribir tu información. El resto lo hace la IA.
+    </p>
+    <div class="how-to">
+      <p>
+        <strong>Funciona en:</strong> ChatGPT (chat.openai.com), Claude (claude.ai),
+        Gemini (gemini.google.com) o cualquier asistente de IA que uses.
+        Abre uno, pega el prompt, reemplaza los corchetes y presiona Enter.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- PROMPTS                               -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="prompts-grid">
+
+
+    <!-- ── Prompt 1 ── -->
+    <div class="prompt-card">
+      <div class="card-header">
+        <div class="prompt-number">1</div>
+        <div class="card-meta">
+          <p class="card-category">Comunicación</p>
+          <p class="card-title">Responde emails difíciles sin quebrarte la cabeza</p>
+          <p class="card-saving">Ahorro estimado: 20 min por email</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          Ideal para responder quejas, rechazar solicitudes o dar malas noticias
+          sin perder la cordialidad. La IA mantiene el tono profesional aunque
+          tú estés frustrado.
+        </p>
+        <p class="prompt-label">Prompt — copia desde aquí</p>
+        <div class="prompt-box">Eres un asistente de comunicación profesional. Tengo que responder este email:
+
+<span class="placeholder">[PEGA AQUÍ EL EMAIL QUE RECIBISTE]</span>
+
+Mi posición es: <span class="placeholder">[EXPLICA LO QUE QUIERES DECIR EN 1-2 FRASES]</span>
+
+Escribe una respuesta en español, tono <span class="placeholder">[formal / amigable / empático]</span>, máximo 150 palabras, sin frases vacías como "espero que se encuentre bien".</div>
+        <div class="tip-box">
+          <strong>Consejo:</strong> Usa "tono empático" cuando el otro está molesto.
+          Usa "tono directo" cuando necesites decir un no claro y sin rodeos.
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ── Prompt 2 ── -->
+    <div class="prompt-card">
+      <div class="card-header">
+        <div class="prompt-number">2</div>
+        <div class="card-meta">
+          <p class="card-category">Productividad</p>
+          <p class="card-title">Resume cualquier documento o reunión en 5 puntos</p>
+          <p class="card-saving">Ahorro estimado: 30 min por documento</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          Pega el texto de un contrato, acta, informe o transcripción larga
+          y obtén lo que realmente importa, con los compromisos y fechas destacados.
+        </p>
+        <p class="prompt-label">Prompt — copia desde aquí</p>
+        <div class="prompt-box">Resume el siguiente texto en exactamente 5 puntos clave. Formato:
+
+• [Punto clave en máximo 2 líneas]
+
+Al final agrega una sección "COMPROMISOS Y FECHAS" con cualquier tarea, plazo o acción pendiente que aparezca en el texto.
+
+TEXTO:
+<span class="placeholder">[PEGA AQUÍ EL DOCUMENTO, ACTA O TRANSCRIPCIÓN]</span></div>
+        <div class="tip-box">
+          <strong>Consejo:</strong> Si el documento tiene más de 5 páginas,
+          divídelo en secciones y resume cada una por separado, luego
+          pide un resumen de los resúmenes.
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ── Prompt 3 ── -->
+    <div class="prompt-card">
+      <div class="card-header">
+        <div class="prompt-number">3</div>
+        <div class="card-meta">
+          <p class="card-category">Reuniones</p>
+          <p class="card-title">Crea la agenda perfecta para cualquier reunión</p>
+          <p class="card-saving">Ahorro estimado: 15 min por reunión</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          Deja de llegar a reuniones sin estructura. Este prompt genera una agenda
+          clara con tiempos, responsables y objetivo de cada punto.
+        </p>
+        <p class="prompt-label">Prompt — copia desde aquí</p>
+        <div class="prompt-box">Crea una agenda para una reunión de <span class="placeholder">[DURACIÓN, ej: 60 minutos]</span> sobre:
+
+Objetivo principal: <span class="placeholder">[QUÉ SE DEBE DECIDIR O LOGRAR AL FINAL]</span>
+Participantes: <span class="placeholder">[ROLES, ej: gerente comercial, equipo de ventas, cliente]</span>
+Temas a cubrir: <span class="placeholder">[LISTA LOS TEMAS SEPARADOS POR COMA]</span>
+
+Formato: tabla con columnas TIEMPO | PUNTO | RESPONSABLE | OBJETIVO. Incluye 5 min al inicio para contexto y 10 min al final para acuerdos y próximos pasos.</div>
+      </div>
+    </div>
+
+
+    <!-- ── Prompt 4 ── -->
+    <div class="prompt-card">
+      <div class="card-header">
+        <div class="prompt-number">4</div>
+        <div class="card-meta">
+          <p class="card-category">Ventas</p>
+          <p class="card-title">Genera una propuesta comercial lista para enviar</p>
+          <p class="card-saving">Ahorro estimado: 2 horas por propuesta</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          El prompt de mayor impacto del recetario. Da los datos básicos de tu
+          servicio y el cliente, y obtén una propuesta estructurada, persuasiva
+          y lista para personalizar.
+        </p>
+        <p class="prompt-label">Prompt — copia desde aquí</p>
+        <div class="prompt-box">Eres un consultor de ventas experto. Escribe una propuesta comercial con este formato:
+1. Resumen ejecutivo (3 líneas)
+2. Entendimiento del problema del cliente
+3. Solución propuesta
+4. Entregables y tiempos
+5. Inversión
+6. Por qué nosotros
+7. Próximos pasos
+
+Datos:
+- Mi empresa: <span class="placeholder">[NOMBRE Y A QUÉ SE DEDICA]</span>
+- Servicio que ofrezco: <span class="placeholder">[DESCRIPCIÓN BREVE]</span>
+- Cliente: <span class="placeholder">[EMPRESA O PERSONA Y SU PROBLEMA]</span>
+- Precio: <span class="placeholder">[MONTO O RANGO]</span>
+- Diferenciador: <span class="placeholder">[POR QUÉ TÚ Y NO OTRO]</span>
+
+Tono: profesional pero cercano. Idioma: español.</div>
+      </div>
+    </div>
+
+
+    <!-- ── Prompt 5 ── -->
+    <div class="prompt-card">
+      <div class="card-header">
+        <div class="prompt-number">5</div>
+        <div class="card-meta">
+          <p class="card-category">Redes sociales</p>
+          <p class="card-title">Crea 5 posts de LinkedIn o Instagram en minutos</p>
+          <p class="card-saving">Ahorro estimado: 45 min por semana</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          Nunca más te quedes en blanco frente al cursor. Dale un tema o una idea
+          y obtén una semana de contenido lista para publicar o ajustar.
+        </p>
+        <p class="prompt-label">Prompt — copia desde aquí</p>
+        <div class="prompt-box">Crea 5 posts para <span class="placeholder">[LinkedIn / Instagram]</span> sobre el tema: <span class="placeholder">[TEMA O IDEA]</span>
+
+Mi negocio: <span class="placeholder">[QUÉ HACES Y A QUIÉN LE HABLAS]</span>
+Tono de mi marca: <span class="placeholder">[ej: educativo y cercano / motivacional / experto pero simple]</span>
+
+Para cada post incluye:
+- Primer línea gancho (que detenga el scroll)
+- Cuerpo del post (máximo 150 palabras)
+- 3 hashtags relevantes
+
+No uses frases cliché como "En el mundo actual" o "Es hora de..."</div>
+        <div class="tip-box">
+          <strong>Consejo:</strong> Pide variedad especificando los formatos:
+          "que uno sea una lista, uno una historia personal, uno una pregunta al público".
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ── Prompt 6 ── -->
+    <div class="prompt-card">
+      <div class="card-header">
+        <div class="prompt-number">6</div>
+        <div class="card-meta">
+          <p class="card-category">Atención al cliente</p>
+          <p class="card-title">Responde quejas sin perder al cliente</p>
+          <p class="card-saving">Ahorro estimado: 15 min por queja</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          Convierte una queja en una oportunidad de fidelización. El prompt
+          aplica la técnica EAR: Escucha, Acepta, Resuelve.
+        </p>
+        <p class="prompt-label">Prompt — copia desde aquí</p>
+        <div class="prompt-box">Eres un experto en atención al cliente. Un cliente se quejó de lo siguiente:
+
+"<span class="placeholder">[PEGA O DESCRIBE LA QUEJA]</span>"
+
+Lo que realmente pasó: <span class="placeholder">[EXPLICA LA SITUACIÓN REAL EN 2-3 FRASES]</span>
+Lo que puedo ofrecer como solución: <span class="placeholder">[QUÉ PUEDES HACER O NO HACER]</span>
+
+Escribe una respuesta que: 1) valide la emoción del cliente, 2) explique brevemente sin excusarse en exceso, 3) proponga la solución de forma clara. Máximo 120 palabras. Tono: cálido y resolutivo.</div>
+      </div>
+    </div>
+
+
+    <!-- ── Prompt 7 ── -->
+    <div class="prompt-card">
+      <div class="card-header">
+        <div class="prompt-number">7</div>
+        <div class="card-meta">
+          <p class="card-category">Planificación</p>
+          <p class="card-title">Planifica tu semana de trabajo en 3 minutos</p>
+          <p class="card-saving">Ahorro estimado: 20 min cada lunes</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          Dile a la IA qué tienes que hacer y deja que organice tu semana
+          por prioridad, energía y bloques de tiempo realistas.
+        </p>
+        <p class="prompt-label">Prompt — copia desde aquí</p>
+        <div class="prompt-box">Ayúdame a planificar mi semana de trabajo. Tengo disponibles <span class="placeholder">[HORAS DISPONIBLES]</span> horas en total distribuidas así: <span class="placeholder">[ej: 4h lunes, 3h miércoles, 5h viernes]</span>
+
+Mis tareas pendientes:
+<span class="placeholder">[LISTA TUS TAREAS, UNA POR LÍNEA, CON EL TIEMPO QUE CREES QUE TOMA CADA UNA]</span>
+
+Prioridad alta (no puede quedar para después): <span class="placeholder">[CUÁLES SON URGENTES]</span>
+
+Organiza un plan día a día con bloques de trabajo, respetando mis horas disponibles. Deja un 20% de margen para imprevistos. Indica qué dejar para la semana siguiente si no cabe todo.</div>
+      </div>
+    </div>
+
+
+    <!-- ── Prompt 8 ── -->
+    <div class="prompt-card">
+      <div class="card-header">
+        <div class="prompt-number">8</div>
+        <div class="card-meta">
+          <p class="card-category">Recursos humanos</p>
+          <p class="card-title">Escribe la descripción de un cargo en segundos</p>
+          <p class="card-saving">Ahorro estimado: 40 min por vacante</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          Crea una descripción de trabajo atractiva que atraiga a los candidatos
+          correctos y filtre a los que no encajan, sin jerga aburrida de RR.HH.
+        </p>
+        <p class="prompt-label">Prompt — copia desde aquí</p>
+        <div class="prompt-box">Escribe una descripción de cargo para publicar en LinkedIn o una bolsa de empleo.
+
+Cargo: <span class="placeholder">[NOMBRE DEL PUESTO]</span>
+Empresa: <span class="placeholder">[NOMBRE Y A QUÉ SE DEDICA EN 1 LÍNEA]</span>
+Responsabilidades principales: <span class="placeholder">[LISTA 3-5 TAREAS CLAVE]</span>
+Requisitos imprescindibles: <span class="placeholder">[LO QUE SÍ O SÍ DEBE TENER]</span>
+Requisitos deseables: <span class="placeholder">[LO QUE SUMA PERO NO ES OBLIGATORIO]</span>
+Salario: <span class="placeholder">[RANGO O "A convenir"]</span>
+Modalidad: <span class="placeholder">[Presencial / Remoto / Híbrido — ciudad]</span>
+
+Tono: profesional pero humano. Que se lea como una empresa en la que da gusto trabajar.</div>
+      </div>
+    </div>
+
+
+    <!-- ── Prompt 9 ── -->
+    <div class="prompt-card">
+      <div class="card-header">
+        <div class="prompt-number">9</div>
+        <div class="card-meta">
+          <p class="card-category">Aprendizaje</p>
+          <p class="card-title">Entiende cualquier tema complejo en 5 minutos</p>
+          <p class="card-saving">Ahorro estimado: 1 hora de investigación</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          Cuando necesitas entender rápido algo técnico, legal, financiero o
+          nuevo para ti. La IA lo explica como si fuera para alguien inteligente
+          pero sin conocimiento previo del tema.
+        </p>
+        <p class="prompt-label">Prompt — copia desde aquí</p>
+        <div class="prompt-box">Explícame <span class="placeholder">[TEMA O CONCEPTO]</span> de la siguiente manera:
+
+1. Qué es en 2 líneas, sin tecnicismos
+2. Por qué me debería importar (en mi contexto de <span class="placeholder">[TU ÁREA O NEGOCIO]</span>)
+3. Cómo funciona en la práctica (ejemplo real y concreto)
+4. Lo que debo saber sí o sí para no cometer errores
+5. Dónde aprender más si quiero profundizar (recursos gratuitos preferiblemente)
+
+Usa analogías simples. Evita definiciones de enciclopedia.</div>
+        <div class="tip-box">
+          <strong>Consejo:</strong> Al final agrega "¿Qué preguntas me harías para
+          saber si realmente entendí el tema?" — la IA te evaluará y detectará
+          huecos en tu comprensión.
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ── Prompt 10 ── -->
+    <div class="prompt-card">
+      <div class="card-header">
+        <div class="prompt-number">10</div>
+        <div class="card-meta">
+          <p class="card-category">Estrategia</p>
+          <p class="card-title">Analiza tu negocio y encuentra las oportunidades rápidas</p>
+          <p class="card-saving">Ahorro estimado: 3 horas de consultoría</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          El prompt más estratégico del recetario. Descubre en minutos qué
+          procesos de tu negocio pueden automatizarse con IA y cuáles tienen
+          el mayor retorno.
+        </p>
+        <p class="prompt-label">Prompt — copia desde aquí</p>
+        <div class="prompt-box">Actúa como un consultor de automatización e inteligencia artificial. Voy a describirte mi negocio y quiero que identifiques oportunidades concretas de mejora con IA.
+
+Mi negocio: <span class="placeholder">[DESCRIBE QUÉ HACES, A QUIÉN LE VENDES Y CÓMO OPERAS]</span>
+Tamaño del equipo: <span class="placeholder">[NÚMERO DE PERSONAS]</span>
+Herramientas que ya uso: <span class="placeholder">[ej: Excel, WhatsApp, correo, Instagram]</span>
+Mi mayor dolor operativo: <span class="placeholder">[QUÉ TE QUITA MÁS TIEMPO O DINERO]</span>
+
+Dame una lista priorizada de 5 automatizaciones posibles, ordenadas de mayor a menor impacto. Para cada una indica: qué problema resuelve, qué herramienta usaría (gratis o económica) y cuánto tiempo ahorraría por semana.</div>
+        <div class="tip-box">
+          <strong>Consejo:</strong> Comparte la respuesta con nosotros en
+          <a href="mailto:info@agui-consultoria.com" style="color:#A13AEB;text-decoration:none;">info@agui-consultoria.com</a>
+          y te decimos cuál de esas automatizaciones implementamos juntos primero.
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <!-- /prompts-grid -->
+
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- FOOTER                                -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="footer-banner">
+    <p>AGUI ConsultorIA</p>
+    <p class="tagline">La IA explicada en tu idioma · Bogotá, Colombia</p>
+    <p class="footer-links">
+      <a href="https://agui-consultoria.com">agui-consultoria.com</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:info@agui-consultoria.com">info@agui-consultoria.com</a>
+    </p>
+    <p style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:16px;letter-spacing:0;">
+      Documento exclusivo para suscriptores de El Resumen Descomplicado.
+      No redistribuir sin autorización.
+    </p>
+  </div>
+
+</div>
+</div><!-- /contenido -->
+</body>
+</html>
