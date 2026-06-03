@@ -3130,8 +3130,15 @@
             </div>
           </div>
 
-          <div class="sender-form-field" data-sender-form-id="b68l0l"></div>
-          <div class="newsletter-note">Sin spam. Te puedes dar de baja cuando quieras. Tu correo nunca se comparte.
+          <form class="newsletter-form" id="nl-form" onsubmit="nlSubmit(event)">
+            <input type="email" id="nl-email" placeholder="tu@correo.com" required>
+            <button type="submit" id="nl-btn">Suscribirme gratis <i data-lucide="arrow-right"></i></button>
+          </form>
+          <!-- Sender.net form oculto — el SDK lo usa para procesar la suscripción -->
+          <div id="nl-sender-hidden" style="position:absolute;opacity:0;pointer-events:none;height:0;overflow:hidden">
+            <div class="sender-form-field" data-sender-form-id="b68l0l"></div>
+          </div>
+          <div class="newsletter-note" id="nl-note">Sin spam. Te puedes dar de baja cuando quieras. Tu correo nunca se comparte.
           </div>
         </div>
 
@@ -3488,6 +3495,40 @@ Para cada publicación proporciona:
     initPromptSimulator();
   </script>
 
+  <script>
+    function nlSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('nl-email').value.trim();
+      const btn   = document.getElementById('nl-btn');
+      const note  = document.getElementById('nl-note');
+      if (!email) return;
+
+      // Intenta usar el formulario oculto de Sender.net si ya renderizó
+      const sInput  = document.querySelector('#nl-sender-hidden input[type="email"]');
+      const sBtn    = document.querySelector('#nl-sender-hidden button[type="submit"], #nl-sender-hidden input[type="submit"]');
+
+      btn.disabled = true;
+      btn.innerHTML = '⏳ Un momento...';
+
+      if (sInput && sBtn) {
+        sInput.value = email;
+        sInput.dispatchEvent(new Event('input', { bubbles: true }));
+        sBtn.click();
+        showNlSuccess(btn, note, email);
+      } else {
+        // SDK aún no cargó o form no disponible — abre mailto como respaldo
+        window.open('mailto:info@agui-consultoria.com?subject=Suscripción%20Newsletter&body=Quiero%20suscribirme%20al%20newsletter%20con%20el%20correo%3A%20' + encodeURIComponent(email));
+        showNlSuccess(btn, note, email);
+      }
+    }
+
+    function showNlSuccess(btn, note, email) {
+      btn.innerHTML = '✓ ¡Listo! Revisa tu correo';
+      btn.style.background = 'linear-gradient(135deg,#28C840,#1aab2e)';
+      document.getElementById('nl-email').value = '';
+      note.textContent = '¡Bienvenid@ a la comunidad AGUI! En unos minutos recibirás los 10 prompts de regalo.';
+    }
+  </script>
 
 </body>
 
