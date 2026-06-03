@@ -2216,6 +2216,72 @@
         border-bottom: 1px solid var(--gray-border) !important;
       }
     }
+  /* === Sender.net embed override — fondo oscuro newsletter === */
+  #sender-form-wrap,
+  #sender-form-wrap * { box-sizing: border-box; }
+
+  #sender-form-wrap form,
+  #sender-form-wrap .sender-form-body {
+    display: flex !important;
+    gap: 8px !important;
+    background: rgba(255,255,255,0.08) !important;
+    padding: 6px !important;
+    border-radius: 14px !important;
+    border: 1px solid rgba(255,255,255,0.15) !important;
+    max-width: 520px !important;
+    margin: 0 !important;
+  }
+
+  #sender-form-wrap input[type="email"],
+  #sender-form-wrap input[type="text"] {
+    flex: 1 !important;
+    background: transparent !important;
+    border: none !important;
+    color: #fff !important;
+    font-size: 15px !important;
+    padding: 12px 22px !important;
+    outline: none !important;
+    min-width: 0 !important;
+    box-shadow: none !important;
+  }
+
+  #sender-form-wrap input::placeholder { color: rgba(255,255,255,0.5) !important; }
+
+  #sender-form-wrap button[type="submit"],
+  #sender-form-wrap input[type="submit"] {
+    background: linear-gradient(135deg,#2CD3F2 0%,#A13AEB 100%) !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 12px 24px !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    transition: transform 150ms ease !important;
+  }
+
+  #sender-form-wrap button[type="submit"]:hover,
+  #sender-form-wrap input[type="submit"]:hover { transform: scale(1.04) !important; }
+
+  #sender-form-wrap label,
+  #sender-form-wrap .sender-form-field__label { display: none !important; }
+
+  #sender-form-wrap .sender-form__success,
+  #sender-form-wrap .sender-form-success {
+    color: #2CD3F2 !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    padding: 12px 0 !important;
+  }
+
+  @media(max-width:600px) {
+    #sender-form-wrap form,
+    #sender-form-wrap .sender-form-body { flex-direction: column !important; border-radius: 16px !important; padding: 8px !important; }
+    #sender-form-wrap button[type="submit"],
+    #sender-form-wrap input[type="submit"] { width: 100% !important; justify-content: center !important; }
+  }
+
   </style>
 
   <!-- Sender.net SDK -->
@@ -3130,15 +3196,8 @@
             </div>
           </div>
 
-          <form class="newsletter-form" id="nl-form" onsubmit="nlSubmit(event)">
-            <input type="email" id="nl-email" placeholder="tu@correo.com" required>
-            <button type="submit" id="nl-btn">Suscribirme gratis <i data-lucide="arrow-right"></i></button>
-          </form>
-          <!-- Sender.net form oculto — el SDK lo usa para procesar la suscripción -->
-          <div id="nl-sender-hidden" style="position:absolute;opacity:0;pointer-events:none;height:0;overflow:hidden">
-            <div class="sender-form-field" data-sender-form-id="b68l0l"></div>
-          </div>
-          <div class="newsletter-note" id="nl-note">Sin spam. Te puedes dar de baja cuando quieras. Tu correo nunca se comparte.
+          <div id="sender-form-wrap" class="sender-form-field" data-sender-form-id="b68l0l"></div>
+          <div class="newsletter-note">Sin spam. Te puedes dar de baja cuando quieras. Tu correo nunca se comparte.
           </div>
         </div>
 
@@ -3495,45 +3554,6 @@ Para cada publicación proporciona:
     initPromptSimulator();
   </script>
 
-  <script>
-    async function nlSubmit(e) {
-      e.preventDefault();
-      const email = document.getElementById('nl-email').value.trim();
-      const btn   = document.getElementById('nl-btn');
-      const note  = document.getElementById('nl-note');
-      if (!email) return;
-
-      btn.disabled = true;
-      btn.innerHTML = '⏳ Un momento...';
-
-      try {
-        const res = await fetch('https://api.sender.net/v2/subscribers', {
-          method: 'POST',
-          headers: {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZmNkNWI4MzFhY2M4YzU0MDk5Y2Y2ODg1MjcxN2YyMmIwOTFjY2RhMjkxMmMxMzI5MmUxYzZlYzkzOTlhMmZkZWI4YTU2NGYxNzViOTRkNzIiLCJpYXQiOjE3NzkxNDk3ODYuNjk4MDA1LCJuYmYiOjE3NzkxNDk3ODYuNjk4MDA3LCJleHAiOjQ5MzI3NDk3ODYuNjk1NjQ3LCJzdWIiOiIxMDcxOTQ5Iiwic2NvcGVzIjpbXX0.DiT4qCY5E2j0XLWbs4jXmeVEuTptdWpeFu2nJvCRRoJhWhS4LJPja1VQGCgIIAejYxeu0ddbeG1b_e-OLV9fgyUgPnrvkT3zUIDxpBYaMt4fnEcQcUIUoxoLuY0_j78ljF47NiEdHIqLAtHO8-R_lD3zDp1UpH2yvQkkswpwXpO0g95aTTIpP_krZ3x9L22o59uxggJidQi54ds1ZVihAtwAnzYrRx7i0M6_p6oQjUBxvdiU7HTGb1CHbtXrxT0NtvxWpqk8IX68-NpM-k4X5Cvq2stdhjlNb4FGExlBLwhzRYp9IJQvKTm4nalmH2wv62-9I2zEfTrNEDu7hKQVO2uapNf7p-n1VfDHDks9YoMwmIy0xtCVUmWxp1HzdMP_sCeIhwICAkWx4Axmrr7Cey3WI18WK_0KrI5ly9Dgo1uTh6POcp2kSTVKLqhHYIUxB41jA18RCmP0XxixOC8CBPUePlz-Nz2FVIXGr3aHErV792ohX6DtUi69vTN6fsCEN9_30WqoY1QSvzEjR1OWnn-PeNsI7z_ZzIRCk6w48jQqO2ORHI2rifWpoghbilvfUbtFlV9dzMzLjtOVZmdW2pYNH5oc1HMWR0_7cEJ7_fOZcNND94FrTZrdc3w0V5FALKZOj6x6NBHU2nSYvBpJXEfsfFXG8arUlIlGdr5cSKw',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-          body: JSON.stringify({ email: email, groups: ['eZgyZg'] }),
-        });
-
-        if (res.ok || res.status === 422) {
-          btn.innerHTML = '✓ ¡Listo! Revisa tu correo';
-          btn.style.background = 'linear-gradient(135deg,#28C840,#1aab2e)';
-          document.getElementById('nl-email').value = '';
-          note.textContent = '¡Bienvenid@ a la comunidad AGUI! En unos minutos recibirás los 10 prompts de regalo.';
-        } else {
-          throw new Error(res.status);
-        }
-      } catch (err) {
-        btn.disabled = false;
-        btn.innerHTML = 'Suscribirme gratis <i data-lucide="arrow-right"></i>';
-        if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.6 } });
-        note.textContent = 'Algo salió mal. Escríbenos a info@agui-consultoria.com y te agregamos manualmente.';
-        note.style.color = '#ff9999';
-      }
-    }
-  </script>
 
 </body>
 
