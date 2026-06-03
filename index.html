@@ -3196,15 +3196,11 @@
             </div>
           </div>
 
-          <!-- Sender embed (carga si el SDK no está bloqueado) -->
-          <div id="sender-embed" class="sender-form-field" data-sender-form-id="b68l0l" style="min-height:0"></div>
-          <!-- Formulario AGUI de respaldo (se muestra si Sender no renderiza) -->
-          <form id="nl-fallback" class="newsletter-form" onsubmit="nlFallback(event)" style="display:none">
+          <form class="newsletter-form" id="nl-form" onsubmit="nlSubmit(event)">
             <input type="email" id="nl-email" placeholder="tu@correo.com" required>
             <button type="submit" id="nl-btn">Suscribirme gratis <i data-lucide="arrow-right"></i></button>
           </form>
-          <div class="newsletter-note" id="nl-note">Sin spam. Te puedes dar de baja cuando quieras. Tu correo nunca se comparte.
-          </div>
+          <div class="newsletter-note" id="nl-note">Sin spam. Te puedes dar de baja cuando quieras. Tu correo nunca se comparte.</div>
         </div>
 
         <div>
@@ -3561,31 +3557,52 @@ Para cada publicación proporciona:
   </script>
 
   <script>
-    // Si Sender no renderiza en 2s, muestra el formulario AGUI
-    setTimeout(function () {
-      var embed = document.getElementById('sender-embed');
-      var fallback = document.getElementById('nl-fallback');
-      if (embed && fallback && embed.children.length === 0) {
-        embed.style.display = 'none';
-        fallback.style.display = 'flex';
-        if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.6 } });
-      }
-    }, 2000);
-
-    function nlFallback(e) {
+    async function nlSubmit(e) {
       e.preventDefault();
       var email = document.getElementById('nl-email').value.trim();
       var btn   = document.getElementById('nl-btn');
       var note  = document.getElementById('nl-note');
       if (!email) return;
-      // Redirige al formulario público de Sender.net con el email prellenado
-      window.open(
-        'https://stats.sender.net/forms/b68l0l/view?email=' + encodeURIComponent(email),
-        '_blank'
-      );
-      btn.innerHTML = '✓ ¡Listo! Completa en la página que se abrió';
+
       btn.disabled = true;
-      note.textContent = 'Abre la pestaña que se acaba de abrir, confirma tu suscripción y recibirás los 10 prompts de regalo.';
+      btn.innerHTML = '⏳ Un momento...';
+
+      try {
+        var res = await fetch('https://stats.sender.net/forms/b68l0l/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email })
+        });
+        if (res.ok || res.status === 422) {
+          nlOk(btn, note);
+        } else {
+          throw new Error(res.status);
+        }
+      } catch(err) {
+        // Si CORS falla, intenta con FormData
+        try {
+          var fd = new FormData();
+          fd.append('email', email);
+          var res2 = await fetch('https://stats.sender.net/forms/b68l0l/subscribe', {
+            method: 'POST', body: fd
+          });
+          if (res2.ok || res2.status === 422) { nlOk(btn, note); return; }
+        } catch(e2) {}
+        // Último recurso: mostrar el formulario de Sender en nueva pestaña
+        btn.disabled = false;
+        btn.innerHTML = 'Suscribirme gratis <i data-lucide="arrow-right"></i>';
+        if (window.lucide) lucide.createIcons({ attrs: {'stroke-width': 1.6} });
+        note.textContent = 'Escríbenos a info@agui-consultoria.com y te suscribimos manualmente.';
+        note.style.color = '#ff9999';
+      }
+    }
+
+    function nlOk(btn, note) {
+      btn.innerHTML = '✓ ¡Listo! Revisa tu correo';
+      btn.style.background = 'linear-gradient(135deg,#28C840,#1aab2e)';
+      document.getElementById('nl-email').value = '';
+      note.textContent = '¡Bienvenid@ a la comunidad AGUI! En unos minutos recibirás los 10 prompts de regalo.';
+      note.style.color = 'rgba(255,255,255,0.7)';
     }
   </script>
 
