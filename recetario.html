@@ -243,34 +243,74 @@
     .tip-box strong { color: #1E3A8A; }
 
     /* ── Footer ────────────────────────────────────── */
-    .footer-banner {
+    .footer-cobalt {
       background-color: #1E3A8A;
       padding: 32px 48px;
       text-align: center;
     }
-    .footer-banner p {
-      font-size: 13px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.7);
-      letter-spacing: 1px;
+    .footer-cobalt .title {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 8px;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      margin-bottom: 6px;
     }
-    .footer-banner .tagline {
-      font-size: 16px;
+    .footer-cobalt .subtitle {
+      font-size: 15px;
       font-weight: 400;
-      color: rgba(255,255,255,0.9);
-      letter-spacing: 0;
-      text-transform: none;
-      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.85);
+      margin: 0;
+      line-height: 1.65;
     }
-    .footer-links {
-      font-size: 13px;
-      color: rgba(255,255,255,0.6);
+
+    .footer-dark {
+      background-color: #2D2F33;
+      padding: 48px 48px 36px;
+      text-align: center;
     }
-    .footer-links a {
+    .footer-dark .logo {
+      display: block;
+      margin: 0 auto 24px;
+      width: 150px;
+      height: auto;
+    }
+    .footer-dark .divider-glow {
+      max-width: 360px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(44, 211, 242, 0.4), transparent);
+      margin: 0 auto 24px;
+    }
+    .footer-dark .text {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.6);
+      margin: 0 0 16px;
+      line-height: 1.7;
+    }
+    .footer-dark .links {
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0 0 24px;
+    }
+    .footer-dark .links a {
       color: #2CD3F2;
       text-decoration: none;
+      margin: 0 8px;
+    }
+    .footer-dark .divider-flat {
+      max-width: 360px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+      margin: 0 auto 20px;
+    }
+    .footer-dark .disclaimer {
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.3);
+      margin: 0;
+      line-height: 1.7;
+      letter-spacing: 0;
     }
 
     /* ── Print ─────────────────────────────────────── */
@@ -302,7 +342,7 @@
               box-shadow:0 20px 60px rgba(0,0,0,0.25);overflow:hidden;text-align:center;">
 
     <!-- Header gate -->
-    <div style="background:linear-gradient(135deg,#1E3A8A,#A13AEB);padding:36px 32px 28px;">
+    <div style="background:linear-gradient(135deg,#1E3A8A 0%,#A13AEB 55%,#2CD3F2 100%);padding:36px 32px 28px;">
       <img src="https://agui-consultoria.com/assets/logo-white.png"
            alt="AGUI ConsultorIA" width="150"
            style="display:block;margin:0 auto 0;width:150px;height:auto;" />
@@ -750,16 +790,25 @@ Dame una lista priorizada de 5 automatizaciones posibles, ordenadas de mayor a m
   <!-- ══════════════════════════════════════ -->
   <!-- FOOTER                                -->
   <!-- ══════════════════════════════════════ -->
-  <div class="footer-banner">
-    <p>AGUI ConsultorIA</p>
-    <p class="tagline">La IA explicada en tu idioma · Bogotá, Colombia</p>
-    <p class="footer-links">
+  <div class="footer-cobalt">
+    <p class="title">Inteligencia que Conecta</p>
+    <p class="subtitle">Automatizaciones e IA para empresas y personas no técnicas.</p>
+  </div>
+
+  <div class="footer-dark">
+    <img class="logo" src="https://agui-consultoria.com/assets/logo-white.png" alt="AGUI ConsultorIA" />
+    <div class="divider-glow"></div>
+    <p class="text">
+      La IA explicada en tu idioma.<br />Acompañamos a empresas y personas no técnicas en Bogotá, Colombia.
+    </p>
+    <p class="links">
       <a href="https://agui-consultoria.com">agui-consultoria.com</a>
-      &nbsp;·&nbsp;
+      <span style="color:rgba(255,255,255,0.2);">·</span>
       <a href="mailto:info@agui-consultoria.com">info@agui-consultoria.com</a>
     </p>
-    <p style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:16px;letter-spacing:0;">
-      Documento exclusivo para suscriptores de El Resumen Descomplicado.
+    <div class="divider-flat"></div>
+    <p class="disclaimer">
+      Documento exclusivo para suscriptores de El Resumen Descomplicado.<br />
       No redistribuir sin autorización.
     </p>
   </div>
