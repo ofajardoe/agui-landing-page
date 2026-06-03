@@ -3196,10 +3196,13 @@
             </div>
           </div>
 
-          <form class="newsletter-form" id="nl-form" onsubmit="nlSubmit(event)">
-            <input type="email" id="nl-email" placeholder="tu@correo.com" required>
+          <form class="newsletter-form" id="nl-form"
+                action="https://stats.sender.net/forms/b68l0l/subscribe"
+                method="POST" target="nl-iframe" onsubmit="nlSubmit()">
+            <input type="email" name="email" id="nl-email" placeholder="tu@correo.com" required>
             <button type="submit" id="nl-btn">Suscribirme gratis <i data-lucide="arrow-right"></i></button>
           </form>
+          <iframe name="nl-iframe" id="nl-iframe" style="display:none" title="newsletter"></iframe>
           <div class="newsletter-note" id="nl-note">Sin spam. Te puedes dar de baja cuando quieras. Tu correo nunca se comparte.</div>
         </div>
 
@@ -3557,52 +3560,18 @@ Para cada publicación proporciona:
   </script>
 
   <script>
-    async function nlSubmit(e) {
-      e.preventDefault();
-      var email = document.getElementById('nl-email').value.trim();
-      var btn   = document.getElementById('nl-btn');
-      var note  = document.getElementById('nl-note');
-      if (!email) return;
-
+    function nlSubmit() {
+      var btn  = document.getElementById('nl-btn');
+      var note = document.getElementById('nl-note');
       btn.disabled = true;
       btn.innerHTML = '⏳ Un momento...';
-
-      try {
-        var res = await fetch('https://stats.sender.net/forms/b68l0l/subscribe', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email })
-        });
-        if (res.ok || res.status === 422) {
-          nlOk(btn, note);
-        } else {
-          throw new Error(res.status);
-        }
-      } catch(err) {
-        // Si CORS falla, intenta con FormData
-        try {
-          var fd = new FormData();
-          fd.append('email', email);
-          var res2 = await fetch('https://stats.sender.net/forms/b68l0l/subscribe', {
-            method: 'POST', body: fd
-          });
-          if (res2.ok || res2.status === 422) { nlOk(btn, note); return; }
-        } catch(e2) {}
-        // Último recurso: mostrar el formulario de Sender en nueva pestaña
-        btn.disabled = false;
-        btn.innerHTML = 'Suscribirme gratis <i data-lucide="arrow-right"></i>';
-        if (window.lucide) lucide.createIcons({ attrs: {'stroke-width': 1.6} });
-        note.textContent = 'Escríbenos a info@agui-consultoria.com y te suscribimos manualmente.';
-        note.style.color = '#ff9999';
-      }
-    }
-
-    function nlOk(btn, note) {
-      btn.innerHTML = '✓ ¡Listo! Revisa tu correo';
-      btn.style.background = 'linear-gradient(135deg,#28C840,#1aab2e)';
-      document.getElementById('nl-email').value = '';
-      note.textContent = '¡Bienvenid@ a la comunidad AGUI! En unos minutos recibirás los 10 prompts de regalo.';
-      note.style.color = 'rgba(255,255,255,0.7)';
+      // Cuando el iframe carga la respuesta de Sender → mostrar éxito
+      document.getElementById('nl-iframe').onload = function () {
+        btn.innerHTML = '✓ ¡Listo! Revisa tu correo';
+        btn.style.background = 'linear-gradient(135deg,#28C840,#1aab2e)';
+        document.getElementById('nl-email').value = '';
+        note.textContent = '¡Bienvenid@ a la comunidad AGUI! En unos minutos recibirás los 10 prompts de regalo.';
+      };
     }
   </script>
 
