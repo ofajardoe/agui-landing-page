@@ -3496,37 +3496,42 @@ Para cada publicación proporciona:
   </script>
 
   <script>
-    function nlSubmit(e) {
+    async function nlSubmit(e) {
       e.preventDefault();
       const email = document.getElementById('nl-email').value.trim();
       const btn   = document.getElementById('nl-btn');
       const note  = document.getElementById('nl-note');
       if (!email) return;
 
-      // Intenta usar el formulario oculto de Sender.net si ya renderizó
-      const sInput  = document.querySelector('#nl-sender-hidden input[type="email"]');
-      const sBtn    = document.querySelector('#nl-sender-hidden button[type="submit"], #nl-sender-hidden input[type="submit"]');
-
       btn.disabled = true;
       btn.innerHTML = '⏳ Un momento...';
 
-      if (sInput && sBtn) {
-        sInput.value = email;
-        sInput.dispatchEvent(new Event('input', { bubbles: true }));
-        sBtn.click();
-        showNlSuccess(btn, note, email);
-      } else {
-        // SDK aún no cargó o form no disponible — abre mailto como respaldo
-        window.open('mailto:info@agui-consultoria.com?subject=Suscripción%20Newsletter&body=Quiero%20suscribirme%20al%20newsletter%20con%20el%20correo%3A%20' + encodeURIComponent(email));
-        showNlSuccess(btn, note, email);
-      }
-    }
+      try {
+        const res = await fetch('https://api.sender.net/v2/subscribers', {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZmNkNWI4MzFhY2M4YzU0MDk5Y2Y2ODg1MjcxN2YyMmIwOTFjY2RhMjkxMmMxMzI5MmUxYzZlYzkzOTlhMmZkZWI4YTU2NGYxNzViOTRkNzIiLCJpYXQiOjE3NzkxNDk3ODYuNjk4MDA1LCJuYmYiOjE3NzkxNDk3ODYuNjk4MDA3LCJleHAiOjQ5MzI3NDk3ODYuNjk1NjQ3LCJzdWIiOiIxMDcxOTQ5Iiwic2NvcGVzIjpbXX0.DiT4qCY5E2j0XLWbs4jXmeVEuTptdWpeFu2nJvCRRoJhWhS4LJPja1VQGCgIIAejYxeu0ddbeG1b_e-OLV9fgyUgPnrvkT3zUIDxpBYaMt4fnEcQcUIUoxoLuY0_j78ljF47NiEdHIqLAtHO8-R_lD3zDp1UpH2yvQkkswpwXpO0g95aTTIpP_krZ3x9L22o59uxggJidQi54ds1ZVihAtwAnzYrRx7i0M6_p6oQjUBxvdiU7HTGb1CHbtXrxT0NtvxWpqk8IX68-NpM-k4X5Cvq2stdhjlNb4FGExlBLwhzRYp9IJQvKTm4nalmH2wv62-9I2zEfTrNEDu7hKQVO2uapNf7p-n1VfDHDks9YoMwmIy0xtCVUmWxp1HzdMP_sCeIhwICAkWx4Axmrr7Cey3WI18WK_0KrI5ly9Dgo1uTh6POcp2kSTVKLqhHYIUxB41jA18RCmP0XxixOC8CBPUePlz-Nz2FVIXGr3aHErV792ohX6DtUi69vTN6fsCEN9_30WqoY1QSvzEjR1OWnn-PeNsI7z_ZzIRCk6w48jQqO2ORHI2rifWpoghbilvfUbtFlV9dzMzLjtOVZmdW2pYNH5oc1HMWR0_7cEJ7_fOZcNND94FrTZrdc3w0V5FALKZOj6x6NBHU2nSYvBpJXEfsfFXG8arUlIlGdr5cSKw',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({ email: email, groups: ['eZgyZg'] }),
+        });
 
-    function showNlSuccess(btn, note, email) {
-      btn.innerHTML = '✓ ¡Listo! Revisa tu correo';
-      btn.style.background = 'linear-gradient(135deg,#28C840,#1aab2e)';
-      document.getElementById('nl-email').value = '';
-      note.textContent = '¡Bienvenid@ a la comunidad AGUI! En unos minutos recibirás los 10 prompts de regalo.';
+        if (res.ok || res.status === 422) {
+          btn.innerHTML = '✓ ¡Listo! Revisa tu correo';
+          btn.style.background = 'linear-gradient(135deg,#28C840,#1aab2e)';
+          document.getElementById('nl-email').value = '';
+          note.textContent = '¡Bienvenid@ a la comunidad AGUI! En unos minutos recibirás los 10 prompts de regalo.';
+        } else {
+          throw new Error(res.status);
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = 'Suscribirme gratis <i data-lucide="arrow-right"></i>';
+        if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.6 } });
+        note.textContent = 'Algo salió mal. Escríbenos a info@agui-consultoria.com y te agregamos manualmente.';
+        note.style.color = '#ff9999';
+      }
     }
   </script>
 
