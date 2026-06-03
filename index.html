@@ -3196,8 +3196,14 @@
             </div>
           </div>
 
-          <div id="sender-form-wrap" class="sender-form-field" data-sender-form-id="b68l0l"></div>
-          <div class="newsletter-note">Sin spam. Te puedes dar de baja cuando quieras. Tu correo nunca se comparte.
+          <!-- Sender embed (carga si el SDK no está bloqueado) -->
+          <div id="sender-embed" class="sender-form-field" data-sender-form-id="b68l0l" style="min-height:0"></div>
+          <!-- Formulario AGUI de respaldo (se muestra si Sender no renderiza) -->
+          <form id="nl-fallback" class="newsletter-form" onsubmit="nlFallback(event)" style="display:none">
+            <input type="email" id="nl-email" placeholder="tu@correo.com" required>
+            <button type="submit" id="nl-btn">Suscribirme gratis <i data-lucide="arrow-right"></i></button>
+          </form>
+          <div class="newsletter-note" id="nl-note">Sin spam. Te puedes dar de baja cuando quieras. Tu correo nunca se comparte.
           </div>
         </div>
 
@@ -3554,6 +3560,34 @@ Para cada publicación proporciona:
     initPromptSimulator();
   </script>
 
+  <script>
+    // Si Sender no renderiza en 2s, muestra el formulario AGUI
+    setTimeout(function () {
+      var embed = document.getElementById('sender-embed');
+      var fallback = document.getElementById('nl-fallback');
+      if (embed && fallback && embed.children.length === 0) {
+        embed.style.display = 'none';
+        fallback.style.display = 'flex';
+        if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.6 } });
+      }
+    }, 2000);
+
+    function nlFallback(e) {
+      e.preventDefault();
+      var email = document.getElementById('nl-email').value.trim();
+      var btn   = document.getElementById('nl-btn');
+      var note  = document.getElementById('nl-note');
+      if (!email) return;
+      // Redirige al formulario público de Sender.net con el email prellenado
+      window.open(
+        'https://stats.sender.net/forms/b68l0l/view?email=' + encodeURIComponent(email),
+        '_blank'
+      );
+      btn.innerHTML = '✓ ¡Listo! Completa en la página que se abrió';
+      btn.disabled = true;
+      note.textContent = 'Abre la pestaña que se acaba de abrir, confirma tu suscripción y recibirás los 10 prompts de regalo.';
+    }
+  </script>
 
 </body>
 
