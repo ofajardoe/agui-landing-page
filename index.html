@@ -3560,19 +3560,53 @@ Para cada publicación proporciona:
   </script>
 
   <script>
+    function checkSubscription() {
+      if (localStorage.getItem('agui_subscribed') === 'true') {
+        var btn  = document.getElementById('nl-btn');
+        var note = document.getElementById('nl-note');
+        var emailInput = document.getElementById('nl-email');
+        
+        if (btn && note && emailInput) {
+          btn.disabled = true;
+          btn.innerHTML = 'Ya estás adentro ✓';
+          btn.style.background = 'linear-gradient(135deg,#28C840,#1aab2e)';
+          
+          var savedEmail = localStorage.getItem('agui_email');
+          if (savedEmail) {
+            emailInput.value = savedEmail;
+          } else {
+            emailInput.placeholder = 'Ya estás registrado';
+          }
+          emailInput.disabled = true;
+          note.textContent = 'Ya estás suscrito a la comunidad AGUI. Revisa tu correo para ver tus prompts de regalo.';
+        }
+      }
+    }
+
     function nlSubmit() {
       var btn  = document.getElementById('nl-btn');
       var note = document.getElementById('nl-note');
+      var emailInput = document.getElementById('nl-email');
+      var emailValue = emailInput ? emailInput.value : '';
+
       btn.disabled = true;
       btn.innerHTML = '⏳ Un momento...';
       // Cuando el iframe carga la respuesta de Sender → mostrar éxito
       document.getElementById('nl-iframe').onload = function () {
-        btn.innerHTML = '✓ ¡Listo! Revisa tu correo';
+        btn.innerHTML = 'Ya estás adentro ✓';
         btn.style.background = 'linear-gradient(135deg,#28C840,#1aab2e)';
-        document.getElementById('nl-email').value = '';
+        if (emailInput) {
+          localStorage.setItem('agui_email', emailValue);
+          emailInput.value = emailValue;
+          emailInput.disabled = true;
+        }
+        localStorage.setItem('agui_subscribed', 'true');
         note.textContent = '¡Bienvenid@ a la comunidad AGUI! En unos minutos recibirás los 10 prompts de regalo.';
       };
     }
+
+    // Ejecutar al cargar la página
+    document.addEventListener('DOMContentLoaded', checkSubscription);
   </script>
 
 </body>
