@@ -2217,6 +2217,26 @@
       }
     }
   </style>
+
+  <!-- Sender.net SDK -->
+  <script>
+    (function (s, e, n, d, er) {
+      s['Sender'] = er;
+      s[er] = s[er] || function () {
+        (s[er].q = s[er].q || []).push(arguments)
+      }, s[er].l = 1 * new Date();
+      s[er].on = function(event, callback) {
+        s[er].listeners = s[er].listeners || {};
+        (s[er].listeners[event] = s[er].listeners[event] || []).push(callback);
+      };
+      var a = e.createElement(n),
+        m = e.getElementsByTagName(n)[0];
+      a.async = 1;
+      a.src = d;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://cdn.sender.net/accounts_resources/universal.js', 'sender');
+    sender('756e3c8aaa7458')
+  </script>
 </head>
 
 <body>
@@ -3110,11 +3130,7 @@
             </div>
           </div>
 
-          <form class="newsletter-form"
-            onsubmit="event.preventDefault();const b=this.querySelector('button');b.innerHTML='✓ Listo · revisa tu correo';this.querySelector('input').value='';">
-            <input type="email" placeholder="tu@correo.com" required>
-            <button type="submit">Suscribirme gratis <i data-lucide="arrow-right"></i></button>
-          </form>
+          <div class="sender-form-field" data-sender-form-id="b68l0l"></div>
           <div class="newsletter-note">Sin spam. Te puedes dar de baja cuando quieras. Tu correo nunca se comparte.
           </div>
         </div>
@@ -3471,6 +3487,7 @@ Para cada publicación proporciona:
     // Call inside DOM loaded
     initPromptSimulator();
   </script>
+
 
 </body>
 

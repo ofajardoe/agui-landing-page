@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Integral de Bienestar Digital — AGUI ConsultorIA</title>
+    <meta name="description" content="Con más Acompañamiento, para menos Riesgos. Guía práctica para padres sobre crianza digital segura. Presentado por AGUI ConsultorIA.">
+    <link rel="icon" type="image/png" href="https://agui-consultoria.com/assets/isotipo-color.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* === AGUI Brand System === */
+        :root {
+            --agui-cyan: #2CD3F2;
+            --agui-cyan-dark: #12A8C5;
+            --agui-violet: #A13AEB;
+            --agui-cobalt: #1E3A8A;
+            --agui-cobalt-dark: #132660;
+            --agui-dark-bg: #2D2F33;
+            --agui-text: #4D5156;
+            --agui-gray-bg: #F1F3F4;
+            --agui-gray-border: #E4E7EB;
+            --agui-gradient: linear-gradient(135deg, #2CD3F2 0%, #A13AEB 100%);
+            --agui-gradient-cobalt: linear-gradient(135deg, #132660 0%, #1E3A8A 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            color: var(--agui-text);
+        }
+
+        .gradient-text {
+            background: var(--agui-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-agui {
+            background: var(--agui-gradient);
+            color: #ffffff;
+            transition: opacity 0.2s ease, transform 0.15s ease;
+        }
+        .btn-agui:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        .btn-agui-secondary {
+            background-color: var(--agui-cobalt);
+            color: #ffffff;
+            transition: opacity 0.2s ease;
+        }
+        .btn-agui-secondary:hover { opacity: 0.85; }
+
+        .active-tab {
+            border-color: var(--agui-cyan);
+            background: var(--agui-gradient);
+            color: #FFFFFF;
+            box-shadow: 0 2px 8px rgba(44, 211, 242, 0.3);
+        }
+        .inactive-tab {
+            border-color: #E2E8F0;
+            background-color: #FFFFFF;
+            color: #64748B;
+        }
+        .inactive-tab:hover {
+            border-color: var(--agui-cyan);
+            color: var(--agui-cyan);
+        }
+
+        .nav-link.active {
+            font-weight: 700;
+            color: var(--agui-cyan);
+            border-bottom: 2px solid var(--agui-cyan);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 1rem;
+            background-color: #000;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        .ai-card {
+            background: linear-gradient(135deg, rgba(44,211,242,0.06) 0%, rgba(161,58,235,0.04) 100%);
+            border: 1.5px solid rgba(44,211,242,0.35);
+        }
+
+        .loading-dots:after {
+            content: '.';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60% { content: '...'; }
+            80%, 100% { content: ''; }
+        }
+
+        .card-hover {
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .card-hover:hover {
+            box-shadow: 0 8px 24px rgba(44, 211, 242, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .section-cobalt {
+            background: var(--agui-gradient-cobalt);
+        }
+
+        .footer-agui {
+            background-color: var(--agui-dark-bg);
+        }
+        .footer-social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.7);
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .footer-social-icon:hover {
+            background: var(--agui-gradient);
+            color: #fff;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(44, 211, 242, 0.4);
+            border-color: var(--agui-cyan) !important;
+        }
+
+        /* === OVERLAY DE EXPIRACIÓN === */
+        #overlay-expirado {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: linear-gradient(135deg, #132660 0%, #1E3A8A 60%, #2D1060 100%);
+        }
+        #overlay-expirado .exp-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 24px;
+            padding: 48px 40px;
+            text-align: center;
+            max-width: 480px;
+            width: 100%;
+            backdrop-filter: blur(12px);
+        }
+        #overlay-expirado .exp-icon {
+            width: 72px; height: 72px;
+            background: var(--agui-gradient);
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ====== OVERLAY EXPIRACIÓN (oculto por JS si vigente) ====== -->
+    <div id="overlay-expirado" style="display:none;">
+        <div class="exp-card">
+            <div class="exp-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+            </div>
+            <p class="text-xs font-bold uppercase tracking-widest mb-4" style="color: rgba(44,211,242,0.8);">Contenido expirado</p>
+            <h2 class="text-2xl font-extrabold text-white mb-4" style="line-height:1.3;">Este recurso del taller ya no está disponible</h2>
+            <p class="text-sm mb-8" style="color:rgba(255,255,255,0.6); line-height:1.7;">Este material estuvo activo durante 30 días como parte del entregable del taller de <strong style="color:rgba(255,255,255,0.85);">Bienestar Digital Corporativo</strong> de AGUI ConsultorIA.</p>
+            <a href="https://agui-consultoria.com/" target="_blank"
+               class="inline-block font-bold text-sm px-8 py-4 rounded-full shadow-lg"
+               style="background: linear-gradient(135deg, #2CD3F2, #A13AEB); color:#fff; text-decoration:none;">
+                Conoce nuestros talleres →
+            </a>
+            <p class="text-xs mt-6" style="color:rgba(255,255,255,0.35);">¿Tienes preguntas? <a href="mailto:info@agui-consultoria.com" style="color:rgba(44,211,242,0.7);">info@agui-consultoria.com</a></p>
+        </div>
+    </div>
+
+    <!-- ====== HEADER ====== -->
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 shadow-sm">
+        <nav class="container mx-auto px-4 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- AGUI Logo -->
+                <a href="https://agui-consultoria.com/" target="_blank" rel="noopener" class="flex-shrink-0 flex items-center gap-3">
+                    <img src="https://agui-consultoria.com/assets/logo-color.png" alt="AGUI ConsultorIA" class="h-9 w-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="hidden items-center gap-2">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm" style="background: linear-gradient(135deg, #2CD3F2, #A13AEB);">A</div>
+                        <span class="text-sm font-bold text-slate-800 uppercase tracking-wider">AGUI ConsultorIA</span>
+                    </div>
+                </a>
+                <!-- Navigation -->
+                <div class="flex items-baseline space-x-1 md:space-x-3 overflow-x-auto text-xs md:text-sm font-medium">
+                    <a href="#etapas" class="nav-link px-2 py-2 text-slate-600 hover:text-[#2CD3F2] transition-all whitespace-nowrap">Etapas</a>
+                    <a href="#riesgos" class="nav-link px-2 py-2 text-slate-600 hover:text-[#2CD3F2] transition-all whitespace-nowrap">Riesgos</a>
+                    <a href="#proposito" class="nav-link px-2 py-2 text-slate-600 hover:text-[#2CD3F2] transition-all whitespace-nowrap">Propósito</a>
+                    <a href="#tutoriales" class="nav-link px-2 py-2 text-slate-600 hover:text-[#2CD3F2] transition-all whitespace-nowrap">Controles</a>
+                    <a href="#contrato" class="nav-link px-2 py-2 text-slate-600 hover:text-[#2CD3F2] transition-all whitespace-nowrap">Contrato</a>
+                    <a href="#ia" class="nav-link px-2 py-2 font-bold text-[#2CD3F2] whitespace-nowrap">Asistente IA</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- ====== HERO ====== -->
+        <section class="bg-white border-b border-slate-100 py-16 md:py-24">
+            <div class="container mx-auto px-4 text-center">
+                <span class="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase mb-6 tracking-widest" style="background: rgba(44,211,242,0.12); color: #12A8C5;">Presentado por AGUI ConsultorIA · Taller Corporativo para Padres</span>
+                <h2 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
+                    Con más Acompañamiento,<br>para menos Riesgos:
+                    <span class="block mt-2 gradient-text">Guía Integral de Bienestar Digital</span>
+                </h2>
+                <p class="max-w-3xl mx-auto text-lg text-slate-600 leading-relaxed">
+                    Una herramienta diseñada para padres que buscan equilibrar la tecnología en el hogar, desde la primera infancia hasta la adolescencia. Entendiendo el mundo digital para guiar de manera asertiva y humana.
+                </p>
+            </div>
+        </section>
+
+        <!-- ====== 1. ETAPAS ====== -->
+        <section id="etapas" class="py-16 container mx-auto px-4 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-slate-800">1. El Mapa del Crecimiento Digital</h3>
+                <p class="text-slate-500 mt-2 text-lg">Cada edad requiere un estilo de supervisión distinto. La tecnología no es igual para todos.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm card-hover">
+                    <div class="mb-4"><i data-lucide="baby" style="width:36px;height:36px;stroke:#2CD3F2;stroke-width:1.5"></i></div>
+                    <h4 class="font-bold text-lg text-slate-800">5 - 9 Años: Supervisión Total</h4>
+                    <p class="text-sm text-slate-600 mt-2">El niño aún no tiene juicio crítico ni capacidad para evaluar riesgos. Se recomienda uso en áreas comunes (<strong>puerta abierta</strong>), tiempos muy limitados y filtros de contenido estrictos activos en todos los dispositivos.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm card-hover">
+                    <div class="mb-4"><i data-lucide="gamepad-2" style="width:36px;height:36px;stroke:#2CD3F2;stroke-width:1.5"></i></div>
+                    <h4 class="font-bold text-lg text-slate-800">10 - 12 Años: Co-navegación</h4>
+                    <p class="text-sm text-slate-600 mt-2">Inicia la interacción social mediante videojuegos online (Roblox, Minecraft). El enfoque es <strong>acompañar</strong>, enseñar reglas básicas de convivencia digital (netiqueta) y configurar controles de privacidad en las consolas.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm card-hover">
+                    <div class="mb-4"><i data-lucide="smartphone" style="width:36px;height:36px;stroke:#2CD3F2;stroke-width:1.5"></i></div>
+                    <h4 class="font-bold text-lg text-slate-800">13 - 15 Años: Autonomía Guiada</h4>
+                    <p class="text-sm text-slate-600 mt-2">La era de las redes sociales y la validación externa. El control parental evoluciona hacia la <strong>negociación</strong>, el respeto por su intimidad, y el diálogo constante sobre la huella digital y el cuidado de la salud mental.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== 2. RIESGOS ====== -->
+        <section id="riesgos" class="py-16 bg-slate-50 scroll-mt-20">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-slate-800">2. Análisis Profundo de Riesgos Digitales</h3>
+                    <p class="text-slate-500 mt-2 text-lg">Conocer el peligro es el primer paso para prevenirlo. Haz clic en cada pestaña para profundizar.</p>
+                </div>
+
+                <div class="mb-8 flex flex-wrap justify-center gap-2">
+                    <button data-tab="riesgo-btn" data-target="r-sexting" class="px-5 py-2.5 text-sm font-bold border rounded-full transition-all active-tab shadow-sm">Sexting</button>
+                    <button data-tab="riesgo-btn" data-target="r-grooming" class="px-5 py-2.5 text-sm font-bold border rounded-full transition-all inactive-tab shadow-sm">Grooming</button>
+                    <button data-tab="riesgo-btn" data-target="r-bullying" class="px-5 py-2.5 text-sm font-bold border rounded-full transition-all inactive-tab shadow-sm">Ciberacoso</button>
+                    <button data-tab="riesgo-btn" data-target="r-adiccion" class="px-5 py-2.5 text-sm font-bold border rounded-full transition-all inactive-tab shadow-sm">Adicción</button>
+                    <button data-tab="riesgo-btn" data-target="r-juegos" class="px-5 py-2.5 text-sm font-bold border rounded-full transition-all inactive-tab shadow-sm">Juegos Online</button>
+                </div>
+
+                <div class="bg-white p-6 md:p-10 rounded-3xl shadow-sm border border-slate-200">
+
+                    <!-- Sexting -->
+                    <div id="r-sexting" class="riesgo-content space-y-6">
+                        <div class="grid lg:grid-cols-2 gap-10 items-center">
+                            <div class="space-y-4">
+                                <h4 class="text-2xl font-bold text-slate-900">Sexting: La Ilusión de la Privacidad Efímera</h4>
+                                <p class="text-slate-600 text-sm leading-relaxed">El sexting consiste en el envío de mensajes, fotografías o videos de contenido sexual o sugerente a través del móvil. Suele iniciarse como un juego, por <strong>presión de grupo</strong>, curiosidad, o como una supuesta "prueba de confianza" en relaciones sentimentales tempranas.</p>
+                                <p class="text-slate-600 text-sm leading-relaxed">El peligro masivo radica en la falsa sensación de seguridad que dan aplicaciones como Snapchat o los "mensajes temporales" de WhatsApp. Los jóvenes ignoran que una captura de pantalla toma literalmente un segundo, o que el receptor puede usar otro teléfono para capturar la imagen. Una vez enviado, se pierde la cadena de custodia.</p>
+                                <div class="bg-purple-50 p-5 rounded-xl border-l-4 border-purple-500">
+                                    <p class="text-xs font-bold text-purple-900 uppercase mb-1">Cómo abordarlo con asertividad:</p>
+                                    <p class="text-xs text-purple-800">Evita juicios morales directos. Háblales sobre la <strong>Huella Digital Permanente</strong>: Internet no olvida. Explícales qué significa perder el control de un archivo digital. Pregúntales si estarían cómodos si esa foto fuera vista por directores de universidades o futuros empleadores.</p>
+                                </div>
+                            </div>
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/8IvMQQDER1g?si=uTtSLmZVzI2ZQdY3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grooming -->
+                    <div id="r-grooming" class="riesgo-content hidden space-y-6">
+                        <div class="grid lg:grid-cols-2 gap-10 items-center">
+                            <div class="space-y-4">
+                                <h4 class="text-2xl font-bold text-slate-900">Grooming: La Manipulación y el Engaño</h4>
+                                <p class="text-slate-600 text-sm leading-relaxed">El grooming es el proceso mediante el cual un adulto se gana la confianza de un menor creando un vínculo emocional falso. Los depredadores no se acercan de manera agresiva; suelen usar perfiles falsos en redes sociales o juegos populares como Roblox, Fortnite o Valorant, fingiendo tener la misma edad e intereses.</p>
+                                <p class="text-slate-600 text-sm leading-relaxed">Utilizan tácticas de <strong>"Love Bombing"</strong> (bombardeo de halagos) para llenar vacíos afectivos, actuando como su único "confidente" para aislar al niño de su familia progresivamente antes de iniciar el chantaje.</p>
+                                <div class="bg-orange-50 p-5 rounded-xl border-l-4 border-orange-500">
+                                    <p class="text-xs font-bold text-orange-900 uppercase mb-1">La Regla de Oro Preventiva:</p>
+                                    <p class="text-xs text-orange-800">"Si no lo conoces físicamente en el mundo real, no es tu amigo en el mundo digital, sin importar cuánto tiempo lleven chateando, enviándose audios o jugando juntos."</p>
+                                </div>
+                            </div>
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/OdixH25nCHk?si=v7bR5hu_4QfDoQh6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ciberacoso -->
+                    <div id="r-bullying" class="riesgo-content hidden space-y-6">
+                        <div class="grid lg:grid-cols-2 gap-10 items-center">
+                            <div class="space-y-4">
+                                <h4 class="text-2xl font-bold text-slate-900">Ciberacoso: El Acoso sin Fronteras ni Horarios</h4>
+                                <p class="text-slate-600 text-sm leading-relaxed">A diferencia del acoso escolar tradicional, el ciberacoso persigue a la víctima hasta su habitación, operando <strong>24/7</strong>. Se manifiesta de formas mucho más sutiles y crueles: exclusión de grupos de WhatsApp, memes humillantes o perfiles falsos dedicados a atacar a una persona.</p>
+                                <div class="bg-red-50 p-5 rounded-xl border-l-4 border-red-500">
+                                    <p class="text-xs font-bold text-red-900 uppercase mb-1">Señales de Alerta Crítica a Vigilar:</p>
+                                    <ul class="list-disc list-inside text-xs text-red-800 space-y-1">
+                                        <li>Ansiedad visible o llanto al recibir notificaciones en el móvil.</li>
+                                        <li>Ocultar la pantalla rápidamente cuando un adulto se acerca.</li>
+                                        <li>Cambios drásticos de humor, problemas de insomnio y excusas para no asistir al colegio.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/j-tFoYNHi1w?si=6SaydFdHBozHr_Ji" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Adicción -->
+                    <div id="r-adiccion" class="riesgo-content hidden space-y-6">
+                        <div class="grid lg:grid-cols-2 gap-10 items-center">
+                            <div class="space-y-4">
+                                <h4 class="text-2xl font-bold text-slate-900">Diseño Adictivo y Secuestro de la Dopamina</h4>
+                                <p class="text-slate-600 text-sm leading-relaxed">Las aplicaciones como TikTok, Instagram y los videojuegos gratuitos están diseñados minuciosamente utilizando la misma psicología conductual que las máquinas de los casinos. Cada "like", notificación y el <strong>"scroll infinito"</strong> están calculados para generar micropicos rápidos de dopamina.</p>
+                                <div class="bg-blue-50 p-5 rounded-xl border-l-4 border-blue-500">
+                                    <p class="text-xs font-bold text-blue-900 uppercase mb-1">Dato Clave Neurológico:</p>
+                                    <p class="text-xs text-blue-800">El descanso de las pantallas y el "aburrimiento" no son un castigo, son necesidades fisiológicas vitales. Permiten que el cerebro recupere su equilibrio químico.</p>
+                                </div>
+                            </div>
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/TwCT5TaVB2s?si=OThrgThJ62KHme7B" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Juegos Online -->
+                    <div id="r-juegos" class="riesgo-content hidden space-y-6">
+                        <div class="grid lg:grid-cols-2 gap-10 items-center">
+                            <div class="space-y-4">
+                                <h4 class="text-2xl font-bold text-slate-900">Comunidades Tóxicas, FOMO y Trampas Financieras</h4>
+                                <p class="text-slate-600 text-sm leading-relaxed">El riesgo de los videojuegos va mucho más allá de "perder el tiempo". Los chats de voz en juegos masivos en línea y plataformas como Discord suelen convertirse en entornos de alta toxicidad, plagados de lenguaje ofensivo, machismo y ciberacoso.</p>
+                                <p class="text-slate-600 text-sm leading-relaxed">Además, existe un riesgo financiero enorme debido a la monetización depredadora a través de <strong>"Loot Boxes"</strong> (cajas de botín), pases de batalla y compras de monedas virtuales integradas.</p>
+                                <div class="bg-amber-50 p-5 rounded-xl border-l-4 border-amber-500">
+                                    <p class="text-xs font-bold text-amber-900 uppercase mb-1">⚠️ FOMO — Fear of Missing Out</p>
+                                    <p class="text-xs text-amber-800">Los juegos explotan el miedo a quedarse fuera: eventos de tiempo limitado, recompensas exclusivas y temporadas de batalla crean una <strong>urgencia artificial</strong> que manipula al jugador para conectarse compulsivamente. El niño siente que si no juega hoy, pierde algo para siempre — convirtiendo el juego en una obligación emocional, no en una elección. Esto genera ansiedad, irritabilidad y dificultad para desconectarse.</p>
+                                </div>
+                            </div>
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/Xj7uGkVzzoQ?si=P3ZF_QNVObIKgMXM&start=73" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== 3. PROPÓSITO ====== -->
+        <section id="proposito" class="py-16 container mx-auto px-4 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-slate-800">3. Tecnología con Propósito</h3>
+                <p class="text-slate-500 mt-2 text-lg">Transforma el tiempo de pantalla de consumo pasivo a aprendizaje activo y creativo. Recomendaciones por edad:</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm card-hover">
+                    <div class="mb-4"><i data-lucide="baby" style="width:36px;height:36px;stroke:#2CD3F2;stroke-width:1.5"></i></div>
+                    <h4 class="text-xl font-bold mb-3 text-slate-800">5 - 9 Años: Lógica y Arte Digital</h4>
+                    <p class="text-slate-600 text-sm mb-4">Fomenta el pensamiento sistemático temprano y las capacidades motrices usando interfaces simplificadas de bloque:</p>
+                    <ul class="text-sm text-slate-500 space-y-3 list-disc list-inside">
+                        <li><strong>Scratch Jr:</strong> Iniciación a la lógica de programación mediante bloques de encaje visual sin texto complejo.</li>
+                        <li><strong>Minecraft (Modo Creativo):</strong> Promueve la visión espacial y el modelado tridimensional.</li>
+                        <li><strong>Tux Paint:</strong> Estimulación del diseño artístico sin anuncios ni interrupciones.</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm card-hover">
+                    <div class="mb-4"><i data-lucide="gamepad-2" style="width:36px;height:36px;stroke:#2CD3F2;stroke-width:1.5"></i></div>
+                    <h4 class="text-xl font-bold mb-3 text-slate-800">10 - 12 Años: Iniciación al Código</h4>
+                    <p class="text-slate-600 text-sm mb-4">El paso del juego a la creación formal. Estimula proyectos interactivos complejos y diseño estructurado:</p>
+                    <ul class="text-sm text-slate-500 space-y-3 list-disc list-inside">
+                        <li><strong>Scratch (Escritorio):</strong> Creación de sus propios minijuegos utilizando código lógico por bloques.</li>
+                        <li><strong>Tinkercad:</strong> Introducción al modelado 3D y la electrónica básica simulada.</li>
+                        <li><strong>CapCut o Stop Motion:</strong> Edición de video para incentivar la narrativa de historias y libretos.</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm card-hover">
+                    <div class="mb-4"><i data-lucide="smartphone" style="width:36px;height:36px;stroke:#2CD3F2;stroke-width:1.5"></i></div>
+                    <h4 class="text-xl font-bold mb-3 text-slate-800">13 - 15 Años: Creación y Organización</h4>
+                    <p class="text-slate-600 text-sm mb-4">Uso de herramientas de nivel profesional para desarrollar competencias de organización académica y código real:</p>
+                    <ul class="text-sm text-slate-500 space-y-3 list-disc list-inside">
+                        <li><strong>HTML/CSS básico:</strong> Creación de su primera página web estática desde cero.</li>
+                        <li><strong>Python para Principiantes:</strong> Aprendizaje de lenguajes de programación estructurados reales.</li>
+                        <li><strong>Notion o Trello:</strong> Gestión de proyectos, rutinas de estudio y organización personal.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== 4. CONTROLES PARENTALES ====== -->
+        <section id="tutoriales" class="py-16 bg-slate-50 scroll-mt-20">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-slate-800">4. Manuales de Control Parental Técnico</h3>
+                    <p class="text-slate-500 mt-2 text-lg">Herramientas nativas y gratuitas para configurar el entorno digital de forma segura.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-[#2CD3F2] transition-all card-hover">
+                        <h5 class="font-bold text-slate-800 flex items-center gap-2 mb-4"><i data-lucide="apple" style="width:18px;height:18px;stroke:#2CD3F2;stroke-width:1.6;flex-shrink:0"></i> iPhone / iPad</h5>
+                        <div class="space-y-2">
+                            <a href="https://support.apple.com/es-es/105121" target="_blank" class="btn-agui block w-full py-2 text-center text-sm font-bold rounded-lg">Guía Oficial</a>
+                            <a href="https://youtu.be/uwA8tZC6Jlo" target="_blank" class="block w-full py-2 bg-slate-100 text-slate-700 text-center text-sm font-bold rounded-lg hover:bg-slate-200 transition-colors">Video Tutorial</a>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-[#2CD3F2] transition-all card-hover">
+                        <h5 class="font-bold text-slate-800 flex items-center gap-2 mb-4"><i data-lucide="bot" style="width:18px;height:18px;stroke:#2CD3F2;stroke-width:1.6;flex-shrink:0"></i> Android</h5>
+                        <div class="space-y-2">
+                            <a href="https://families.google/familylink/" target="_blank" class="btn-agui block w-full py-2 text-center text-sm font-bold rounded-lg">Family Link</a>
+                            <a href="https://youtu.be/1q4L7hZ9LM0" target="_blank" class="block w-full py-2 bg-slate-100 text-slate-700 text-center text-sm font-bold rounded-lg hover:bg-slate-200 transition-colors">Video Tutorial</a>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-[#2CD3F2] transition-all card-hover">
+                        <h5 class="font-bold text-slate-800 flex items-center gap-2 mb-4"><i data-lucide="monitor" style="width:18px;height:18px;stroke:#2CD3F2;stroke-width:1.6;flex-shrink:0"></i> Windows PC</h5>
+                        <div class="space-y-2">
+                            <a href="https://www.microsoft.com/es-es/microsoft-365/family-safety" target="_blank" class="btn-agui block w-full py-2 text-center text-sm font-bold rounded-lg">Family Safety</a>
+                            <a href="https://youtu.be/8j5G_raIUiQ?si=5U-6ZE8eTSR5tzhL" target="_blank" class="block w-full py-2 bg-slate-100 text-slate-700 text-center text-sm font-bold rounded-lg hover:bg-slate-200 transition-colors">Video Tutorial</a>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-[#2CD3F2] transition-all card-hover">
+                        <h5 class="font-bold text-slate-800 flex items-center gap-2 mb-4"><i data-lucide="laptop-2" style="width:18px;height:18px;stroke:#2CD3F2;stroke-width:1.6;flex-shrink:0"></i> macOS (Mac)</h5>
+                        <div class="space-y-2">
+                            <a href="https://support.apple.com/es-es/guide/mac-help/mchl02598379/mac" target="_blank" class="btn-agui block w-full py-2 text-center text-sm font-bold rounded-lg">Guía Apple</a>
+                            <a href="https://youtu.be/jnfvnjP1fRs?si=J3zlgpSROIdbwwzc" target="_blank" class="block w-full py-2 bg-slate-100 text-slate-700 text-center text-sm font-bold rounded-lg hover:bg-slate-200 transition-colors">Video Tutorial</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== 5. ACUERDO FAMILIAR ====== -->
+        <section id="contrato" class="py-16 text-white scroll-mt-20 section-cobalt">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-3xl font-bold mb-6">5. El Acuerdo de Convivencia Digital</h3>
+                        <p class="text-blue-100 mb-8 leading-relaxed text-lg">No compitas con el algoritmo, ofrece conexión real. Un contrato familiar permite que todos (incluyendo los padres) acepten reglas claras y justas para el uso de la tecnología en casa.</p>
+                        <ul class="space-y-5">
+                            <li class="flex items-start gap-4">
+                                <span class="bg-emerald-500/20 text-emerald-400 p-1.5 rounded flex-shrink-0">✅</span>
+                                <div>
+                                    <p class="font-bold text-base text-emerald-300">Zonas Libres de Pantallas</p>
+                                    <p class="text-sm text-blue-200 mt-1">Ni en la mesa durante las comidas, ni en los dormitorios después de cierta hora. Los móviles duermen en la sala y se cargan allí.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <span class="bg-emerald-500/20 text-emerald-400 p-1.5 rounded flex-shrink-0">✅</span>
+                                <div>
+                                    <p class="font-bold text-base text-emerald-300">Privacidad Progresiva y Claves</p>
+                                    <p class="text-sm text-blue-200 mt-1">Hasta los 12-13 años, los padres deben conocer todas las contraseñas sin excepción. Luego, se negocia privacidad gradualmente a cambio de responsabilidad demostrada.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <span class="bg-emerald-500/20 text-emerald-400 p-1.5 rounded flex-shrink-0">✅</span>
+                                <div>
+                                    <p class="font-bold text-base text-emerald-300">Pausa de Bienestar</p>
+                                    <p class="text-sm text-blue-200 mt-1">Las responsabilidades escolares y las actividades físicas (deporte, paseos, tareas del hogar) van primero. El tiempo de juego es la recompensa, no el estado por defecto del día.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl text-slate-800 shadow-xl space-y-6">
+                        <div class="text-center">
+                            <h4 class="font-bold text-2xl gradient-text mb-1">Acuerdo Familiar Digital</h4>
+                            <p class="text-sm text-slate-500">Modelo listo para copiar y personalizar en casa</p>
+                        </div>
+                        <div class="pt-4 space-y-2">
+                            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 text-center">Descargar documentos del taller</p>
+                            <a href="Contrato/Plantilla de Ejemplo Contrato Familiar Para Diligenciar y Firmar.docx" download class="btn-agui w-full inline-flex items-center justify-center gap-2 font-bold text-sm px-4 py-3 rounded-xl shadow-sm">
+                                <i data-lucide="download" style="width:15px;height:15px;stroke:currentColor;stroke-width:2;flex-shrink:0"></i> Plantilla de Contrato Familiar (.docx)
+                            </a>
+                            <a href="Contrato/Guia Practica para definir un acuerdo de Contrato en Familia.docx" download class="btn-agui-secondary w-full inline-flex items-center justify-center gap-2 font-bold text-sm px-4 py-3 rounded-xl shadow-sm">
+                                <i data-lucide="download" style="width:15px;height:15px;stroke:currentColor;stroke-width:2;flex-shrink:0"></i> Guía Práctica del Acuerdo (.docx)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== 6. ASISTENTE IA ====== -->
+        <section id="ia" class="py-16 container mx-auto px-4 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold gradient-text">6. Asistente Inteligente para Padres</h3>
+                <p class="text-slate-500 mt-2 text-lg">Potenciado por Inteligencia Artificial. Resuelve dudas sobre apps, juegos o situaciones difíciles al instante.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                <div class="ai-card p-8 rounded-3xl shadow-sm">
+                    <h4 class="font-bold text-xl mb-4 flex items-center gap-2"><i data-lucide="search" style="width:20px;height:20px;stroke:#2CD3F2;stroke-width:1.6;flex-shrink:0"></i> Consultar App / Juego</h4>
+                    <p class="text-sm text-slate-500 mb-4">¿Escuchaste sobre una aplicación o juego nuevo y no sabes si es seguro para tu hijo?</p>
+                    <textarea id="ai-query" class="w-full p-4 rounded-xl border border-slate-200 outline-none text-sm shadow-inner transition-all" rows="3" placeholder="Ej: ¿Es seguro que mi hijo de 9 años use Discord o juegue Roblox? ¿Qué riesgos hay?"></textarea>
+                    <button id="btn-ia-query" class="btn-agui mt-4 w-full py-3 rounded-xl font-bold shadow-md">Analizar Riesgos con IA</button>
+                    <div id="res-ia-query" class="mt-5 p-5 bg-white rounded-xl text-sm hidden border border-slate-200 text-slate-700 leading-relaxed shadow-sm"></div>
+                </div>
+                <div class="ai-card p-8 rounded-3xl shadow-sm">
+                    <h4 class="font-bold text-xl mb-4 flex items-center gap-2"><i data-lucide="message-circle" style="width:20px;height:20px;stroke:#2CD3F2;stroke-width:1.6;flex-shrink:0"></i> Generador de Diálogo Asertivo</h4>
+                    <p class="text-sm text-slate-500 mb-4">¿No sabes cómo abordar un tema complicado o establecer un acuerdo sin terminar en discusión?</p>
+                    <input id="ai-context" type="text" class="w-full p-4 rounded-xl border border-slate-200 outline-none text-sm shadow-inner transition-all" placeholder="Ej: Encontré a mi hijo de 13 enviando fotos sugerentes (Sexting)...">
+                    <button id="btn-ia-script" class="btn-agui-secondary mt-4 w-full py-3 rounded-xl font-bold shadow-md">Generar Charla Empática</button>
+                    <div id="res-ia-script" class="mt-5 p-5 bg-white rounded-xl text-sm hidden border border-slate-200 whitespace-pre-wrap text-slate-700 leading-relaxed shadow-sm"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ====== FOOTER AGUI ====== -->
+    <footer class="footer-agui py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-12 pb-12 border-b border-white/10">
+                <!-- Brand -->
+                <div>
+                    <img src="https://agui-consultoria.com/assets/logo-white.png" alt="AGUI ConsultorIA" class="h-12 w-auto mb-4" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="hidden mb-4">
+                        <span class="text-2xl font-extrabold gradient-text">AGUI ConsultorIA</span>
+                    </div>
+                    <p class="text-white/55 text-sm mb-1">La IA explicada en tu idioma</p>
+                    <p class="text-white/40 text-xs">Bogotá, Colombia</p>
+                    <!-- Social icons -->
+                    <div class="flex gap-3 mt-6">
+                        <a href="https://agui-consultoria.com/" target="_blank" aria-label="LinkedIn" class="footer-social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
+                        <a href="https://agui-consultoria.com/" target="_blank" aria-label="Instagram" class="footer-social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="https://agui-consultoria.com/" target="_blank" aria-label="YouTube" class="footer-social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9"/>
+                            </svg>
+                        </a>
+                        <a href="mailto:info@agui-consultoria.com" aria-label="Email" class="footer-social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <!-- CTA -->
+                <div class="text-center md:text-right">
+                    <p class="text-white/70 text-sm mb-2">¿Te gustó este contenido?</p>
+                    <p class="text-white font-semibold text-lg mb-6">Conoce todos nuestros talleres<br>y programas de formación en IA.</p>
+                    <a href="https://agui-consultoria.com/" target="_blank" class="btn-agui inline-block px-8 py-4 rounded-full font-bold text-base shadow-lg">
+                        Visitar AGUI ConsultorIA →
+                    </a>
+                    <p class="text-white/40 text-xs mt-4">
+                        <a href="mailto:info@agui-consultoria.com" class="hover:text-white/70 transition-colors">info@agui-consultoria.com</a>
+                    </p>
+                </div>
+            </div>
+            <!-- Bottom bar -->
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-center">
+                <p class="text-white/30 text-xs uppercase font-bold tracking-widest">© 2026 AGUI ConsultorIA · Todos los derechos reservados</p>
+                <p class="text-white/40 text-sm italic">"Enseñemos a navegar en la red, no solo a prohibirles el mar."</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================================
+        // CONFIGURACIÓN DEL TALLER — edita estas dos líneas antes de
+        // compartir el enlace con los participantes:
+        // ============================================================
+        const TALLER_FECHA_INICIO = '2026-06-04'; // Fecha del taller (YYYY-MM-DD)
+        const TALLER_DURACION_DIAS = 30;           // Días de acceso
+        // ============================================================
+
+        (function checkExpiry() {
+            const inicio = new Date(TALLER_FECHA_INICIO);
+            const expiry = new Date(inicio);
+            expiry.setDate(expiry.getDate() + TALLER_DURACION_DIAS);
+            if (new Date() > expiry) {
+                document.getElementById('overlay-expirado').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        })();
+
+        // === GEMINI API ===
+        const GEMINI_KEY = 'AIzaSyC1v04a-Vy5pRvCZNzulPO1NgF9VGPNXMQ';
+
+        async function askGemini(prompt) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: {
+                    parts: [{
+                        text: "Eres un psicólogo y asesor experto en bienestar digital familiar para padres de empresa. Brinda respuestas prácticas, empáticas y basadas en la psicología del desarrollo. Habla de forma clara, sin usar formato Markdown complejo, usa párrafos simples."
+                    }]
+                }
+            };
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    const err = await response.json().catch(() => ({}));
+                    throw new Error(err?.error?.message || `Error ${response.status}`);
+                }
+                const data = await response.json();
+                return data.candidates?.[0]?.content?.parts?.[0]?.text || "Lo siento, la IA no pudo procesar la consulta en este momento.";
+            } catch (e) {
+                return `❌ Error al conectar con la IA: ${e.message || 'intenta de nuevo más tarde.'}`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // === PESTAÑAS DE RIESGOS ===
+            const tabs = document.querySelectorAll('[data-tab="riesgo-btn"]');
+            const contents = document.querySelectorAll('.riesgo-content');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => { t.classList.remove('active-tab'); t.classList.add('inactive-tab'); });
+                    tab.classList.remove('inactive-tab');
+                    tab.classList.add('active-tab');
+                    const target = tab.dataset.target;
+                    contents.forEach(c => { c.id === target ? c.classList.remove('hidden') : c.classList.add('hidden'); });
+                });
+            });
+
+            // === IA — Consultar Apps ===
+            const queryBtn = document.getElementById('btn-ia-query');
+            const queryIn  = document.getElementById('ai-query');
+            const queryRes = document.getElementById('res-ia-query');
+            if (queryBtn && queryIn && queryRes) {
+                queryBtn.addEventListener('click', async () => {
+                    const textVal = queryIn.value.trim();
+                    if (!textVal) return;
+                    queryRes.classList.remove('hidden');
+                    queryRes.innerHTML = '<span class="loading-dots italic text-slate-500">La IA está analizando los riesgos</span>';
+                    const ans = await askGemini(`Un padre me pregunta esto en un taller: "${textVal}". Analiza los riesgos de manera concreta y da 3 consejos prácticos para padres.`);
+                    if (ans) queryRes.innerHTML = `<strong>Análisis de la IA:</strong><br><br>${ans.replace(/\n/g, '<br>')}`;
+                    else queryRes.classList.add('hidden');
+                });
+            }
+
+            // === IA — Generar diálogo ===
+            const scriptBtn = document.getElementById('btn-ia-script');
+            const scriptIn  = document.getElementById('ai-context');
+            const scriptRes = document.getElementById('res-ia-script');
+            if (scriptBtn && scriptIn && scriptRes) {
+                scriptBtn.addEventListener('click', async () => {
+                    const textVal = scriptIn.value.trim();
+                    if (!textVal) return;
+                    scriptRes.classList.remove('hidden');
+                    scriptRes.innerHTML = '<span class="loading-dots italic text-slate-500">La IA está redactando el guion</span>';
+                    const ans = await askGemini(`Genera un guion de diálogo corto y asertivo para un padre que se enfrenta a esta situación con su hijo: "${textVal}". El tono debe ser empático, buscando conectar en lugar de castigar directamente.`);
+                    if (ans) scriptRes.innerHTML = `<strong>Guion Sugerido:</strong><br><br>${ans.replace(/\n/g, '<br>')}`;
+                    else scriptRes.classList.add('hidden');
+                });
+            }
+
+            // === SCROLLSPY ===
+            const sections = document.querySelectorAll('section[id]');
+            const links = document.querySelectorAll('.nav-link');
+            window.addEventListener('scroll', () => {
+                let current = "";
+                sections.forEach(s => { if (pageYOffset >= (s.offsetTop - 150)) current = s.getAttribute('id'); });
+                links.forEach(l => {
+                    l.classList.remove('active');
+                    if (l.getAttribute('href').includes(current)) l.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
