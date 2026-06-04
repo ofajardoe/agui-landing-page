@@ -22,18 +22,25 @@
       background: #F1F3F4;
     }
 
+    /* ── Barra superior — Logo color sobre fondo blanco (matchea el correo) ─ */
+    .topbar {
+      background-color: #FFFFFF;
+      padding: 24px 40px;
+      border-bottom: 1px solid #E4E7EB;
+      text-align: center;
+    }
+    .topbar img.logo-color {
+      display: block;
+      margin: 0 auto;
+      width: 160px;
+      height: auto;
+    }
+
     /* ── Portada ───────────────────────────────────── */
     .cover {
       background: linear-gradient(135deg, #1E3A8A 0%, #A13AEB 55%, #2CD3F2 100%);
-      padding: 80px 48px 72px;
+      padding: 56px 48px 64px;
       text-align: center;
-    }
-    .cover img.logo {
-      width: 180px;
-      margin-bottom: 36px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
     }
     .cover .eyebrow {
       font-size: 11px;
@@ -318,7 +325,9 @@
     }
 
     @media (max-width: 600px) {
-      .cover { padding: 56px 24px 48px; }
+      .topbar { padding: 18px 24px; }
+      .topbar img.logo-color { width: 130px; }
+      .cover { padding: 40px 24px 48px; }
       .cover h1 { font-size: 32px; }
       .intro, .examples, .cta-block, .footer-cobalt, .footer-dark { padding-left: 24px; padding-right: 24px; }
     }
@@ -328,9 +337,13 @@
 
 <div class="wrapper">
 
+  <!-- ── Barra superior — Logo color sobre fondo blanco (matchea el correo) ─ -->
+  <div class="topbar">
+    <img class="logo-color" src="https://agui-consultoria.com/assets/logo-color.png" alt="AGUI ConsultorIA" />
+  </div>
+
   <!-- ── Portada ───────────────────────────────────── -->
   <div class="cover">
-    <img class="logo" src="https://agui-consultoria.com/assets/logo-white.png" alt="AGUI ConsultorIA" />
     <div class="eyebrow">Tu regalo de bienvenida</div>
     <h1>Descifrador de <span>Jerga Adolescente</span></h1>
     <p class="subtitle">
