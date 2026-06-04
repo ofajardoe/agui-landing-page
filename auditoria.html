@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tu Auditoría Exprés — AGUI ConsultorIA</title>
+  <link rel="icon" type="image/png" href="https://agui-consultoria.com/assets/isotipo-color.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background-color: #F1F3F4;
+      color: #4D5156;
+    }
+    .wrapper { max-width: 760px; margin: 0 auto; background: #F1F3F4; }
+    .topbar {
+      background-color: #FFFFFF;
+      padding: 24px 40px;
+      border-bottom: 1px solid #E4E7EB;
+      text-align: center;
+    }
+    .topbar img { display: block; margin: 0 auto; width: 160px; height: auto; }
+    .cover {
+      background: linear-gradient(135deg, #1E3A8A 0%, #A13AEB 55%, #2CD3F2 100%);
+      padding: 56px 48px 64px;
+      text-align: center;
+      color: #FFFFFF;
+    }
+    .cover .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 16px;
+    }
+    .cover h1 {
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .cover h1 span {
+      background: linear-gradient(90deg, #FFFFFF, rgba(255,255,255,0.7));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .cover .subtitle {
+      font-size: 16px;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0 auto 32px;
+    }
+    .content {
+      background: #FFFFFF;
+      padding: 48px;
+      text-align: center;
+    }
+    .content h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #4D5156;
+      margin-bottom: 16px;
+    }
+    .content p {
+      font-size: 15px;
+      color: #6B7280;
+      line-height: 1.75;
+      max-width: 520px;
+      margin: 0 auto 16px;
+    }
+    .check-list {
+      max-width: 480px;
+      margin: 28px auto 32px;
+      text-align: left;
+      background: linear-gradient(135deg, rgba(44,211,242,0.06), rgba(161,58,235,0.06));
+      border-radius: 12px;
+      padding: 20px 24px;
+    }
+    .check-list li {
+      font-size: 14px;
+      color: #4D5156;
+      line-height: 1.7;
+      list-style: none;
+      padding-left: 24px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .check-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #A13AEB;
+      font-weight: 800;
+    }
+    .check-list li:last-child { margin-bottom: 0; }
+    .cta-block {
+      background: #FFFFFF;
+      padding: 0 48px 48px;
+      text-align: center;
+    }
+    .cta-block a.contact {
+      display: inline-block;
+      background: linear-gradient(135deg, #2CD3F2, #A13AEB);
+      color: #FFFFFF;
+      padding: 14px 32px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      box-shadow: 0 6px 24px rgba(161,58,235,0.25);
+    }
+    .footer-cobalt {
+      background-color: #1E3A8A;
+      padding: 32px 48px;
+      text-align: center;
+    }
+    .footer-cobalt .title {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 8px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    .footer-cobalt .subtitle {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.65;
+    }
+    .footer-dark {
+      background-color: #2D2F33;
+      padding: 40px 48px 36px;
+      text-align: center;
+    }
+    .footer-dark img { display: block; margin: 0 auto 20px; width: 150px; height: auto; }
+    .footer-dark .text {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .footer-dark a {
+      color: #2CD3F2;
+      text-decoration: none;
+      font-weight: 500;
+      margin: 0 8px;
+      font-size: 14px;
+    }
+    @media (max-width: 600px) {
+      .topbar { padding: 18px 24px; }
+      .topbar img { width: 130px; }
+      .cover { padding: 40px 24px 48px; }
+      .cover h1 { font-size: 28px; }
+      .content, .cta-block, .footer-cobalt, .footer-dark { padding-left: 24px; padding-right: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <div class="topbar">
+    <img src="https://agui-consultoria.com/assets/logo-color.png" alt="AGUI ConsultorIA" />
+  </div>
+
+  <div class="cover">
+    <div class="eyebrow">Tu regalo</div>
+    <h1>Auditoría <span>Exprés AGUI</span></h1>
+    <p class="subtitle">
+      5 ideas concretas de cómo la IA puede generar valor en tu empresa en los próximos 90 días, en un PDF personalizado.
+    </p>
+  </div>
+
+  <div class="content">
+    <h2>Revisa tu correo</h2>
+    <p>
+      Acabamos de enviarte la auditoría a la bandeja de entrada del correo que registraste. El PDF está adjunto al mensaje y contiene:
+    </p>
+    <ul class="check-list">
+      <li>5 ideas priorizadas por facilidad de implementación e impacto</li>
+      <li>Análisis adaptado a tu sector y tamaño de equipo</li>
+      <li>Impacto estimado en horas o costos para cada idea</li>
+      <li>Recomendación de por dónde empezar y un plan piloto sugerido</li>
+    </ul>
+    <p>
+      Si no llegó en los próximos minutos, revisa tu carpeta de spam o escríbenos a <strong>info@agui-consultoria.com</strong> para reenviártelo.
+    </p>
+  </div>
+
+  <div class="cta-block">
+    <a class="contact" href="https://calendly.com/agui-consultoria/30min">
+      Agendar 30 min con un consultor →
+    </a>
+  </div>
+
+  <div class="footer-cobalt">
+    <p class="title">AGUI ConsultorIA</p>
+    <p class="subtitle">La IA explicada en tu idioma.</p>
+  </div>
+
+  <div class="footer-dark">
+    <img src="https://agui-consultoria.com/assets/logo-white.png" alt="AGUI ConsultorIA" />
+    <p class="text">Acompañamos a empresas y personas no técnicas en Bogotá, Colombia.</p>
+    <p>
+      <a href="https://agui-consultoria.com">agui-consultoria.com</a>
+      ·
+      <a href="mailto:info@agui-consultoria.com">info@agui-consultoria.com</a>
+    </p>
+  </div>
+
+</div>
+
+</body>
+</html>
