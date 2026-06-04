@@ -2921,7 +2921,7 @@
             <div class="reward-icon"><i data-lucide="book-open"></i></div>
             <div class="reward-text">
               <div class="reward-title">REGALO PARA TI AL ENVIAR</div>
-              <div class="reward-desc">Mini-Recetario AGUI: 15 prompts seleccionados para ahorrarte tiempo desde mañana,
+              <div class="reward-desc">Mini-Recetario AGUI: 10 prompts seleccionados para ahorrarte tiempo desde mañana,
                 en español claro y con explicación de por qué funcionan. Llega a tu correo al instante.</div>
             </div>
           </div>
@@ -3308,14 +3308,9 @@
         const messages = {
           familia: '¡Listo! Te envié el Asistente IA "Descifrador de Jerga" a tu correo. Te contacto en menos de 48h.',
           empresa: '¡Listo! En 3 días hábiles tendrás tu auditoría exprés en PDF. Te contacto en 48h.',
-          persona: '¡Listo! El mini-Recetario está en tu bandeja de entrada. Redirigiendo al recetario...'
+          persona: '¡Listo! El mini-Recetario está en tu bandeja de entrada. Revisa tu correo.'
         };
         submitBtn.innerHTML = '✓ ' + messages[type];
-        if (type === 'persona') {
-          setTimeout(() => {
-            window.location.href = 'recetario.html?acceso=agui2026';
-          }, 2000);
-        }
       })
       .catch(err => {
         console.error('Error al enviar:', err);
