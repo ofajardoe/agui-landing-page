@@ -968,7 +968,7 @@
     .service-meta {
       font-size: 12px;
       color: var(--text-lighter);
-      margin-bottom: 20px;
+      margin-bottom: 0;
       letter-spacing: 0.02em
     }
 
@@ -1017,6 +1017,13 @@
     .service-card.featured .service-btn:hover {
       background: var(--cyan-light);
       color: var(--cobalt)
+    }
+
+    .services-cta {
+      text-align: center;
+      margin-top: 48px;
+      display: flex;
+      justify-content: center;
     }
 
     /* === PROOF (talleres dictados) === */
@@ -2478,7 +2485,7 @@
             <div class="service-icon"><i data-lucide="users"></i></div>
             <span class="service-tag">Charlas Inspiracionales</span>
             <h3 class="service-name">Charla de Crianza Digital</h3>
-            <p class="service-desc">Pautas prácticas para lidiar con el consumo de pantallas, riesgos de seguridad en internet, redes sociales y fomento de la creatividad usando IA de forma equilibrada según el rango de edad.</p>
+            <p class="service-desc">Pautas prácticas para lidiar con el consumo de pantallas, riesgos de seguridad en internet, redes sociales and fomento de la creatividad usando IA de forma equilibrada según el rango de edad.</p>
             <ul>
               <li>Charla de 1 a 2 horas (Virtual o Presencial)</li>
               <li>Asistente IA de soporte permanente incluido</li>
@@ -2486,7 +2493,6 @@
               <li>Pautas y guías de conversación familiar</li>
             </ul>
             <div class="service-meta">Virtual o Presencial · Para grupos de padres</div>
-            <a href="#solicitar" class="service-btn">Solicitar charla <i data-lucide="arrow-right"></i></a>
           </div>
 
           <div class="service-card featured">
@@ -2501,7 +2507,6 @@
               <li>Micro-web y chatbot entrenados para tu caso</li>
             </ul>
             <div class="service-meta">Diseñada en conjunto con tu organización</div>
-            <a href="#solicitar" class="service-btn">Solicitar charla <i data-lucide="arrow-right"></i></a>
           </div>
         </div>
       </div>
@@ -2524,7 +2529,6 @@
               <li>Cero jerga técnica, 100% didáctico y directo</li>
             </ul>
             <div class="service-meta">Hasta 100 colaboradores por charla</div>
-            <a href="#solicitar" class="service-btn">Cotizar charla <i data-lucide="arrow-right"></i></a>
           </div>
 
           <div class="service-card featured">
@@ -2539,7 +2543,6 @@
               <li>Certificación digital oficial de AGUI</li>
             </ul>
             <div class="service-meta">Hasta 15 colaboradores por sesión</div>
-            <a href="#solicitar" class="service-btn">Cotizar taller <i data-lucide="arrow-right"></i></a>
           </div>
 
           <div class="service-card">
@@ -2554,7 +2557,6 @@
               <li>30 días de garantía + manual rápido de uso</li>
             </ul>
             <div class="service-meta">Entrega ágil en 3 a 10 días hábiles</div>
-            <a href="#solicitar" class="service-btn">Solicitar cotización <i data-lucide="arrow-right"></i></a>
           </div>
         </div>
       </div>
@@ -2577,7 +2579,6 @@
               <li>Acceso a comunidad de aprendizaje</li>
             </ul>
             <div class="service-meta">Por persona · Cupos limitados</div>
-            <a href="#solicitar" class="service-btn">Ver próximas fechas <i data-lucide="arrow-right"></i></a>
           </div>
 
           <div class="service-card featured">
@@ -2592,9 +2593,13 @@
               <li>Construcción de un asistente IA propio al cierre</li>
             </ul>
             <div class="service-meta">Cohorte cada 6 semanas · 25 cupos</div>
-            <a href="#solicitar" class="service-btn">Reservar mi cupo <i data-lucide="arrow-right"></i></a>
           </div>
         </div>
+      </div>
+
+      <!-- SINGLE CTA BUTTON OUTSIDE CARDS -->
+      <div class="services-cta">
+        <a href="#solicitar" class="btn btn-primary">Solicitar o cotizar servicio <i data-lucide="arrow-right"></i></a>
       </div>
     </div>
   </section>
@@ -2742,7 +2747,7 @@
     <div class="wrap">
       <div class="form-wrap">
         <div class="section-label">Solicita una charla o taller</div>
-        <h2>Cuéntame qué necesitas. <span class="grad">Te respondo en 48h.</span></h2>
+        <h2>Cuéntame qué necesitas. <span class="grad">Recibe tu regalo al instante.</span></h2>
         <p class="form-intro">Cada audiencia tiene un punto de partida distinto. Selecciona quién eres y te muestro las
           preguntas correctas. Cuando envíes el formulario, recibirás un regalo pensado especialmente para tu caso.</p>
 
