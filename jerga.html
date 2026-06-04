@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Descifrador de Jerga Adolescente — AGUI ConsultorIA</title>
+  <meta name="description" content="Asistente IA gratuito que traduce la jerga juvenil para padres. Pega cualquier palabra extraña que usen tus hijos y descubre su significado real." />
+  <link rel="icon" type="image/png" href="https://agui-consultoria.com/assets/isotipo-color.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background-color: #F1F3F4;
+      color: #4D5156;
+    }
+
+    .wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      background: #F1F3F4;
+    }
+
+    /* ── Portada ───────────────────────────────────── */
+    .cover {
+      background: linear-gradient(135deg, #1E3A8A 0%, #A13AEB 55%, #2CD3F2 100%);
+      padding: 80px 48px 72px;
+      text-align: center;
+    }
+    .cover img.logo {
+      width: 180px;
+      margin-bottom: 36px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cover .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 16px;
+    }
+    .cover h1 {
+      font-size: 42px;
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .cover h1 span {
+      background: linear-gradient(90deg, #FFFFFF, rgba(255,255,255,0.7));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .cover .subtitle {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0 auto 40px;
+    }
+    .cover .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 999px;
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #FFFFFF;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Intro ─────────────────────────────────────── */
+    .intro {
+      background: #FFFFFF;
+      padding: 48px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .intro h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #4D5156;
+      margin-bottom: 12px;
+    }
+    .intro p {
+      font-size: 15px;
+      font-weight: 400;
+      color: #6B7280;
+      line-height: 1.75;
+      max-width: 620px;
+    }
+    .gradient-bar {
+      height: 3px;
+      background: linear-gradient(90deg, #2CD3F2, #A13AEB);
+      border-radius: 999px;
+      margin: 24px 0;
+    }
+
+    /* ── Aviso de "próximamente" ───────────────────── */
+    .notice {
+      background: linear-gradient(135deg, rgba(44,211,242,0.07), rgba(161,58,235,0.07));
+      border: 1.5px solid rgba(161,58,235,0.2);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-top: 28px;
+    }
+    .notice .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #A13AEB;
+      margin-bottom: 8px;
+    }
+    .notice p {
+      font-size: 14px;
+      color: #4D5156;
+      line-height: 1.7;
+      max-width: 100%;
+    }
+    .notice strong { color: #A13AEB; }
+
+    /* ── Ejemplos de jerga ────────────────────────── */
+    .examples {
+      padding: 40px 48px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .examples > .section-head {
+      margin-bottom: 8px;
+    }
+    .section-head .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #A13AEB;
+      margin-bottom: 6px;
+    }
+    .section-head h3 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #4D5156;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .example-card {
+      background: #FFFFFF;
+      border-radius: 14px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .example-card .card-header {
+      padding: 18px 22px 14px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .example-card .term {
+      display: inline-block;
+      background: linear-gradient(135deg, #2CD3F2, #A13AEB);
+      color: #FFFFFF;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .example-card .context {
+      font-size: 12px;
+      color: #9CA3AF;
+      font-style: italic;
+    }
+    .example-card .card-body {
+      padding: 18px 22px 22px;
+    }
+    .example-card .meaning-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: #9CA3AF;
+      margin-bottom: 6px;
+    }
+    .example-card .meaning {
+      font-size: 14.5px;
+      font-weight: 500;
+      color: #4D5156;
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+    .example-card .tip {
+      background: rgba(44,211,242,0.08);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: #4D5156;
+      line-height: 1.6;
+    }
+    .example-card .tip strong { color: #1E3A8A; }
+
+    /* ── CTA ───────────────────────────────────────── */
+    .cta-block {
+      background: #FFFFFF;
+      padding: 40px 48px 48px;
+      text-align: center;
+    }
+    .cta-block h3 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #4D5156;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+    .cta-block p {
+      font-size: 15px;
+      color: #6B7280;
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto 24px;
+    }
+    .cta-block a.contact {
+      display: inline-block;
+      background: linear-gradient(135deg, #2CD3F2, #A13AEB);
+      color: #FFFFFF;
+      padding: 14px 32px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      box-shadow: 0 6px 24px rgba(161,58,235,0.25);
+    }
+    .cta-block a.contact:hover {
+      opacity: 0.92;
+    }
+
+    /* ── Footer ────────────────────────────────────── */
+    .footer-cobalt {
+      background-color: #1E3A8A;
+      padding: 32px 48px;
+      text-align: center;
+    }
+    .footer-cobalt .title {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 8px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    .footer-cobalt .subtitle {
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.85);
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    .footer-dark {
+      background-color: #2D2F33;
+      padding: 48px 48px 36px;
+      text-align: center;
+    }
+    .footer-dark .logo {
+      display: block;
+      margin: 0 auto 24px;
+      width: 150px;
+      height: auto;
+    }
+    .footer-dark .divider-glow {
+      max-width: 360px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(44, 211, 242, 0.4), transparent);
+      margin: 0 auto 24px;
+    }
+    .footer-dark .text {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.6);
+      margin: 0 0 16px;
+      line-height: 1.7;
+    }
+    .footer-dark .links {
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0 0 24px;
+    }
+    .footer-dark .links a {
+      color: #2CD3F2;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+    .footer-dark .divider-flat {
+      max-width: 360px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+      margin: 0 auto 20px;
+    }
+    .footer-dark .disclaimer {
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.3);
+      margin: 0;
+      line-height: 1.7;
+      letter-spacing: 0;
+    }
+
+    @media (max-width: 600px) {
+      .cover { padding: 56px 24px 48px; }
+      .cover h1 { font-size: 32px; }
+      .intro, .examples, .cta-block, .footer-cobalt, .footer-dark { padding-left: 24px; padding-right: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- ── Portada ───────────────────────────────────── -->
+  <div class="cover">
+    <img class="logo" src="https://agui-consultoria.com/assets/logo-white.png" alt="AGUI ConsultorIA" />
+    <div class="eyebrow">Tu regalo de bienvenida</div>
+    <h1>Descifrador de <span>Jerga Adolescente</span></h1>
+    <p class="subtitle">
+      Sabemos que la comunicación es el primer paso para protegerlos. Te ayudamos a traducir las palabras y modismos que tus hijos usan hoy en internet.
+    </p>
+    <div class="badge">Asistente IA · Gratis para suscriptores</div>
+  </div>
+
+  <!-- ── Intro ─────────────────────────────────────── -->
+  <div class="intro">
+    <h2>¿Qué es esto?</h2>
+    <p>
+      Un asistente conversacional creado por AGUI ConsultorIA que toma una palabra, frase o emoji que escuchaste a tu hijo y te devuelve su significado real, el contexto en que se usa y por qué es relevante para entender su mundo digital.
+    </p>
+    <div class="gradient-bar"></div>
+    <h2>¿Cómo funciona?</h2>
+    <p>
+      Pegas el término, el asistente te responde en lenguaje claro de padre a padre — sin tecnicismos, sin juzgar — y te sugiere cómo abrir una conversación con tu hijo a partir de eso.
+    </p>
+
+    <div class="notice">
+      <div class="label">Llega a tu correo en menos de 24h</div>
+      <p>
+        Estamos puliendo los últimos detalles del asistente interactivo. <strong>Te enviaremos el enlace de acceso directo a tu bandeja de entrada</strong> en las próximas horas. Mientras tanto, aquí abajo tienes 3 ejemplos reales de lo que el asistente hará por ti.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── Ejemplos ─────────────────────────────────── -->
+  <div class="examples">
+    <div class="section-head">
+      <div class="eyebrow">Anticipo del asistente</div>
+      <h3>3 ejemplos de jerga descifrada</h3>
+    </div>
+
+    <div class="example-card">
+      <div class="card-header">
+        <div class="term">no cap</div>
+        <div class="context">Visto en TikTok, chats de grupo</div>
+      </div>
+      <div class="card-body">
+        <div class="meaning-label">Significado</div>
+        <p class="meaning">
+          "Sin mentir / en serio". Lo dicen para enfatizar que lo que están contando es verdad, no una exageración. Equivale al "te lo juro" de generaciones anteriores.
+        </p>
+        <div class="tip">
+          <strong>Tip de conversación:</strong> Si tu hijo lo usa contigo, está bajando la guardia y compartiendo algo importante. Es buena oportunidad para escuchar sin interrumpir.
+        </div>
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="card-header">
+        <div class="term">finsta</div>
+        <div class="context">Redes sociales, Instagram</div>
+      </div>
+      <div class="card-body">
+        <div class="meaning-label">Significado</div>
+        <p class="meaning">
+          Cuenta secundaria de Instagram ("fake Insta") que los adolescentes mantienen oculta de padres y conocidos. Ahí publican contenido más espontáneo, polémico o íntimo que en su cuenta "oficial".
+        </p>
+        <div class="tip">
+          <strong>Tip de conversación:</strong> No es necesariamente algo malo — muchas veces es un espacio de desahogo con amigos cercanos. Pero sí vale la pena saber qué publican ahí y con quién.
+        </div>
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="card-header">
+        <div class="term">delulu</div>
+        <div class="context">Memes, comentarios en redes</div>
+      </div>
+      <div class="card-body">
+        <div class="meaning-label">Significado</div>
+        <p class="meaning">
+          Versión corta de "delusional" (delirando). Se usa con humor para describir a alguien que tiene expectativas irreales — por ejemplo, creer que su crush le va a hablar primero.
+        </p>
+        <div class="tip">
+          <strong>Tip de conversación:</strong> Cuando lo usan con sus amigos suele ser broma. Pero si tu hijo lo dice de sí mismo con frecuencia, puede ser señal de inseguridad disfrazada de humor.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CTA ───────────────────────────────────────── -->
+  <div class="cta-block">
+    <h3>¿Tienes una palabra urgente que descifrar?</h3>
+    <p>
+      Escríbenos al correo y un consultor de AGUI te responde en menos de 24h con la traducción y una recomendación práctica.
+    </p>
+    <a class="contact" href="mailto:info@agui-consultoria.com?subject=Descifrador%20de%20Jerga%20%E2%80%94%20Consulta%20urgente">
+      Escribir a info@agui-consultoria.com →
+    </a>
+  </div>
+
+  <!-- ── Footer cobalt ─────────────────────────────── -->
+  <div class="footer-cobalt">
+    <p class="title">AGUI ConsultorIA</p>
+    <p class="subtitle">La IA explicada en tu idioma.</p>
+  </div>
+
+  <!-- ── Footer dark ───────────────────────────────── -->
+  <div class="footer-dark">
+    <img class="logo" src="https://agui-consultoria.com/assets/logo-white.png" alt="AGUI ConsultorIA" />
+    <div class="divider-glow"></div>
+    <p class="text">
+      Acompañamos a empresas y personas no técnicas en Bogotá, Colombia.
+    </p>
+    <p class="links">
+      <a href="https://agui-consultoria.com">agui-consultoria.com</a>
+      ·
+      <a href="mailto:info@agui-consultoria.com">info@agui-consultoria.com</a>
+    </p>
+    <div class="divider-flat"></div>
+    <p class="disclaimer">
+      Sin spam. Tu correo nunca se comparte con terceros.
+    </p>
+  </div>
+
+</div>
+
+</body>
+</html>
