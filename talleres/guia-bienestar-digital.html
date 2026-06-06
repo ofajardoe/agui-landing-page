@@ -607,38 +607,34 @@
             }
         })();
 
-        // === GEMINI API ===
-        // Replaced key with a valid one and obfuscated to avoid automated scanner detection.
-        const GEMINI_KEY = [
-            'AQ',
-            '.Ab8RN6LJLAA4Uup5dn5QrS',
-            'tBGLwzUL_cvuoM9tHup8Dol--xvw'
-        ].join('');
+        // === PROXY DEL ASISTENTE IA ===
+        // El navegador NO tiene la API key de Gemini. Solo llama a la API de AGUI,
+        // que actúa como proxy controlado (modos cerrados, CORS, ventana de fechas,
+        // token, rate limit). Ver bot/aria_api.py → /api/taller/bienestar/asistente
+        const TALLER_API = 'https://api.agui-consultoria.com/api/taller/bienestar/asistente';
+        const TALLER_TOKEN = 'w3d6ahdp4M5xkPTY-dQcjkOKlIflQ4gB80GZmcMb7ws';
 
-        async function askGemini(prompt) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`;
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }],
-                systemInstruction: {
-                    parts: [{
-                        text: "Eres un psicólogo y asesor experto en bienestar digital familiar para padres de empresa. Brinda respuestas prácticas, empáticas y basadas en la psicología del desarrollo. Habla de forma clara, sin usar formato Markdown complejo, usa párrafos simples."
-                    }]
-                }
-            };
+        async function askAsistente(modo, textoUsuario) {
             try {
-                const response = await fetch(url, {
+                const response = await fetch(TALLER_API, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Taller-Token': TALLER_TOKEN
+                    },
+                    body: JSON.stringify({ modo, texto_usuario: textoUsuario })
                 });
                 if (!response.ok) {
-                    const err = await response.json().catch(() => ({}));
-                    throw new Error(err?.error?.message || `Error ${response.status}`);
+                    if (response.status === 429) return '⏳ Has hecho muchas consultas seguidas. Espera unos minutos y vuelve a intentar.';
+                    if (response.status === 403) return '⛔ Este asistente solo está activo durante la ventana del taller.';
+                    if (response.status === 401) return '⛔ Acceso no autorizado al asistente.';
+                    if (response.status === 400) return '⚠️ Revisa el texto de tu consulta (vacío o demasiado largo).';
+                    return '❌ No fue posible procesar la consulta. Intenta de nuevo más tarde.';
                 }
                 const data = await response.json();
-                return data.candidates?.[0]?.content?.parts?.[0]?.text || "Lo siento, la IA no pudo procesar la consulta en este momento.";
+                return data.respuesta || 'Lo siento, la IA no pudo procesar la consulta en este momento.';
             } catch (e) {
-                return `❌ Error al conectar con la IA: ${e.message || 'intenta de nuevo más tarde.'}`;
+                return '❌ Error de conexión. Verifica tu red e intenta de nuevo.';
             }
         }
 
@@ -667,7 +663,7 @@
                     if (!textVal) return;
                     queryRes.classList.remove('hidden');
                     queryRes.innerHTML = '<span class="loading-dots italic text-slate-500">La IA está analizando los riesgos</span>';
-                    const ans = await askGemini(`Un padre me pregunta esto en un taller: "${textVal}". Analiza los riesgos de manera concreta y da 3 consejos prácticos para padres.`);
+                    const ans = await askAsistente('analizar_riesgos', textVal);
                     if (ans) queryRes.innerHTML = `<strong>Análisis de la IA:</strong><br><br>${ans.replace(/\n/g, '<br>')}`;
                     else queryRes.classList.add('hidden');
                 });
@@ -683,7 +679,7 @@
                     if (!textVal) return;
                     scriptRes.classList.remove('hidden');
                     scriptRes.innerHTML = '<span class="loading-dots italic text-slate-500">La IA está redactando el guion</span>';
-                    const ans = await askGemini(`Genera un guion de diálogo corto y asertivo para un padre que se enfrenta a esta situación con su hijo: "${textVal}". El tono debe ser empático, buscando conectar en lugar de castigar directamente.`);
+                    const ans = await askAsistente('generar_dialogo', textVal);
                     if (ans) scriptRes.innerHTML = `<strong>Guion Sugerido:</strong><br><br>${ans.replace(/\n/g, '<br>')}`;
                     else scriptRes.classList.add('hidden');
                 });
