@@ -235,6 +235,62 @@
       background: radial-gradient(circle, rgba(161, 58, 235, 0.3) 0%, transparent 70%);
     }
 
+    /* === HERO BACKGROUND MOTION (canvas + aurora + floating glows) === */
+    .neural-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.65;
+    }
+
+    .hero .wrap {
+      position: relative;
+      z-index: 2;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes float-glow-1 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50%      { transform: translate(-40px, 30px) scale(1.08); }
+      }
+
+      @keyframes float-glow-2 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50%      { transform: translate(50px, -25px) scale(1.05); }
+      }
+
+      .hero-glow-1 { animation: float-glow-1 18s ease-in-out infinite; }
+      .hero-glow-2 { animation: float-glow-2 22s ease-in-out infinite; }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: -20%;
+        background: conic-gradient(from 0deg,
+          rgba(44, 211, 242, 0.12),
+          transparent 25%,
+          rgba(161, 58, 235, 0.12) 50%,
+          transparent 75%,
+          rgba(44, 211, 242, 0.12));
+        animation: spin-aurora 40s linear infinite;
+        mix-blend-mode: screen;
+        opacity: 0.18;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      @keyframes spin-aurora {
+        to { transform: rotate(360deg); }
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero::after { display: none; }
+    }
+
     .eyebrow {
       display: inline-flex;
       align-items: center;
@@ -428,8 +484,7 @@
       display: flex;
       gap: 32px;
       margin-top: 48px;
-      padding-top: 32px;
-      border-top: 1px solid var(--gray-border);
+      padding-top: 0;
       flex-wrap: wrap
     }
 
@@ -560,6 +615,63 @@
     }
 
     /* === MANIFIESTO === */
+    #manifest .wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    .manifest-isotipo {
+      position: absolute;
+      top: 10px;
+      left: -40px;
+      width: 380px;
+      height: 380px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .manifest-isotipo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      opacity: 0.22;
+      filter:
+        drop-shadow(0 0 50px rgba(44, 211, 242, 0.40))
+        drop-shadow(0 20px 60px rgba(161, 58, 235, 0.30));
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .manifest-isotipo {
+        animation: iso-float 11s ease-in-out infinite;
+      }
+      .manifest-isotipo img {
+        animation: iso-breath 8s ease-in-out infinite;
+      }
+      @keyframes iso-float {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        25%      { transform: translate(12px, -18px) rotate(1.5deg); }
+        50%      { transform: translate(0, -32px) rotate(0deg); }
+        75%      { transform: translate(-12px, -18px) rotate(-1.5deg); }
+      }
+      @keyframes iso-breath {
+        0%, 100% { transform: scale(1); }
+        50%      { transform: scale(1.08); }
+      }
+    }
+
+    @media (max-width: 900px) {
+      .manifest-isotipo {
+        width: 300px;
+        height: 300px;
+        top: -40px;
+        left: -60px;
+      }
+      .manifest-isotipo img {
+        opacity: 0.16;
+      }
+    }
+
     .manifest-grid {
       display: grid;
       grid-template-columns: 1fr 1.4fr;
@@ -797,14 +909,22 @@
 
     /* === SERVICE CARDS === */
     .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .services-grid > .service-card {
+      flex: 1 1 0%;
+      max-width: 380px;
+      min-width: 280px;
     }
 
     @media(max-width:900px) {
-      .services-grid {
-        grid-template-columns: 1fr
+      .services-grid > .service-card {
+        flex-basis: 100%;
+        max-width: 100%;
       }
     }
 
@@ -974,6 +1094,233 @@
 
     .service-card.featured .service-meta {
       color: rgba(255, 255, 255, 0.6)
+    }
+
+    /* === SERVICIOS · Audience panels v2 (líneas, deliverables, tags, CTAs) === */
+    .aud-pain {
+      background: #fff;
+      border-left: 3px solid var(--cyan);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 24px;
+      margin-bottom: 28px;
+      font-style: italic;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.55;
+      box-shadow: var(--shadow-sm);
+    }
+    .aud-pain p { margin: 0; }
+
+    .linea-group { margin-bottom: 36px; }
+    .linea-group:last-child { margin-bottom: 0; }
+
+    .linea-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    .linea-1       { background: rgba(44, 211, 242, 0.10); color: var(--cyan-dark); }
+    .linea-2       { background: rgba(161, 58, 235, 0.10); color: var(--violet-dark); }
+    .linea-3       { background: rgba(248, 113, 113, 0.14); color: #C53030; }
+    .linea-digital { background: rgba(30, 58, 138, 0.10);  color: var(--cobalt); }
+
+    /* services-grid--single ya no necesita overrides:
+       hereda el flex centrado y el max-width de 380px del card.
+       Sigue existiendo como clase para retro-compatibilidad. */
+
+    /* Sin botones al final, evitar margin sobrante del último bloque */
+    .service-card > *:last-child {
+      margin-bottom: 0;
+    }
+
+    .service-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .service-card-header .service-name { margin: 0; }
+
+    .service-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      background: var(--gray-bg);
+      color: var(--text-light);
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .service-card.featured .service-badge {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+
+    .service-featured-badge {
+      position: absolute;
+      top: 0;
+      right: 28px;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 5px 14px;
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      color: #fff;
+      border-radius: 0 0 8px 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      box-shadow: var(--shadow-sm);
+      z-index: 2;
+    }
+    .service-card.featured .service-featured-badge {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--violet-dark);
+    }
+
+    .service-deliverables {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .service-deliverables li {
+      font-size: 13px;
+      color: var(--text);
+      padding-left: 22px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .service-deliverables li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--cyan);
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .service-card.featured .service-deliverables li { color: rgba(255, 255, 255, 0.92); }
+    .service-card.featured .service-deliverables li::before { color: var(--cyan-light); }
+
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .service-tags .tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--text-light);
+      background: transparent;
+    }
+    .service-card.featured .service-tags .tag {
+      border-color: rgba(255, 255, 255, 0.30);
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .service-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 22px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1.5px solid rgba(44, 211, 242, 0.5);
+      color: var(--cyan-dark);
+      transition: transform 150ms var(--ease), box-shadow 150ms var(--ease), background 150ms var(--ease);
+      margin-top: auto;
+      align-self: flex-start;
+    }
+    .service-cta:hover {
+      background: rgba(44, 211, 242, 0.08);
+      transform: scale(1.02);
+    }
+    .service-cta--primary {
+      background: var(--gradient);
+      color: #fff !important;
+      border: none;
+      box-shadow: var(--shadow-cyan);
+    }
+    .service-cta--primary:hover {
+      box-shadow: var(--shadow-brand);
+      transform: scale(1.02);
+    }
+    .service-card.featured .service-cta {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.4);
+      color: #fff;
+    }
+    .service-card.featured .service-cta:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+    .service-card.featured .service-cta--primary {
+      background: #fff;
+      color: var(--violet-dark) !important;
+      border: none;
+      box-shadow: var(--shadow-md);
+    }
+
+    .cohort-urgency {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px 14px;
+      background: rgba(248, 113, 113, 0.10);
+      border: 1px solid rgba(248, 113, 113, 0.30);
+      border-radius: 8px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: #B85A4A;
+    }
+    .service-card.featured .cohort-urgency {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.30);
+      color: #fff;
+    }
+    .urgency-label {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 10px;
+    }
+    .urgency-date { font-weight: 600; }
+
+    .aud-journey {
+      background: #fff;
+      border-radius: 12px;
+      padding: 18px 22px;
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.65;
+      margin-top: 24px;
+      border: 1px solid var(--line-brand);
+    }
+    .journey-label {
+      display: inline-block;
+      font-weight: 700;
+      color: var(--violet);
+      margin-right: 8px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    @media (max-width: 768px) {
+      .service-card-header { flex-direction: column; gap: 8px; }
+      .service-card-header .service-badge { align-self: flex-start; }
+      .services-grid--single { max-width: 100%; }
     }
 
     .service-btn {
@@ -1179,30 +1526,6 @@
       color: #fff;
       position: relative;
       overflow: hidden;
-    }
-
-    .form-section::before {
-      content: "";
-      position: absolute;
-      top: -150px;
-      left: -100px;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, var(--cyan) 0%, transparent 65%);
-      opacity: 0.35;
-      pointer-events: none;
-    }
-
-    .form-section::after {
-      content: "";
-      position: absolute;
-      bottom: -180px;
-      right: -100px;
-      width: 520px;
-      height: 520px;
-      background: radial-gradient(circle, var(--violet) 0%, transparent 65%);
-      opacity: 0.45;
-      pointer-events: none;
     }
 
     .form-section .neural-bg {
@@ -1642,30 +1965,6 @@
       position: relative;
       overflow: hidden;
       background: linear-gradient(135deg, #1E3A8A 0%, #7A1EC0 100%);
-    }
-
-    .newsletter::before {
-      content: "";
-      position: absolute;
-      top: -150px;
-      right: -150px;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, var(--cyan) 0%, transparent 65%);
-      opacity: 0.35;
-      pointer-events: none;
-    }
-
-    .newsletter::after {
-      content: "";
-      position: absolute;
-      bottom: -200px;
-      left: -200px;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, var(--violet) 0%, transparent 65%);
-      opacity: 0.45;
-      pointer-events: none;
     }
 
     .newsletter .neural-bg {
@@ -2324,15 +2623,17 @@
         <a href="#manifest">Filosofía</a>
         <a href="#servicios">Servicios</a>
         <a href="#talleres-dictados">Experiencia</a>
+        <a href="#simulador">Probar IA</a>
         <a href="#tips">Tips</a>
         <a href="#newsletter">Newsletter</a>
-        <a href="#solicitar" class="nav-cta">Solicitar taller</a>
+        <a href="#solicitar" class="nav-cta">Solicitar nuestros servicios</a>
       </div>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
+    <canvas id="neural-canvas" class="neural-canvas" aria-hidden="true"></canvas>
     <div class="neural-bg"></div>
     <div class="hero-glow-1"></div>
     <div class="hero-glow-2"></div>
@@ -2363,7 +2664,6 @@
           <div class="hero-cta">
             <a href="#servicios" class="btn btn-primary">Ver servicios <i data-lucide="arrow-right"
                 class="icon"></i></a>
-            <a href="#solicitar" class="btn btn-ghost"><i data-lucide="calendar" class="icon"></i> Solicitar charla</a>
           </div>
           <a href="#newsletter" class="hero-newsletter-link">
             <span class="hero-newsletter-icon"><i data-lucide="mail"></i></span>
@@ -2393,6 +2693,9 @@
   <!-- MANIFIESTO -->
   <section class="section" id="manifest">
     <div class="wrap">
+      <div class="manifest-isotipo" aria-hidden="true">
+        <img src="assets/isotipo-color.png" alt="">
+      </div>
       <div class="manifest-grid">
         <div>
           <div class="section-label">Nuestra filosofía</div>
@@ -2451,155 +2754,304 @@
       <div class="section-head">
         <div>
           <div class="section-label">Portafolio de servicios</div>
-          <h2>Cinco pilares. <span class="grad">A tu medida.</span></h2>
+          <h2>Lo que hacemos, <span class="grad">y para quién</span>.</h2>
         </div>
-        <p>Charlas, talleres, consultoría, soluciones a medida y mentoría individual. Elige el camino que aplique a ti.
-        </p>
+        <p>Tres líneas de trabajo, cuatro audiencias. Cada servicio está diseñado para una necesidad concreta — sin código, sin jerga y sin curvas imposibles de aprendizaje.</p>
       </div>
 
       <div class="audience-tabs" role="tablist">
         <button class="atab active" role="tab" aria-selected="true" aria-controls="panel-familias" id="tab-familias" data-audience="familias">
           <span class="atab-icon"><i data-lucide="users"></i></span>
-          <span class="atab-label">Familias y Colegios</span>
+          <span class="atab-label">Familias</span>
           <span class="atab-sub">Crianza digital</span>
+        </button>
+        <button class="atab" role="tab" aria-selected="false" aria-controls="panel-colegios" id="tab-colegios" data-audience="colegios">
+          <span class="atab-icon"><i data-lucide="school"></i></span>
+          <span class="atab-label">Colegios</span>
+          <span class="atab-sub">Comunidad escolar</span>
         </button>
         <button class="atab" role="tab" aria-selected="false" aria-controls="panel-empresas" id="tab-empresas" data-audience="empresas">
           <span class="atab-icon"><i data-lucide="building-2"></i></span>
-          <span class="atab-label">Empresas y Equipos</span>
-          <span class="atab-sub">Capacitación corporativa</span>
+          <span class="atab-label">Empresas</span>
+          <span class="atab-sub">Pymes y equipos</span>
         </button>
-        <button class="atab" role="tab" aria-selected="false" aria-controls="panel-personas" id="tab-personas" data-audience="personas">
+        <button class="atab" role="tab" aria-selected="false" aria-controls="panel-profesionales" id="tab-profesionales" data-audience="profesionales">
           <span class="atab-icon"><i data-lucide="user"></i></span>
           <span class="atab-label">Profesionales</span>
-          <span class="atab-sub">Productividad personal</span>
+          <span class="atab-sub">Aprendizaje individual</span>
         </button>
       </div>
 
-      <!-- FAMILIAS -->
+      <!-- PANEL FAMILIAS -->
       <div class="audience-panel active" role="tabpanel" id="panel-familias" aria-labelledby="tab-familias" data-panel="familias">
-        <p class="panel-intro">"Mi hijo pasa horas en TikTok y no sé qué ve, qué le pasa, ni cómo hablarle." Para los
-          padres que quieren acompañar sin invadir, y para los colegios que quieren formar familias críticas.</p>
+        <div class="aud-pain">
+          <p>"Mi hijo pasa horas en TikTok y en videojuegos, ya no sé cómo hablarle de esto."</p>
+        </div>
 
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-icon"><i data-lucide="users"></i></div>
-            <span class="service-tag">Charlas Inspiracionales</span>
-            <h3 class="service-name">Charla de Crianza Digital</h3>
-            <p class="service-desc">Pautas prácticas para lidiar con el consumo de pantallas, riesgos de seguridad en internet, redes sociales and fomento de la creatividad usando IA de forma equilibrada según el rango de edad.</p>
-            <ul>
-              <li>Charla de 1 a 2 horas (Virtual o Presencial)</li>
-              <li>Asistente IA de soporte permanente incluido</li>
-              <li>Micro-web interactiva con recursos clave</li>
-              <li>Pautas y guías de conversación familiar</li>
-            </ul>
-            <div class="service-meta">Virtual o Presencial · Para grupos de padres</div>
+        <div class="linea-group">
+          <div class="linea-label linea-1">Línea 1 — Charlas</div>
+          <div class="services-grid services-grid--single">
+            <div class="service-card">
+              <div class="service-card-header">
+                <h3 class="service-name">Charla de Crianza Digital</h3>
+                <span class="service-badge">Para padres</span>
+              </div>
+              <p class="service-desc">IA, pantallas y redes sociales explicadas a padres de familia. Adaptada al rango de edad de los hijos: 5-9, 10-12 o 13-15 años. Salida práctica: tres conversaciones que puedes tener esta semana en casa.</p>
+              <ul class="service-deliverables">
+                <li>Sesión de 1 a 2 horas, presencial o virtual</li>
+                <li>Micro-web interactiva con recursos de la charla</li>
+                <li>Asistente IA para consultas post-charla</li>
+                <li>Guías de conversación familiar por grupo de edad</li>
+                <li>30 días de soporte al organizador por WhatsApp</li>
+              </ul>
+              <div class="service-tags">
+                <span class="tag">1-2h</span>
+                <span class="tag">Virtual o presencial</span>
+                <span class="tag">Hasta 150 familias</span>
+                <span class="tag">5-9 · 10-12 · 13-15 años</span>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <div class="service-card featured">
-            <div class="service-icon"><i data-lucide="sparkles"></i></div>
-            <span class="service-tag">A tu medida</span>
-            <h3 class="service-name">Charla a la Medida</h3>
-            <p class="service-desc">Adaptamos la charla a las necesidades específicas de tu colegio, asociación de padres o comunidad de familias para abordar sus preocupaciones particulares.</p>
-            <ul>
-              <li>Diagnóstico previo de preocupaciones de la comunidad</li>
-              <li>Temas personalizados (videojuegos, ciberseguridad, etc.)</li>
-              <li>Ejemplos prácticos y adaptados a tu audiencia</li>
-              <li>Micro-web y chatbot entrenados para tu caso</li>
-            </ul>
-            <div class="service-meta">Diseñada en conjunto con tu organización</div>
+        <div class="aud-journey">
+          <span class="journey-label">¿Y después?</span>
+          Si quieres ir más lejos en tu propio aprendizaje, los padres que asisten a esta charla pueden continuar como <strong>profesionales independientes</strong> — el Cohort Intensivo de 30 días es el siguiente paso natural.
+        </div>
+      </div>
+
+      <!-- PANEL COLEGIOS -->
+      <div class="audience-panel" role="tabpanel" id="panel-colegios" aria-labelledby="tab-colegios" data-panel="colegios">
+        <div class="aud-pain">
+          <p>"Las familias de nuestro colegio nos piden orientación sobre IA y pantallas. No sabemos por dónde empezar."</p>
+        </div>
+
+        <div class="linea-group">
+          <div class="linea-label linea-1">Línea 1 — Charlas</div>
+          <div class="services-grid">
+            <div class="service-card">
+              <div class="service-card-header">
+                <h3 class="service-name">Charla de Crianza Digital para la comunidad escolar</h3>
+                <span class="service-badge">Para directivos</span>
+              </div>
+              <p class="service-desc">El colegio contrata, las familias asisten. Una charla puntual o un programa anual que posiciona a tu institución como referente en educación digital para familias.</p>
+              <ul class="service-deliverables">
+                <li>Sesión de 1 a 2 horas por grupo de edad</li>
+                <li>Micro-web interactiva para cada charla</li>
+                <li>Material de comunicación para el colegio</li>
+                <li>Resumen ejecutivo para el equipo directivo</li>
+              </ul>
+              <div class="service-tags">
+                <span class="tag">1-2h por sesión</span>
+                <span class="tag">Presencial o virtual</span>
+                <span class="tag">Hasta 150 familias</span>
+              </div>
+            </div>
+
+            <div class="service-card featured">
+              <div class="service-featured-badge">Recomendado</div>
+              <div class="service-card-header">
+                <h3 class="service-name">Ciclo Escolar Anual de Crianza Digital</h3>
+                <span class="service-badge">Programa anual</span>
+              </div>
+              <p class="service-desc">Cuatro charlas durante el año escolar, una por trimestre, adaptadas al rango de edad de cada grupo de familias. El colegio que educa a sus familias en IA — ese es el diferenciador que mencionas en la matrícula.</p>
+              <ul class="service-deliverables">
+                <li>4 charlas al año con micro-web propia cada una</li>
+                <li>Adaptación por grupos: 5-9, 10-12 y 13-15 años</li>
+                <li>Informe semestral de la comunidad escolar</li>
+                <li>Material de comunicación para todo el año</li>
+                <li>Soporte directo durante el año escolar</li>
+              </ul>
+              <div class="service-tags">
+                <span class="tag">4 sesiones al año</span>
+                <span class="tag">Renovación año a año</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- EMPRESAS -->
+      <!-- PANEL EMPRESAS -->
       <div class="audience-panel" role="tabpanel" id="panel-empresas" aria-labelledby="tab-empresas" data-panel="empresas">
-        <p class="panel-intro">"Mi equipo escucha hablar de IA todos los días pero no la usa." Para empresas que quieren
-          pasar del miedo al criterio, sin transformaciones de seis meses ni jerga consultora.</p>
+        <div class="aud-pain">
+          <p>"Mi equipo escucha hablar de IA todos los días pero nadie la usa. Tenemos licencias de Microsoft 365 que pagamos y no aprovechamos."</p>
+        </div>
 
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-icon"><i data-lucide="sparkles"></i></div>
-            <span class="service-tag">Sensibilización</span>
-            <h3 class="service-name">Charla en IA</h3>
-            <p class="service-desc">Sesión de sensibilización y contextualización práctica sobre el impacto de la IA generativa para equipos de trabajo. Ideal para romper la resistencia al cambio.</p>
-            <ul>
-              <li>Sesión de 1 a 2 horas (Virtual o Presencial)</li>
-              <li>Demostraciones en vivo de herramientas reales</li>
-              <li>Identificación rápida de oportunidades de ahorro</li>
-              <li>Cero jerga técnica, 100% didáctico y directo</li>
-            </ul>
-            <div class="service-meta">Hasta 100 colaboradores por charla</div>
+        <div class="linea-group">
+          <div class="linea-label linea-2">Fases 1 &amp; 2 · Explorar e Implementar</div>
+          <div class="services-grid">
+            <div class="service-card">
+              <div class="service-card-header">
+                <h3 class="service-name">Diagnóstico de Madurez en IA</h3>
+                <span class="service-badge">1 semana</span>
+              </div>
+              <p class="service-desc">Antes de invertir en formación conviene saber dónde estás. Revisamos el estado real de tu empresa: qué herramientas tienen, cuáles usan de verdad y qué procesos son automatizables hoy mismo. Entregable: un roadmap priorizado con quick wins en 30, 60 y 90 días.</p>
+              <ul class="service-deliverables">
+                <li>Inventario de herramientas y licencias actuales</li>
+                <li>Entrevistas a personas clave del equipo</li>
+                <li>Mapa de oportunidades por área</li>
+                <li>Roadmap de implementación en 30, 60 y 90 días</li>
+                <li>Informe ejecutivo + sesión de presentación a liderazgo</li>
+              </ul>
+              <div class="service-tags">
+                <span class="tag">1 semana</span>
+                <span class="tag">Entregable: roadmap</span>
+              </div>
+            </div>
+
+            <div class="service-card featured">
+              <div class="service-featured-badge">Más solicitado</div>
+              <div class="service-card-header">
+                <h3 class="service-name">IA para la Vida — Programa corporativo</h3>
+                <span class="service-badge">Hasta 100 personas</span>
+              </div>
+              <p class="service-desc">Programa completo de adopción de IA: arranca con un módulo de sensibilización para todo el equipo (hasta 100 personas) y continúa con 6 módulos prácticos para un grupo seleccionado. ChatGPT, Claude, Copilot, Gemini, prompting avanzado y casos de uso reales. Al final, cada participante tiene tres flujos que va a usar al día siguiente.</p>
+              <ul class="service-deliverables">
+                <li>Módulo 0: Sensibilización al equipo completo (1-2h, hasta 100 personas)</li>
+                <li>6 módulos prácticos: contexto · ChatGPT · Claude · Copilot · Gemini · prompting</li>
+                <li>Laboratorios con casos reales del equipo</li>
+                <li>Micro-web interactiva con asistente IA integrado</li>
+                <li>Plantillas de prompts por rol y departamento</li>
+                <li>Certificación digital AGUI por participante</li>
+                <li>Sesión de seguimiento a los 30 días incluida</li>
+              </ul>
+              <div class="service-tags">
+                <span class="tag">Sensibilización + 6 módulos</span>
+                <span class="tag">Hasta 30 personas en módulos</span>
+                <span class="tag">Hasta 100 en sensibilización</span>
+                <span class="tag">Certificación AGUI</span>
+              </div>
+            </div>
+
+            <div class="service-card">
+              <div class="service-card-header">
+                <h3 class="service-name">Saca el jugo a tus licencias</h3>
+                <span class="service-badge">Con tus herramientas actuales</span>
+              </div>
+              <p class="service-desc">Ya tienes Microsoft 365, Power Automate, Copilot o Google Workspace. Solo que nadie te enseñó a usarlos bien. Este taller aprovecha exactamente lo que ya pagaste, sin comprar nada nuevo.</p>
+              <ul class="service-deliverables">
+                <li>Diagnóstico previo de licencias y herramientas actuales</li>
+                <li>Laboratorio práctico con flujos reales del equipo</li>
+                <li>Plantillas listas para producción</li>
+                <li>Certificación digital AGUI</li>
+                <li>30 días de soporte técnico post-taller por WhatsApp</li>
+              </ul>
+              <div class="service-tags">
+                <span class="tag">4-6h</span>
+                <span class="tag">Hasta 20 personas</span>
+                <span class="tag">M365 · Copilot · Gemini</span>
+                <span class="tag">Sin comprar nada nuevo</span>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <div class="service-card featured">
-            <div class="service-icon"><i data-lucide="zap"></i></div>
-            <span class="service-tag">Práctico</span>
-            <h3 class="service-name">Talleres en Automatización</h3>
-            <p class="service-desc">Curso interactivo de automatización de procesos para que tus colaboradores aprendan a conectar herramientas de uso diario (Excel, SharePoint, email, CRM) sin saber programar.</p>
-            <ul>
-              <li>Talleres de 4 a 8 horas (100% hands-on)</li>
-              <li>Enfoque en Make, Zapier y Power Automate</li>
-              <li>Laboratorios prácticos y plantillas listas</li>
-              <li>Certificación digital oficial de AGUI</li>
-            </ul>
-            <div class="service-meta">Hasta 15 colaboradores por sesión</div>
-          </div>
-
-          <div class="service-card">
-            <div class="service-icon"><i data-lucide="puzzle"></i></div>
-            <span class="service-tag">Desarrollo</span>
-            <h3 class="service-name">Soluciones a Medida</h3>
-            <p class="service-desc">Construimos chatbots, automatizaciones profundas y apps internas con IA integrada, listas para producción y 100% transferidas a tu propiedad.</p>
-            <ul>
-              <li>Chatbots especializados para WhatsApp, web o Slack</li>
-              <li>Automatizaciones de procesamiento documental (facturas, leads)</li>
-              <li>Apps internas No-Code rápidas con Glide o Softr</li>
-              <li>30 días de garantía + manual rápido de uso</li>
-            </ul>
-            <div class="service-meta">Entrega ágil en 3 a 10 días hábiles</div>
+        <div class="linea-group">
+          <div class="linea-label linea-3">Fase 3 · Sostener — Crecimiento continuo</div>
+          <div class="services-grid services-grid--single">
+            <div class="service-card featured">
+              <div class="service-featured-badge">Ingreso recurrente</div>
+              <div class="service-card-header">
+                <h3 class="service-name">AGUI Mensual — Acompañamiento continuo</h3>
+                <span class="service-badge">Mínimo 3 meses</span>
+              </div>
+              <p class="service-desc">El taller fue solo el principio. Mes a mes revisamos la adopción del equipo, abrimos nuevos casos de uso y mantenemos la estrategia de IA actualizada. Tu aliado de inteligencia artificial de forma continua.</p>
+              <ul class="service-deliverables">
+                <li>Reunión mensual de seguimiento con liderazgo (1h)</li>
+                <li>Canal WhatsApp directo con el equipo</li>
+                <li>1 caso de uso nuevo o mejora al mes</li>
+                <li>Curación de novedades relevantes para tu sector</li>
+                <li>Informe mensual de adopción</li>
+              </ul>
+              <div class="service-tags">
+                <span class="tag">Mínimo 3 meses</span>
+                <span class="tag">4h de consultoría/mes</span>
+                <span class="tag">WhatsApp directo</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- PERSONAS -->
-      <div class="audience-panel" role="tabpanel" id="panel-personas" aria-labelledby="tab-personas" data-panel="personas">
-        <p class="panel-intro">"Sé que ChatGPT existe, pero siento que no le saco el jugo que podría." Para
-          profesionales independientes y curiosos que quieren ahorrar tiempo y aprender a usar la IA con criterio.</p>
+      <!-- PANEL PROFESIONALES -->
+      <div class="audience-panel" role="tabpanel" id="panel-profesionales" aria-labelledby="tab-profesionales" data-panel="profesionales">
+        <div class="aud-pain">
+          <p>"Sé que ChatGPT existe. Lo abro, no sé qué preguntarle, lo cierro. Sigo haciendo todo igual."</p>
+        </div>
 
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-icon"><i data-lucide="rocket"></i></div>
-            <span class="service-tag">Mentoría corta</span>
-            <h3 class="service-name">Talleres Express</h3>
-            <p class="service-desc">Sesiones cortas de 1 a 2 horas en vivo sobre temas muy específicos de IA para aprender haciendo y llevarte plantillas listas para usar.</p>
-            <ul>
-              <li>1 a 2 horas en vivo por Zoom · Grupo reducido</li>
-              <li>Temas prácticos y aplicables (prompting, Make)</li>
-              <li>Grabación de la sesión + plantillas incluidas</li>
-              <li>Acceso a comunidad de aprendizaje</li>
-            </ul>
-            <div class="service-meta">Por persona · Cupos limitados</div>
+        <div class="linea-group">
+          <div class="linea-label linea-1">Línea 1 — Charlas · Visibilidad</div>
+          <div class="services-grid services-grid--single">
+            <div class="service-card">
+              <div class="service-card-header">
+                <h3 class="service-name">Charla Abierta de IA</h3>
+                <span class="service-badge">Eventos y gremios</span>
+              </div>
+              <p class="service-desc">Para asociaciones, cámaras de comercio, universidades y eventos profesionales. Una hora para entender qué es la IA, qué no es, y con qué empezar hoy. Sin código, sin cuentas, sin fricción.</p>
+              <div class="service-tags">
+                <span class="tag">1-1.5h</span>
+                <span class="tag">Cualquier tamaño</span>
+                <span class="tag">Bogotá y virtual</span>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <div class="service-card featured">
-            <div class="service-icon"><i data-lucide="calendar-days"></i></div>
-            <span class="service-tag">Mentoría intensiva</span>
-            <h3 class="service-name">Talleres Intensivos</h3>
-            <p class="service-desc">Programa intensivo de 4 semanas en vivo para integrar la IA en tu trabajo diario de manera sistemática y crear tu propio asistente de IA al finalizar.</p>
-            <ul>
-              <li>4 clases semanales en vivo de 1 hora</li>
-              <li>Retos prácticos y proyectos semanales corregidos</li>
-              <li>Comunidad de aprendizaje y soporte</li>
-              <li>Construcción de un asistente IA propio al cierre</li>
-            </ul>
-            <div class="service-meta">Cohorte cada 6 semanas · 25 cupos</div>
+        <div class="linea-group">
+          <div class="linea-label linea-2">Línea 2 — Asesoría individual</div>
+          <div class="services-grid">
+            <div class="service-card">
+              <div class="service-card-header">
+                <h3 class="service-name">Desatoro Digital — Sesión 1:1</h3>
+                <span class="service-badge">2 horas</span>
+              </div>
+              <p class="service-desc">Dos horas para resolver un problema específico: no entender ChatGPT, querer automatizar un proceso, necesitar un prompt para una situación concreta. Salida: algo funcionando, no teoría.</p>
+              <ul class="service-deliverables">
+                <li>Sesión 1:1 de 2h por Zoom con grabación</li>
+                <li>Prompts y recursos personalizados al problema</li>
+                <li>Nota de seguimiento con próximos pasos</li>
+                <li>WhatsApp abierto por 15 días post-sesión</li>
+              </ul>
+              <div class="service-tags">
+                <span class="tag">2h · Zoom</span>
+                <span class="tag">Grabación incluida</span>
+                <span class="tag">Seguimiento 15 días</span>
+              </div>
+            </div>
+
+            <div class="service-card featured">
+              <div class="service-featured-badge">Producto estrella</div>
+              <div class="service-card-header">
+                <h3 class="service-name">Cohort Intensivo — 30 Días con IA</h3>
+                <span class="service-badge">Máx. 25 cupos</span>
+              </div>
+              <p class="service-desc">Cuatro semanas, cuatro clases en vivo, retos semanales y un asistente IA propio al finalizar. De usuario casual a usuario sistemático. Menos de 5 horas a la semana de tu tiempo.</p>
+              <ul class="service-deliverables">
+                <li>4 clases semanales en vivo de 1h + grabaciones</li>
+                <li>Retos prácticos semanales con feedback</li>
+                <li>Grupo de acompañamiento durante el cohort</li>
+                <li>Biblioteca de prompts AGUI por situación</li>
+                <li>Certificado de finalización AGUI</li>
+              </ul>
+              <div class="service-tags">
+                <span class="tag">4 semanas</span>
+                <span class="tag">Máx. 25 cupos</span>
+                <span class="tag">Menos de 5h/semana</span>
+                <span class="tag">Biblioteca de prompts</span>
+              </div>
+              <div class="cohort-urgency">
+                <span class="urgency-label">Próxima edición</span>
+                <span class="urgency-date">Próximamente</span>
+                <span class="urgency-spots">Cupos limitados</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- SINGLE CTA BUTTON OUTSIDE CARDS -->
       <div class="services-cta">
-        <a href="#solicitar" class="btn btn-primary">Solicitar o cotizar servicio <i data-lucide="arrow-right"></i></a>
+        <a href="#solicitar" class="btn btn-primary">Solicitar nuestros servicios <i data-lucide="arrow-right"></i></a>
       </div>
     </div>
   </section>
@@ -2746,7 +3198,7 @@
     <div class="neural-bg"></div>
     <div class="wrap">
       <div class="form-wrap">
-        <div class="section-label">Solicita una charla o taller</div>
+        <div class="section-label">Solicita nuestros servicios</div>
         <h2>Cuéntame qué necesitas. <span class="grad">Recibe tu regalo al instante.</span></h2>
         <p class="form-intro">Cada audiencia tiene un punto de partida distinto. Selecciona quién eres y te muestro las
           preguntas correctas. Cuando envíes el formulario, recibirás un regalo pensado especialmente para tu caso.</p>
@@ -3257,6 +3709,15 @@
       });
     });
 
+    // Pre-select audience tab from URL param (e.g. ?audiencia=empresas)
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const preAudience = params.get('audiencia');
+      if (!preAudience) return;
+      const preTab = document.querySelector(`.atab[data-audience="${preAudience}"]`);
+      if (preTab) preTab.click();
+    })();
+
     // Form route picker
     document.querySelectorAll('.route').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -3531,6 +3992,118 @@ Para cada publicación proporciona:
 
     // Ejecutar al cargar la página
     document.addEventListener('DOMContentLoaded', checkSubscription);
+  </script>
+
+  <script>
+    // Hero background animation: animated neural network on canvas + mouse parallax
+    (function () {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var hero = document.querySelector('.hero');
+      var canvas = document.getElementById('neural-canvas');
+      if (!hero || !canvas) return;
+      var ctx = canvas.getContext('2d');
+
+      var isCoarse = window.matchMedia('(pointer: coarse)').matches;
+      var isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+      var COLORS = ['rgba(44, 211, 242, 0.45)', 'rgba(161, 58, 235, 0.45)'];
+      var COUNT = isMobile ? 22 : 52;
+      var MAX_DIST = isMobile ? 110 : 140;
+
+      var particles = [];
+      var width = 0, height = 0;
+      var rafId = null;
+      var running = false;
+
+      function resize() {
+        var rect = hero.getBoundingClientRect();
+        width = rect.width;
+        height = rect.height;
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function seed() {
+        particles = [];
+        for (var i = 0; i < COUNT; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.35,
+            vy: (Math.random() - 0.5) * 0.35,
+            r: 1.4 + Math.random() * 1.6,
+            c: COLORS[i % 2]
+          });
+        }
+      }
+
+      function step() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > width)  p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.c;
+          ctx.fill();
+        }
+
+        for (var i2 = 0; i2 < particles.length; i2++) {
+          for (var j = i2 + 1; j < particles.length; j++) {
+            var a = particles[i2], b = particles[j];
+            var dx = a.x - b.x, dy = a.y - b.y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < MAX_DIST) {
+              var alpha = (1 - dist / MAX_DIST) * 0.35;
+              ctx.strokeStyle = 'rgba(120, 140, 220,' + alpha + ')';
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        rafId = requestAnimationFrame(step);
+      }
+
+      function start() { if (!running) { running = true; step(); } }
+      function stop() {
+        if (running) {
+          running = false;
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      }
+
+      resize();
+      seed();
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { e.isIntersecting ? start() : stop(); });
+      }, { threshold: 0 });
+      io.observe(hero);
+
+      var resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () { resize(); seed(); }, 200);
+      });
+
+      // Mouse parallax disabled: the canvas occupies the hero exactly,
+      // so translating it exposes a white edge on the opposite side.
+      // Glow CSS keyframe float + particle motion already provide enough movement.
+    })();
   </script>
 
 </body>
