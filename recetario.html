@@ -8,30 +8,47 @@
 
   <script>
     // ── Control de acceso ──────────────────────────────────────────
-    // Token válido — cámbialo cuando quieras revocar acceso masivo
-    const TOKEN_VALIDO = 'agui2026';
-    const CLAVE_SESION = 'agui_recetario_acceso';
+    // Token único por suscriptor: la página valida contra la API
+    // (cada suscriptor confirmado tiene su propio token en el Sheet).
+    // Si el token no existe o el suscriptor no está activo, se muestra el gate.
+    const CLAVE_SESION = 'agui_recetario_token';
+    const API_VERIFICAR = 'https://api.agui-consultoria.com/api/verificar-acceso-recetario';
 
-    function verificarAcceso() {
-      // 1. Revisar si ya tiene acceso guardado en la sesión
-      if (sessionStorage.getItem(CLAVE_SESION) === TOKEN_VALIDO) return true;
-      // 2. Revisar el parámetro en la URL
+    function obtenerToken() {
+      // 1. Token guardado en sesión (para recargas dentro de la misma pestaña)
+      const cached = sessionStorage.getItem(CLAVE_SESION);
+      if (cached) return cached;
+      // 2. Query param ?token=... (link enviado en el email de bienvenida)
       const params = new URLSearchParams(window.location.search);
-      const token  = params.get('acceso');
-      if (token === TOKEN_VALIDO) {
-        sessionStorage.setItem(CLAVE_SESION, TOKEN_VALIDO); // guardar para recargas
-        return true;
-      }
-      return false;
+      return params.get('token');
     }
 
-    // Ejecutar antes de que el DOM cargue para evitar flash de contenido
-    document.addEventListener('DOMContentLoaded', function () {
-      if (verificarAcceso()) {
-        document.getElementById('gate').style.display    = 'none';
+    async function verificarAcceso() {
+      const token = obtenerToken();
+      if (!token) return false;
+      try {
+        const r = await fetch(API_VERIFICAR + '?token=' + encodeURIComponent(token), { cache: 'no-store' });
+        const data = await r.json();
+        if (data && data.ok) {
+          sessionStorage.setItem(CLAVE_SESION, token);
+          return true;
+        }
+        // Si el token quedó inválido (baja, revocado), limpiar la sesión
+        sessionStorage.removeItem(CLAVE_SESION);
+        return false;
+      } catch (e) {
+        console.error('Error verificando acceso al recetario:', e);
+        return false;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', async function () {
+      const ok = await verificarAcceso();
+      if (ok) {
+        document.getElementById('gate').style.display = 'none';
         document.getElementById('contenido').style.display = 'block';
       } else {
-        document.getElementById('gate').style.display    = 'flex';
+        document.getElementById('gate').style.display = 'flex';
         document.getElementById('contenido').style.display = 'none';
       }
     });
