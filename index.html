@@ -3546,7 +3546,7 @@
           </div>
 
           <form class="newsletter-form" id="nl-form"
-                action="https://stats.sender.net/forms/b68lol/subscribe"
+                action="https://api.agui-consultoria.com/api/suscribir-newsletter"
                 method="POST" target="nl-iframe" onsubmit="nlSubmit()">
             <input type="email" name="email" id="nl-email" placeholder="tu@correo.com" required>
             <button type="submit" id="nl-btn">Suscribirme gratis <i data-lucide="arrow-right"></i></button>
@@ -3975,10 +3975,11 @@ Para cada publicación proporciona:
       var emailValue = emailInput ? emailInput.value : '';
 
       btn.disabled = true;
-      btn.innerHTML = '⏳ Un momento...';
-      // Cuando el iframe carga la respuesta de Sender → mostrar éxito
+      btn.innerHTML = 'Un momento...';
+      // Cuando el iframe carga la respuesta de la API → mostrar éxito
+      // El flujo es doble opt-in: el suscriptor debe confirmar desde su correo.
       document.getElementById('nl-iframe').onload = function () {
-        btn.innerHTML = 'Ya estás adentro ✓';
+        btn.innerHTML = 'Revisa tu correo ✓';
         btn.style.background = 'linear-gradient(135deg,#28C840,#1aab2e)';
         if (emailInput) {
           localStorage.setItem('agui_email', emailValue);
@@ -3986,7 +3987,7 @@ Para cada publicación proporciona:
           emailInput.disabled = true;
         }
         localStorage.setItem('agui_subscribed', 'true');
-        note.textContent = '¡Bienvenid@ a la comunidad AGUI! En unos minutos recibirás los 10 prompts de regalo.';
+        note.textContent = 'Casi listo. Te enviamos un correo para confirmar tu suscripción. Haz clic en el enlace y empiezas a recibir el resumen cada martes.';
       };
     }
 
