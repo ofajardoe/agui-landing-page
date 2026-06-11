@@ -23,6 +23,16 @@
   <meta property="twitter:image" content="https://agui-consultoria.com/assets/logo-color.png">
 
   <link rel="icon" type="image/png" href="assets/isotipo-color.png">
+
+  <!-- Cloudflare Web Analytics (gratis, sin cookies — no requiere banner de consentimiento)
+       CÓMO ACTIVARLO:
+       1. Entra a dash.cloudflare.com → Analytics & Logs → Web Analytics
+       2. "Add a site" → agui-consultoria.com → copia el token que te da
+       3. Reemplaza PENDIENTE_TOKEN abajo por tu token y descomenta el script
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+    data-cf-beacon='{"token": "PENDIENTE_TOKEN"}'></script>
+  -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -2376,7 +2386,8 @@
       margin-bottom: 10px
     }
 
-    .footer-col a {
+    .footer-col a,
+    .footer-col span {
       color: rgba(255, 255, 255, 0.7);
       font-size: 14px;
       transition: color 150ms var(--ease)
@@ -2396,37 +2407,6 @@
       font-size: 13px;
       flex-wrap: wrap;
       gap: 16px;
-    }
-
-    .footer-socials {
-      display: flex;
-      gap: 10px
-    }
-
-    .footer-socials a {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.7);
-      transition: all 200ms var(--ease);
-    }
-
-    .footer-socials a:hover {
-      background: var(--gradient);
-      border-color: transparent;
-      color: #fff;
-      transform: translateY(-2px)
-    }
-
-    .footer-socials svg {
-      width: 16px;
-      height: 16px;
-      stroke-width: 1.8
     }
 
     /* Reveal */
@@ -2522,101 +2502,15 @@
         border-bottom: 1px solid var(--gray-border) !important;
       }
     }
-  /* === Sender.net embed override — fondo oscuro newsletter === */
-  #sender-form-wrap,
-  #sender-form-wrap * { box-sizing: border-box; }
-
-  #sender-form-wrap form,
-  #sender-form-wrap .sender-form-body {
-    display: flex !important;
-    gap: 8px !important;
-    background: rgba(255,255,255,0.08) !important;
-    padding: 6px !important;
-    border-radius: 14px !important;
-    border: 1px solid rgba(255,255,255,0.15) !important;
-    max-width: 520px !important;
-    margin: 0 !important;
-  }
-
-  #sender-form-wrap input[type="email"],
-  #sender-form-wrap input[type="text"] {
-    flex: 1 !important;
-    background: transparent !important;
-    border: none !important;
-    color: #fff !important;
-    font-size: 15px !important;
-    padding: 12px 22px !important;
-    outline: none !important;
-    min-width: 0 !important;
-    box-shadow: none !important;
-  }
-
-  #sender-form-wrap input::placeholder { color: rgba(255,255,255,0.5) !important; }
-
-  #sender-form-wrap button[type="submit"],
-  #sender-form-wrap input[type="submit"] {
-    background: linear-gradient(135deg,#2CD3F2 0%,#A13AEB 100%) !important;
-    color: #fff !important;
-    border: none !important;
-    padding: 12px 24px !important;
-    border-radius: 10px !important;
-    font-weight: 700 !important;
-    font-size: 14px !important;
-    cursor: pointer !important;
-    white-space: nowrap !important;
-    transition: transform 150ms ease !important;
-  }
-
-  #sender-form-wrap button[type="submit"]:hover,
-  #sender-form-wrap input[type="submit"]:hover { transform: scale(1.04) !important; }
-
-  #sender-form-wrap label,
-  #sender-form-wrap .sender-form-field__label { display: none !important; }
-
-  #sender-form-wrap .sender-form__success,
-  #sender-form-wrap .sender-form-success {
-    color: #2CD3F2 !important;
-    font-weight: 600 !important;
-    font-size: 15px !important;
-    padding: 12px 0 !important;
-  }
-
-  @media(max-width:600px) {
-    #sender-form-wrap form,
-    #sender-form-wrap .sender-form-body { flex-direction: column !important; border-radius: 16px !important; padding: 8px !important; }
-    #sender-form-wrap button[type="submit"],
-    #sender-form-wrap input[type="submit"] { width: 100% !important; justify-content: center !important; }
-  }
-
   </style>
-
-  <!-- Sender.net SDK -->
-  <script>
-    (function (s, e, n, d, er) {
-      s['Sender'] = er;
-      s[er] = s[er] || function () {
-        (s[er].q = s[er].q || []).push(arguments)
-      }, s[er].l = 1 * new Date();
-      s[er].on = function(event, callback) {
-        s[er].listeners = s[er].listeners || {};
-        (s[er].listeners[event] = s[er].listeners[event] || []).push(callback);
-      };
-      var a = e.createElement(n),
-        m = e.getElementsByTagName(n)[0];
-      a.async = 1;
-      a.src = d;
-      m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'https://cdn.sender.net/accounts_resources/universal.js', 'sender');
-    sender('756e3c8aaa7458')
-  </script>
 </head>
 
-<body>
+<body id="inicio">
 
   <!-- NAV -->
   <nav>
     <div class="wrap nav-inner">
-      <a href="#" class="logo">
+      <a href="#inicio" class="logo">
         <img src="assets/logo-color.png" alt="AGUI">
       </a>
       <div class="nav-links">
@@ -2920,6 +2814,7 @@
                 <span class="tag">Hasta 30 personas en módulos</span>
                 <span class="tag">Hasta 100 en sensibilización</span>
                 <span class="tag">Certificación AGUI</span>
+                <span class="tag">Seguimiento a 30 días</span>
               </div>
             </div>
 
@@ -3216,7 +3111,7 @@
           </button>
           <button class="route" role="tab" aria-selected="false" aria-controls="form-persona" id="tab-route-persona" data-route="persona">
             <span class="route-icon"><i data-lucide="user"></i></span>
-            <span class="route-title">Soy una persona individual</span>
+            <span class="route-title">Soy un profesional independiente</span>
             <span class="route-sub">Productividad y aprendizaje</span>
           </button>
         </div>
@@ -3588,10 +3483,10 @@
         <div class="footer-col">
           <h4>Servicios</h4>
           <ul>
-            <li><a href="#servicios">Crianza digital</a></li>
+            <li><a href="#servicios">Crianza digital · familias y colegios</a></li>
             <li><a href="#servicios">Capacitación corporativa en IA</a></li>
-            <li><a href="#servicios">Soluciones a medida</a></li>
-            <li><a href="#servicios">Talleres intensivos y mentoría</a></li>
+            <li><a href="#servicios">Diagnóstico y acompañamiento mensual</a></li>
+            <li><a href="#servicios">Asesoría 1:1 y Cohort intensivo</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -3599,46 +3494,19 @@
           <ul>
             <li><a href="#tips">Blog</a></li>
             <li><a href="#newsletter">Newsletter</a></li>
-            <li><a href="#">Recetario AGUI</a></li>
-            <li><a href="#solicitar">Solicitar charla</a></li>
+            <li><a href="#solicitar">Solicitar nuestros servicios</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Contacto</h4>
           <ul>
             <li><a href="mailto:info@agui-consultoria.com">info@agui-consultoria.com</a></li>
-            <li><a href="#">Bogotá, Colombia</a></li>
+            <li><span>Bogotá, Colombia</span></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
         <span>© 2026 AGUI ConsultorIA · Hecho con calma, en español.</span>
-        <div class="footer-socials">
-          <a href="#" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
-              <rect x="2" y="9" width="4" height="12" />
-              <circle cx="4" cy="4" r="2" />
-            </svg>
-          </a>
-          <a href="#" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" />
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-            </svg>
-          </a>
-          <a href="#" aria-label="YouTube">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path
-                d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
-              <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
-            </svg>
-          </a>
-        </div>
       </div>
     </div>
   </footer>
@@ -3647,6 +3515,17 @@
   <script>
     // =====================================================
     // ACTUALIZA AQUÍ CADA MARTES con la edición anterior
+    // -----------------------------------------------------
+    // Campos a editar (no toques nada más):
+    //   subject:  el asunto del correo enviado, entre comillas
+    //   date:     ej. "Martes, 29 de abril"
+    //   readTime: ej. "4 min"
+    //   blocks:   3 bloques, cada uno con:
+    //     tag:    "Noticia" | "Tip de la semana" | "Herramienta probada"
+    //     title:  titular corto del bloque
+    //     body:   1-3 frases en español claro
+    //     prompt: (opcional, solo si el bloque incluye un prompt copiable)
+    // Ojo: comillas dobles dentro de un texto van escapadas: \"así\"
     // =====================================================
     const NEWSLETTER_EDITION = {
       subject: "¿Qué hace Claude que ChatGPT todavía no?",
@@ -3732,6 +3611,15 @@
         document.querySelector(`[data-form="${target}"]`).classList.add('active');
         if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.6 } });
       });
+    });
+
+    // Al solicitar desde servicios, pre-seleccionar la ruta del form según la audiencia activa
+    document.querySelector('.services-cta a')?.addEventListener('click', () => {
+      const activeTab = document.querySelector('.atab.active');
+      if (!activeTab) return;
+      const routeMap = { familias: 'familia', colegios: 'familia', empresas: 'empresa', profesionales: 'persona' };
+      const routeBtn = document.querySelector(`.route[data-route="${routeMap[activeTab.dataset.audience]}"]`);
+      if (routeBtn && !routeBtn.classList.contains('active')) routeBtn.click();
     });
 
     function handleSubmit(e, type) {
