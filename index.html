@@ -1302,6 +1302,17 @@
     }
     .urgency-date { font-weight: 600; }
 
+    .cohort-waitlist-link {
+      display: inline-block;
+      margin-top: 4px;
+      font-weight: 700;
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: opacity 150ms var(--ease);
+    }
+    .cohort-waitlist-link:hover { opacity: 0.75; }
+
     .aud-journey {
       background: #fff;
       border-radius: 12px;
@@ -2930,9 +2941,9 @@
                 <span class="tag">Biblioteca de prompts</span>
               </div>
               <div class="cohort-urgency">
-                <span class="urgency-label">Próxima edición</span>
-                <span class="urgency-date">Próximamente</span>
-                <span class="urgency-spots">Cupos limitados</span>
+                <span class="urgency-label">Primera edición en preparación</span>
+                <span class="urgency-date">Apúntate a la lista de espera y te aviso cuando abran los cupos.</span>
+                <a href="#solicitar" class="cohort-waitlist-link" id="cohortWaitlist">Avísame de la próxima edición</a>
               </div>
             </div>
           </div>
@@ -3305,9 +3316,9 @@
               <label>¿Qué te interesa principalmente?</label>
               <select name="interes" required>
                 <option value="">Elige una opción</option>
-                <option>Taller Express</option>
-                <option>Talleres Intensivos</option>
-                <option>Acompañamiento Mensual</option>
+                <option>Desatoro Digital — sesión 1:1</option>
+                <option>Cohort Intensivo — 30 días con IA (lista de espera)</option>
+                <option>Charla abierta para mi evento o gremio</option>
                 <option>Solo quiero suscribirme al newsletter (gratis)</option>
               </select>
             </div>
@@ -3615,6 +3626,14 @@
       const routeMap = { familias: 'familia', colegios: 'familia', empresas: 'empresa', profesionales: 'persona' };
       const routeBtn = document.querySelector(`.route[data-route="${routeMap[activeTab.dataset.audience]}"]`);
       if (routeBtn && !routeBtn.classList.contains('active')) routeBtn.click();
+    });
+
+    // Lista de espera del Cohort: abre el form de profesionales con el interés pre-marcado
+    document.getElementById('cohortWaitlist')?.addEventListener('click', () => {
+      const routeBtn = document.querySelector('.route[data-route="persona"]');
+      if (routeBtn && !routeBtn.classList.contains('active')) routeBtn.click();
+      const interes = document.querySelector('#form-persona select[name="interes"]');
+      if (interes) interes.value = 'Cohort Intensivo — 30 días con IA (lista de espera)';
     });
 
     function handleSubmit(e, type) {
