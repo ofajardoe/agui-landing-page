@@ -1313,6 +1313,62 @@
     }
     .cohort-waitlist-link:hover { opacity: 0.75; }
 
+    /* ── Servicios "Próximamente" (roadmap, aún no se venden) ───────────── */
+    .linea-label--soon { background: var(--gray-bg); color: var(--text-light); }
+
+    .services-grid--soon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .service-card--soon {
+      background: var(--gray-bg);
+      border: 1px dashed var(--gray-border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      transition: border-color 200ms var(--ease);
+    }
+    .service-card--soon:hover { border-color: var(--line-brand); }
+    .service-card--soon .service-name {
+      font-size: 16px;
+      margin: 0;
+      color: var(--text);
+    }
+    .service-card--soon .soon-desc {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--text-light);
+      margin: 0;
+    }
+    .soon-badge {
+      align-self: flex-start;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(161, 58, 235, 0.10);
+      color: var(--violet-dark);
+    }
+    .waitlist-link {
+      align-self: flex-start;
+      margin-top: 2px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--violet-dark);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      transition: opacity 150ms var(--ease);
+    }
+    .waitlist-link:hover { opacity: 0.7; }
+
     .aud-journey {
       background: #fff;
       border-radius: 12px;
@@ -2654,9 +2710,9 @@
       <div class="section-head">
         <div>
           <div class="section-label">Portafolio de servicios</div>
-          <h2>Lo que hacemos, <span class="grad">y para quién</span>.</h2>
+          <h2>Charlas y asesorías de IA, <span class="grad">para quien las necesita</span>.</h2>
         </div>
-        <p>Tres líneas de trabajo, cuatro audiencias. Cada servicio está diseñado para una necesidad concreta — sin código, sin jerga y sin curvas imposibles de aprendizaje.</p>
+        <p>Cuatro audiencias, un mismo punto de partida: una sesión concreta — sin código, sin jerga y sin curvas imposibles de aprendizaje. Los programas más extensos llegan pronto.</p>
       </div>
 
       <div class="audience-tabs" role="tablist">
@@ -2716,7 +2772,7 @@
 
         <div class="aud-journey">
           <span class="journey-label">¿Y después?</span>
-          Si quieres ir más lejos en tu propio aprendizaje, los padres que asisten a esta charla pueden continuar como <strong>profesionales independientes</strong> — el Cohort Intensivo de 30 días es el siguiente paso natural.
+          Si quieres ir más lejos en tu propio aprendizaje, una <strong>sesión 1:1 de Desatoro Digital</strong> es el siguiente paso. Y muy pronto abriremos el Cohort Intensivo de 30 días para acompañarte de forma más profunda.
         </div>
       </div>
 
@@ -2727,14 +2783,14 @@
         </div>
 
         <div class="linea-group">
-          <div class="linea-label linea-1">Línea 1 — Charlas</div>
-          <div class="services-grid">
+          <div class="linea-label linea-1">Charlas</div>
+          <div class="services-grid services-grid--single">
             <div class="service-card">
               <div class="service-card-header">
                 <h3 class="service-name">Charla de Crianza Digital para la comunidad escolar</h3>
                 <span class="service-badge">Para directivos</span>
               </div>
-              <p class="service-desc">El colegio contrata, las familias asisten. Una charla puntual o un programa anual que posiciona a tu institución como referente en educación digital para familias.</p>
+              <p class="service-desc">El colegio contrata, las familias asisten. Una charla que posiciona a tu institución como referente en educación digital para familias.</p>
               <ul class="service-deliverables">
                 <li>Sesión de 1 a 2 horas por grupo de edad</li>
                 <li>Micro-web interactiva para cada charla</li>
@@ -2747,25 +2803,17 @@
                 <span class="tag">Hasta 150 familias</span>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div class="service-card featured">
-              <div class="service-featured-badge">Recomendado</div>
-              <div class="service-card-header">
-                <h3 class="service-name">Ciclo Escolar Anual de Crianza Digital</h3>
-                <span class="service-badge">Programa anual</span>
-              </div>
-              <p class="service-desc">Cuatro charlas durante el año escolar, una por trimestre, adaptadas al rango de edad de cada grupo de familias. El colegio que educa a sus familias en IA — ese es el diferenciador que mencionas en la matrícula.</p>
-              <ul class="service-deliverables">
-                <li>4 charlas al año con micro-web propia cada una</li>
-                <li>Adaptación por grupos: 5-9, 10-12 y 13-15 años</li>
-                <li>Informe semestral de la comunidad escolar</li>
-                <li>Material de comunicación para todo el año</li>
-                <li>Soporte directo durante el año escolar</li>
-              </ul>
-              <div class="service-tags">
-                <span class="tag">4 sesiones al año</span>
-                <span class="tag">Renovación año a año</span>
-              </div>
+        <div class="linea-group">
+          <div class="linea-label linea-label--soon">Próximamente</div>
+          <div class="services-grid--soon">
+            <div class="service-card--soon">
+              <span class="soon-badge">Próximamente</span>
+              <h3 class="service-name">Ciclo Escolar Anual de Crianza Digital</h3>
+              <p class="soon-desc">Cuatro charlas al año, una por trimestre, adaptadas por edad — el programa para colegios que educan a sus familias en IA todo el año.</p>
+              <a class="waitlist-link" data-route="familia" data-prefill-interes="Ciclo Escolar Anual de Crianza Digital (lista de espera)">Avísame cuando esté disponible →</a>
             </div>
           </div>
         </div>
@@ -2778,97 +2826,70 @@
         </div>
 
         <div class="linea-group">
-          <div class="linea-label linea-2">Fases 1 &amp; 2 · Explorar e Implementar</div>
+          <div class="linea-label linea-2">Charlas y asesorías</div>
           <div class="services-grid">
             <div class="service-card">
               <div class="service-card-header">
-                <h3 class="service-name">Diagnóstico de Madurez en IA</h3>
-                <span class="service-badge">1 semana</span>
+                <h3 class="service-name">Charla en IA corporativa</h3>
+                <span class="service-badge">1-2h</span>
               </div>
-              <p class="service-desc">Antes de invertir en formación conviene saber dónde estás. Revisamos el estado real de tu empresa: qué herramientas tienen, cuáles usan de verdad y qué procesos son automatizables hoy mismo. Entregable: un roadmap priorizado con quick wins en 30, 60 y 90 días.</p>
+              <p class="service-desc">Sensibilización práctica para tu equipo: qué es la IA generativa, qué no es y cómo empezar a usarla en el día a día. El punto de partida para equipos que escuchan hablar de IA pero aún no la usan.</p>
               <ul class="service-deliverables">
-                <li>Inventario de herramientas y licencias actuales</li>
-                <li>Entrevistas a personas clave del equipo</li>
-                <li>Mapa de oportunidades por área</li>
-                <li>Roadmap de implementación en 30, 60 y 90 días</li>
-                <li>Informe ejecutivo + sesión de presentación a liderazgo</li>
+                <li>Sesión de 1 a 2 horas, presencial o virtual</li>
+                <li>Casos reales aplicables a tu sector</li>
+                <li>Micro-web interactiva con recursos de la charla</li>
+                <li>Asistente IA para consultas post-charla</li>
               </ul>
               <div class="service-tags">
-                <span class="tag">1 semana</span>
-                <span class="tag">Entregable: roadmap</span>
-              </div>
-            </div>
-
-            <div class="service-card featured">
-              <div class="service-featured-badge">Más solicitado</div>
-              <div class="service-card-header">
-                <h3 class="service-name">IA para la Vida — Programa corporativo</h3>
-                <span class="service-badge">Hasta 100 personas</span>
-              </div>
-              <p class="service-desc">Programa completo de adopción de IA: arranca con un módulo de sensibilización para todo el equipo (hasta 100 personas) y continúa con 6 módulos prácticos para un grupo seleccionado. ChatGPT, Claude, Copilot, Gemini, prompting avanzado y casos de uso reales. Al final, cada participante tiene tres flujos que va a usar al día siguiente.</p>
-              <ul class="service-deliverables">
-                <li>Módulo 0: Sensibilización al equipo completo (1-2h, hasta 100 personas)</li>
-                <li>6 módulos prácticos: contexto · ChatGPT · Claude · Copilot · Gemini · prompting</li>
-                <li>Laboratorios con casos reales del equipo</li>
-                <li>Micro-web interactiva con asistente IA integrado</li>
-                <li>Plantillas de prompts por rol y departamento</li>
-                <li>Certificación digital AGUI por participante</li>
-                <li>Sesión de seguimiento a los 30 días incluida</li>
-              </ul>
-              <div class="service-tags">
-                <span class="tag">Sensibilización + 6 módulos</span>
-                <span class="tag">Hasta 30 personas en módulos</span>
-                <span class="tag">Hasta 100 en sensibilización</span>
-                <span class="tag">Certificación AGUI</span>
-                <span class="tag">Seguimiento a 30 días</span>
+                <span class="tag">1-2h</span>
+                <span class="tag">Equipos completos</span>
+                <span class="tag">Virtual o presencial</span>
               </div>
             </div>
 
             <div class="service-card">
               <div class="service-card-header">
-                <h3 class="service-name">Saca el jugo a tus licencias</h3>
-                <span class="service-badge">Con tus herramientas actuales</span>
+                <h3 class="service-name">Diagnóstico de Madurez en IA</h3>
+                <span class="service-badge">Asesoría</span>
               </div>
-              <p class="service-desc">Ya tienes Microsoft 365, Power Automate, Copilot o Google Workspace. Solo que nadie te enseñó a usarlos bien. Este taller aprovecha exactamente lo que ya pagaste, sin comprar nada nuevo.</p>
+              <p class="service-desc">Antes de invertir en formación conviene saber dónde estás. En un par de sesiones revisamos qué herramientas tienen, cuáles usan de verdad y qué procesos son automatizables hoy. Entregable: un roadmap priorizado con quick wins en 30, 60 y 90 días.</p>
               <ul class="service-deliverables">
-                <li>Diagnóstico previo de licencias y herramientas actuales</li>
-                <li>Laboratorio práctico con flujos reales del equipo</li>
-                <li>Plantillas listas para producción</li>
-                <li>Certificación digital AGUI</li>
-                <li>30 días de soporte técnico post-taller por WhatsApp</li>
+                <li>2-3 sesiones de trabajo con personas clave del equipo</li>
+                <li>Inventario de herramientas y licencias actuales</li>
+                <li>Mapa de oportunidades por área</li>
+                <li>Roadmap de implementación en 30, 60 y 90 días</li>
+                <li>Informe ejecutivo + presentación a liderazgo</li>
               </ul>
               <div class="service-tags">
-                <span class="tag">4-6h</span>
-                <span class="tag">Hasta 20 personas</span>
-                <span class="tag">M365 · Copilot · Gemini</span>
-                <span class="tag">Sin comprar nada nuevo</span>
+                <span class="tag">2-3 sesiones</span>
+                <span class="tag">Entregable: roadmap</span>
               </div>
             </div>
           </div>
         </div>
 
         <div class="linea-group">
-          <div class="linea-label linea-3">Fase 3 · Sostener — Crecimiento continuo</div>
-          <div class="services-grid services-grid--single">
-            <div class="service-card featured">
-              <div class="service-featured-badge">Ingreso recurrente</div>
-              <div class="service-card-header">
-                <h3 class="service-name">AGUI Mensual — Acompañamiento continuo</h3>
-                <span class="service-badge">Mínimo 3 meses</span>
-              </div>
-              <p class="service-desc">El taller fue solo el principio. Mes a mes revisamos la adopción del equipo, abrimos nuevos casos de uso y mantenemos la estrategia de IA actualizada. Tu aliado de inteligencia artificial de forma continua.</p>
-              <ul class="service-deliverables">
-                <li>Reunión mensual de seguimiento con liderazgo (1h)</li>
-                <li>Canal WhatsApp directo con el equipo</li>
-                <li>1 caso de uso nuevo o mejora al mes</li>
-                <li>Curación de novedades relevantes para tu sector</li>
-                <li>Informe mensual de adopción</li>
-              </ul>
-              <div class="service-tags">
-                <span class="tag">Mínimo 3 meses</span>
-                <span class="tag">4h de consultoría/mes</span>
-                <span class="tag">WhatsApp directo</span>
-              </div>
+          <div class="linea-label linea-label--soon">Próximamente</div>
+          <div class="services-grid--soon">
+            <div class="service-card--soon">
+              <span class="soon-badge">Próximamente</span>
+              <h3 class="service-name">IA para la Vida — Programa corporativo</h3>
+              <p class="soon-desc">Programa completo de adopción: sensibilización al equipo + 6 módulos prácticos (ChatGPT, Claude, Copilot, Gemini, prompting) con certificación AGUI.</p>
+              <a class="waitlist-link" data-route="empresa" data-prefill-interes="IA para la Vida — Programa corporativo (lista de espera)">Avísame cuando esté disponible →</a>
+            </div>
+
+            <div class="service-card--soon">
+              <span class="soon-badge">Próximamente</span>
+              <h3 class="service-name">Saca el jugo a tus licencias</h3>
+              <p class="soon-desc">Taller práctico para aprovechar Microsoft 365, Power Automate, Copilot o Google Workspace — sin comprar nada nuevo.</p>
+              <a class="waitlist-link" data-route="empresa" data-prefill-interes="Saca el jugo a tus licencias (lista de espera)">Avísame cuando esté disponible →</a>
+            </div>
+
+            <div class="service-card--soon">
+              <span class="soon-badge">Próximamente</span>
+              <h3 class="service-name">AGUI Mensual — Acompañamiento continuo</h3>
+              <p class="soon-desc">Acompañamiento mes a mes: revisión de adopción, nuevos casos de uso y estrategia de IA siempre actualizada. Tu aliado de IA de forma continua.</p>
+              <a class="waitlist-link" data-route="empresa" data-prefill-interes="AGUI Mensual — Acompañamiento continuo (lista de espera)">Avísame cuando esté disponible →</a>
             </div>
           </div>
         </div>
@@ -2899,8 +2920,8 @@
         </div>
 
         <div class="linea-group">
-          <div class="linea-label linea-2">Línea 2 — Asesoría individual</div>
-          <div class="services-grid">
+          <div class="linea-label linea-2">Asesoría individual</div>
+          <div class="services-grid services-grid--single">
             <div class="service-card">
               <div class="service-card-header">
                 <h3 class="service-name">Desatoro Digital — Sesión 1:1</h3>
@@ -2919,32 +2940,17 @@
                 <span class="tag">Seguimiento 15 días</span>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div class="service-card featured">
-              <div class="service-featured-badge">Producto estrella</div>
-              <div class="service-card-header">
-                <h3 class="service-name">Cohort Intensivo — 30 Días con IA</h3>
-                <span class="service-badge">Máx. 25 cupos</span>
-              </div>
-              <p class="service-desc">Cuatro semanas, cuatro clases en vivo, retos semanales y un asistente IA propio al finalizar. De usuario casual a usuario sistemático. Menos de 5 horas a la semana de tu tiempo.</p>
-              <ul class="service-deliverables">
-                <li>4 clases semanales en vivo de 1h + grabaciones</li>
-                <li>Retos prácticos semanales con feedback</li>
-                <li>Grupo de acompañamiento durante el cohort</li>
-                <li>Biblioteca de prompts AGUI por situación</li>
-                <li>Certificado de finalización AGUI</li>
-              </ul>
-              <div class="service-tags">
-                <span class="tag">4 semanas</span>
-                <span class="tag">Máx. 25 cupos</span>
-                <span class="tag">Menos de 5h/semana</span>
-                <span class="tag">Biblioteca de prompts</span>
-              </div>
-              <div class="cohort-urgency">
-                <span class="urgency-label">Primera edición en preparación</span>
-                <span class="urgency-date">Apúntate a la lista de espera y te aviso cuando abran los cupos.</span>
-                <a href="#solicitar" class="cohort-waitlist-link" id="cohortWaitlist">Avísame de la próxima edición</a>
-              </div>
+        <div class="linea-group">
+          <div class="linea-label linea-label--soon">Próximamente</div>
+          <div class="services-grid--soon">
+            <div class="service-card--soon">
+              <span class="soon-badge">Próximamente</span>
+              <h3 class="service-name">Cohort Intensivo — 30 Días con IA</h3>
+              <p class="soon-desc">Cuatro semanas, cuatro clases en vivo, retos semanales y un asistente IA propio al finalizar. De usuario casual a usuario sistemático, con menos de 5h/semana. Primera edición en preparación.</p>
+              <a class="waitlist-link" data-route="persona" data-prefill-interes="Cohort Intensivo — 30 días con IA (lista de espera)">Avísame de la próxima edición →</a>
             </div>
           </div>
         </div>
@@ -3628,12 +3634,37 @@
       if (routeBtn && !routeBtn.classList.contains('active')) routeBtn.click();
     });
 
-    // Lista de espera del Cohort: abre el form de profesionales con el interés pre-marcado
-    document.getElementById('cohortWaitlist')?.addEventListener('click', () => {
-      const routeBtn = document.querySelector('.route[data-route="persona"]');
-      if (routeBtn && !routeBtn.classList.contains('active')) routeBtn.click();
-      const interes = document.querySelector('#form-persona select[name="interes"]');
-      if (interes) interes.value = 'Cohort Intensivo — 30 días con IA (lista de espera)';
+    // Listas de espera de servicios "Próximamente": abren la ruta correcta del
+    // formulario y pre-marcan el interés según los data-* del enlace.
+    document.querySelectorAll('.waitlist-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const route = link.dataset.route || 'persona';
+        const prefill = link.dataset.prefillInteres;
+
+        const routeBtn = document.querySelector(`.route[data-route="${route}"]`);
+        if (routeBtn && !routeBtn.classList.contains('active')) routeBtn.click();
+
+        if (prefill) {
+          // Preferir el select de interés si tiene exactamente esa opción.
+          const interes = document.querySelector(`#form-${route} select[name="interes"]`);
+          const optionExists = interes && Array.from(interes.options).some(o => o.value === prefill);
+          if (optionExists) {
+            interes.value = prefill;
+          } else {
+            // Fallback: dejar constancia del interés en el textarea del formulario,
+            // así el lead siempre captura qué servicio "próximamente" pidió.
+            const textarea = document.querySelector(`#form-${route} textarea`);
+            if (textarea) {
+              const nota = `Me interesa cuando esté disponible: ${prefill}`;
+              textarea.value = textarea.value ? `${nota}\n${textarea.value}` : nota;
+            }
+          }
+        }
+
+        // Llevar al formulario.
+        document.querySelector('#solicitar')?.scrollIntoView({ behavior: 'smooth' });
+      });
     });
 
     function handleSubmit(e, type) {
